@@ -262,6 +262,45 @@
         <label><!-- Visible --></label>
         <name>Visible__c</name>
     </fields>
+    <layouts>
+        <layout>Application Layout</layout>
+        <sections>
+            <label><!-- Application --></label>
+            <section>Application</section>
+        </sections>
+        <sections>
+            <label><!-- Approval --></label>
+            <section>Approval</section>
+        </sections>
+        <sections>
+            <label><!-- Custom Links --></label>
+            <section>Custom Links</section>
+        </sections>
+        <sections>
+            <label><!-- Delegated Admin --></label>
+            <section>Delegated Admin</section>
+        </sections>
+        <sections>
+            <label><!-- Email --></label>
+            <section>Email</section>
+        </sections>
+        <sections>
+            <label><!-- Fine Grain Entitlement Information --></label>
+            <section>Fine Grain Entitlement Information</section>
+        </sections>
+        <sections>
+            <label><!-- Internal Application Information --></label>
+            <section>Internal Application Information</section>
+        </sections>
+        <sections>
+            <label><!-- Manual Provisioning --></label>
+            <section>Manual Provisioning</section>
+        </sections>
+        <sections>
+            <label><!-- Provisioning --></label>
+            <section>Provisioning</section>
+        </sections>
+    </layouts>
     <startsWith>Vowel</startsWith>
     <validationRules>
         <errorMessage><!-- Please enter a value in Queue Name for the Approver Queue --></errorMessage>

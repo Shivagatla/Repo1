@@ -23,5 +23,12 @@
         <name>Parent_Rule__c</name>
         <relationshipLabel><!-- Policy Artifacts --></relationshipLabel>
     </fields>
+    <layouts>
+        <layout>Provisioning Line Item Layout</layout>
+        <sections>
+            <label><!-- Custom Links --></label>
+            <section>Custom Links</section>
+        </sections>
+    </layouts>
     <startsWith>Consonant</startsWith>
 </CustomObjectTranslation>

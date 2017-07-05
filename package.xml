@@ -845,6 +845,63 @@
         <name>InstalledPackage</name>
     </types>
     <types>
+        <members>AP_Rule__c-LoL - Access Policy Rule Layout</members>
+        <members>Account-LoL Account Layout</members>
+        <members>Account-LoL Account Layout %28Feed-Based%29</members>
+        <members>Agreement__c-Agreement Layout</members>
+        <members>Agreement__c-Grower Agreement</members>
+        <members>Agreement__c-Retailer Agreement</members>
+        <members>Application_Settings__mdt-Application Setting Layout</members>
+        <members>Application__c-Application Layout</members>
+        <members>Asset-Asset Layout</members>
+        <members>Campaign-Campaign Layout</members>
+        <members>CampaignMember-Campaign Member Page Layout</members>
+        <members>Cart_Application__c-Cart Application Layout</members>
+        <members>Cart_Entitlement__c-Entitlement In Cart Page Layout</members>
+        <members>Cart_Entitlement__c-Fine-Grained Entitlements</members>
+        <members>Case-Case Layout</members>
+        <members>Case-EMS - Case Layout</members>
+        <members>CaseClose-Close Case Layout</members>
+        <members>CollaborationGroup-Group Layout</members>
+        <members>Condition__c-Condition Layout</members>
+        <members>Contact-LoL Contact Layout</members>
+        <members>Contact-LoL Support Contact Layout</members>
+        <members>ContentVersion-Content Version Layout</members>
+        <members>Contract-Contract Layout</members>
+        <members>DuplicateRecordSet-Duplicate Record Set Layout</members>
+        <members>Entitlements__c-Entitlement Layout</members>
+        <members>Event-Event Layout</members>
+        <members>FeedItem-Feed Item Layout</members>
+        <members>Global-Global Layout</members>
+        <members>Global-LoL - Global Publisher Layout</members>
+        <members>Idea-Idea Layout</members>
+        <members>Lead-Lead Layout</members>
+        <members>Macro-Macro Layout</members>
+        <members>Opportunity-Opportunity Layout</members>
+        <members>OpportunityLineItem-Opportunity Product Layout</members>
+        <members>Order-Order Layout</members>
+        <members>OrderItem-Order Product Layout</members>
+        <members>Policy_Artifacts__c-Provisioning Line Item Layout</members>
+        <members>Pricebook2-Price Book Layout</members>
+        <members>PricebookEntry-Price Book Entry</members>
+        <members>Product2-Product Layout</members>
+        <members>Request_Field__c-Request Field Layout</members>
+        <members>Solution-Solution Layout</members>
+        <members>Task-Task Layout</members>
+        <members>User-LoL - User Layout</members>
+        <members>UserAlt-LoL - User Profile Layout</members>
+        <members>UserProvAccount-User Provisioning Account Layout</members>
+        <members>UserProvFineEntitlement__c-Fine-Grained Entitlement Layout</members>
+        <members>UserProvisionEntitlement__c-User Provision Entitlement Layout</members>
+        <members>UserProvisioningLog-User Provisioning Log Layout</members>
+        <members>UserProvisioningRequest-LoL - User Provisioning Request Layout</members>
+        <name>Layout</name>
+    </types>
+    <types>
+        <members>Internal_Letterhead</members>
+        <name>Letterhead</name>
+    </types>
+    <types>
         <members>AP_Rule__c.Corporate</members>
         <members>Account.Corporate</members>
         <members>Account.Dairy</members>

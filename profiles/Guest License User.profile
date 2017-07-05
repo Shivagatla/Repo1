@@ -2974,6 +2974,179 @@
         <field>UserProvisioningRequest.User_Reason__c</field>
         <readable>false</readable>
     </fieldPermissions>
+    <layoutAssignments>
+        <layout>AP_Rule__c-LoL - Access Policy Rule Layout</layout>
+    </layoutAssignments>
+    <layoutAssignments>
+        <layout>Account-LoL Account Layout</layout>
+    </layoutAssignments>
+    <layoutAssignments>
+        <layout>Account-LoL Account Layout</layout>
+        <recordType>Account.System_Account</recordType>
+    </layoutAssignments>
+    <layoutAssignments>
+        <layout>Account-LoL Account Layout</layout>
+        <recordType>Account.corp</recordType>
+    </layoutAssignments>
+    <layoutAssignments>
+        <layout>Account-LoL Account Layout</layout>
+        <recordType>Account.dairy</recordType>
+    </layoutAssignments>
+    <layoutAssignments>
+        <layout>Account-LoL Account Layout</layout>
+        <recordType>Account.feed</recordType>
+    </layoutAssignments>
+    <layoutAssignments>
+        <layout>Account-LoL Account Layout</layout>
+        <recordType>Account.winfield</recordType>
+    </layoutAssignments>
+    <layoutAssignments>
+        <layout>Agreement__c-Agreement Layout</layout>
+    </layoutAssignments>
+    <layoutAssignments>
+        <layout>Agreement__c-Agreement Layout</layout>
+        <recordType>Agreement__c.Grower_Agreement</recordType>
+    </layoutAssignments>
+    <layoutAssignments>
+        <layout>Agreement__c-Agreement Layout</layout>
+        <recordType>Agreement__c.Retailer_Agreement</recordType>
+    </layoutAssignments>
+    <layoutAssignments>
+        <layout>Application_Settings__mdt-Application Setting Layout</layout>
+    </layoutAssignments>
+    <layoutAssignments>
+        <layout>Application__c-Application Layout</layout>
+    </layoutAssignments>
+    <layoutAssignments>
+        <layout>Asset-Asset Layout</layout>
+    </layoutAssignments>
+    <layoutAssignments>
+        <layout>Campaign-Campaign Layout</layout>
+    </layoutAssignments>
+    <layoutAssignments>
+        <layout>CampaignMember-Campaign Member Page Layout</layout>
+    </layoutAssignments>
+    <layoutAssignments>
+        <layout>Cart_Application__c-Cart Application Layout</layout>
+    </layoutAssignments>
+    <layoutAssignments>
+        <layout>Cart_Entitlement__c-Entitlement In Cart Page Layout</layout>
+    </layoutAssignments>
+    <layoutAssignments>
+        <layout>Cart_Entitlement__c-Entitlement In Cart Page Layout</layout>
+        <recordType>Cart_Entitlement__c.Fine_Grained</recordType>
+    </layoutAssignments>
+    <layoutAssignments>
+        <layout>Cart_Entitlement__c-Entitlement In Cart Page Layout</layout>
+        <recordType>Cart_Entitlement__c.Role</recordType>
+    </layoutAssignments>
+    <layoutAssignments>
+        <layout>Case-Case Layout</layout>
+    </layoutAssignments>
+    <layoutAssignments>
+        <layout>Case-Case Layout</layout>
+        <recordType>Case.EMS_Provisioning</recordType>
+    </layoutAssignments>
+    <layoutAssignments>
+        <layout>Case-Case Layout</layout>
+        <recordType>Case.RegistrationReview</recordType>
+    </layoutAssignments>
+    <layoutAssignments>
+        <layout>CaseClose-Close Case Layout</layout>
+    </layoutAssignments>
+    <layoutAssignments>
+        <layout>CollaborationGroup-Group Layout</layout>
+    </layoutAssignments>
+    <layoutAssignments>
+        <layout>Condition__c-Condition Layout</layout>
+    </layoutAssignments>
+    <layoutAssignments>
+        <layout>Contact-LoL Contact Layout</layout>
+    </layoutAssignments>
+    <layoutAssignments>
+        <layout>ContentVersion-Content Version Layout</layout>
+    </layoutAssignments>
+    <layoutAssignments>
+        <layout>Contract-Contract Layout</layout>
+    </layoutAssignments>
+    <layoutAssignments>
+        <layout>DuplicateRecordSet-Duplicate Record Set Layout</layout>
+    </layoutAssignments>
+    <layoutAssignments>
+        <layout>Entitlements__c-Entitlement Layout</layout>
+    </layoutAssignments>
+    <layoutAssignments>
+        <layout>Event-Event Layout</layout>
+    </layoutAssignments>
+    <layoutAssignments>
+        <layout>FeedItem-Feed Item Layout</layout>
+    </layoutAssignments>
+    <layoutAssignments>
+        <layout>Global-Global Layout</layout>
+    </layoutAssignments>
+    <layoutAssignments>
+        <layout>Idea-Idea Layout</layout>
+    </layoutAssignments>
+    <layoutAssignments>
+        <layout>Lead-Lead Layout</layout>
+    </layoutAssignments>
+    <layoutAssignments>
+        <layout>Macro-Macro Layout</layout>
+    </layoutAssignments>
+    <layoutAssignments>
+        <layout>Opportunity-Opportunity Layout</layout>
+    </layoutAssignments>
+    <layoutAssignments>
+        <layout>OpportunityLineItem-Opportunity Product Layout</layout>
+    </layoutAssignments>
+    <layoutAssignments>
+        <layout>Order-Order Layout</layout>
+    </layoutAssignments>
+    <layoutAssignments>
+        <layout>OrderItem-Order Product Layout</layout>
+    </layoutAssignments>
+    <layoutAssignments>
+        <layout>Policy_Artifacts__c-Provisioning Line Item Layout</layout>
+    </layoutAssignments>
+    <layoutAssignments>
+        <layout>Pricebook2-Price Book Layout</layout>
+    </layoutAssignments>
+    <layoutAssignments>
+        <layout>PricebookEntry-Price Book Entry</layout>
+    </layoutAssignments>
+    <layoutAssignments>
+        <layout>Product2-Product Layout</layout>
+    </layoutAssignments>
+    <layoutAssignments>
+        <layout>Request_Field__c-Request Field Layout</layout>
+    </layoutAssignments>
+    <layoutAssignments>
+        <layout>Solution-Solution Layout</layout>
+    </layoutAssignments>
+    <layoutAssignments>
+        <layout>Task-Task Layout</layout>
+    </layoutAssignments>
+    <layoutAssignments>
+        <layout>User-LoL - User Layout</layout>
+    </layoutAssignments>
+    <layoutAssignments>
+        <layout>UserAlt-LoL - User Profile Layout</layout>
+    </layoutAssignments>
+    <layoutAssignments>
+        <layout>UserProvAccount-User Provisioning Account Layout</layout>
+    </layoutAssignments>
+    <layoutAssignments>
+        <layout>UserProvFineEntitlement__c-Fine-Grained Entitlement Layout</layout>
+    </layoutAssignments>
+    <layoutAssignments>
+        <layout>UserProvisionEntitlement__c-User Provision Entitlement Layout</layout>
+    </layoutAssignments>
+    <layoutAssignments>
+        <layout>UserProvisioningLog-User Provisioning Log Layout</layout>
+    </layoutAssignments>
+    <layoutAssignments>
+        <layout>UserProvisioningRequest-LoL - User Provisioning Request Layout</layout>
+    </layoutAssignments>
     <objectPermissions>
         <allowCreate>false</allowCreate>
         <allowDelete>false</allowDelete>

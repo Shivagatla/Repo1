@@ -28,5 +28,12 @@
         <name>UPA_Parent__c</name>
         <relationshipLabel><!-- User Provision Entitlements --></relationshipLabel>
     </fields>
+    <layouts>
+        <layout>User Provision Entitlement Layout</layout>
+        <sections>
+            <label><!-- Custom Links --></label>
+            <section>Custom Links</section>
+        </sections>
+    </layouts>
     <startsWith>Consonant</startsWith>
 </CustomObjectTranslation>
