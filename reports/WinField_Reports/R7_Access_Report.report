@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Report xmlns="http://soap.sforce.com/2006/04/metadata">
+    <columns>
+        <field>User$Name</field>
+    </columns>
+    <columns>
+        <field>User$Account.Parent</field>
+    </columns>
+    <columns>
+        <field>User$Email</field>
+    </columns>
+    <columns>
+        <field>User$Account.Customer_Number__c</field>
+    </columns>
+    <columns>
+        <field>User$Account</field>
+    </columns>
+    <columns>
+        <field>User$City</field>
+    </columns>
+    <columns>
+        <field>User$IsActive</field>
+    </columns>
+    <columns>
+        <field>User*User$Ag2Ag_ID__c</field>
+    </columns>
+    <columns>
+        <field>User.UserProvAccount$SalesforceUserId$ConnectedApp</field>
+    </columns>
+    <description>Includes parent, account number and ag2ag ID</description>
+    <filter>
+        <criteriaItems>
+            <column>User.UserProvAccount$SalesforceUserId$ConnectedApp</column>
+            <isUnlocked>false</isUnlocked>
+            <operator>equals</operator>
+            <value>R7 Tool</value>
+        </criteriaItems>
+    </filter>
+    <format>Tabular</format>
+    <name>R7 Access Report</name>
+    <params>
+        <name>co</name>
+        <value>1</value>
+    </params>
+    <reportType>User_Information_Account_Access__c</reportType>
+    <scope>organization</scope>
+    <showDetails>true</showDetails>
+    <timeFrameFilter>
+        <dateColumn>User$ChatterAdoptionStageModifiedDate</dateColumn>
+        <interval>INTERVAL_CUSTOM</interval>
+    </timeFrameFilter>
+</Report>

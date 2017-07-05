@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Report xmlns="http://soap.sforce.com/2006/04/metadata">
+    <columns>
+        <field>UserProvAccount$ConnectedApp</field>
+    </columns>
+    <columns>
+        <field>UserProvAccount$CreatedBy</field>
+    </columns>
+    <columns>
+        <field>UserProvAccount$CreatedDate</field>
+    </columns>
+    <columns>
+        <field>UserProvAccount$ExternalFirstName</field>
+    </columns>
+    <columns>
+        <field>UserProvAccount$ExternalLastName</field>
+    </columns>
+    <columns>
+        <field>UserProvAccount$Status</field>
+    </columns>
+    <columns>
+        <field>UserProvAccount$ExternalUserId</field>
+    </columns>
+    <description>List all provisioned applications since go-live</description>
+    <format>Tabular</format>
+    <name>User Provisioning Accounts All</name>
+    <params>
+        <name>co</name>
+        <value>1</value>
+    </params>
+    <reportType>User_Provisioning_Accounts__c</reportType>
+    <scope>organization</scope>
+    <showDetails>true</showDetails>
+    <sortColumn>UserProvAccount$CreatedDate</sortColumn>
+    <sortOrder>Desc</sortOrder>
+    <timeFrameFilter>
+        <dateColumn>UserProvAccount$CreatedDate</dateColumn>
+        <endDate>2016-02-10</endDate>
+        <interval>INTERVAL_CUSTOM</interval>
+        <startDate>2015-12-21</startDate>
+    </timeFrameFilter>
+</Report>
