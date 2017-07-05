@@ -1,0 +1,201 @@
+<apex:page showHeader="false" controller="EMSUserAccessProfileTabCntrl"  standardStylesheets="false">
+
+
+    <html>
+         <head>
+            <title>EMS: My Apps/Request Access</title>
+<style>
+input.button {
+   border-top: 1px solid #c5ced4;
+   background: #78b335;
+   background: -webkit-gradient(linear, left top, left bottom, from(#528522), to(#78b335));
+   background: -webkit-linear-gradient(top, #528522, #78b335);
+   background: -moz-linear-gradient(top, #528522, #78b335);
+   background: -ms-linear-gradient(top, #528522, #78b335);
+   background: -o-linear-gradient(top, #528522, #78b335);
+   padding: 5px 10px;
+   -webkit-border-radius: 8px;
+   -moz-border-radius: 8px;
+   border-radius: 8px;
+   -webkit-box-shadow: rgba(0,0,0,1) 0 1px 0;
+   -moz-box-shadow: rgba(0,0,0,1) 0 1px 0;
+   box-shadow: rgba(0,0,0,1) 0 1px 0;
+   text-shadow: rgba(0,0,0,.4) 0 1px 0;
+   color: white;
+   font-size: 12px;
+   font-family: 'Lucida Grande', Helvetica, Arial, Sans-Serif;
+   text-decoration: none;
+   vertical-align: middle;
+   background-position: 0 0;
+   width: 115px !important;
+   }; 
+.button:hover {
+   border-top-color: #28597a !important;
+   background: #28597a !important;
+   color: #ccc !important;
+   background-position: 0 0 !important;
+   width: 115px !important;
+   }; 
+.button:active {
+   border-top-color: #1b435e !important;
+   background: #1b435e !important;
+   background-position: 0 0 !important;
+   width: 115px !important;
+   }; 
+
+</style>
+            <!-- Default Foundation css -->
+            <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no"/>
+            <apex:stylesheet value="{!URLFOR($Resource.EMSHtmlStyle, 'css/foundation.css')}"/>
+          
+            <apex:stylesheet value="{!URLFOR($Resource.EMSHtmlStyle, 'css/final.css')}"/>
+
+            <!-- JQuery Library -->
+            <apex:includeScript value="{!URLFOR($Resource.EMSHtmlStyle, 'js/jquery-1.9.1.js')}"/>
+            <apex:includeScript value="{!URLFOR($Resource.EMSHtmlStyle, 'js/custom2.js')}"/>
+            <apex:includeScript value="{!URLFOR($Resource.EMSHtmlStyle, 'js/jquery.validate.min.js')}"/>
+
+            <!-- Default Foundation javascript -->
+            <apex:includeScript value="{!URLFOR($Resource.EMSHtmlStyle, 'js/foundation.min.js')}"/>
+            <apex:includeScript value="{!URLFOR($Resource.EMSHtmlStyle, 'js/modernizr.js')}"/>
+
+            <script type="text/javascript">
+ $(document).ready(function() {
+    $(document).foundation();
+});
+            </script>
+
+            <script>
+function removeAccess(appId,userId) {
+    var url = '/ems/apex/RemoveAccessPopup?userId=' + userId + '&appId='+appId;
+    newWin = window.open(url, '', 'toolbar=0, location=0, status=0, menubar=0, addressbar=no,scrollbars=1, resizable=1, width=750, height=400, left=200, top=200');
+
+    if (window.focus) {
+        newWin.focus();
+    }    
+    return false;
+}
+function modifyAccess(appId,userId) {
+    var url = '/ems/apex/EMSModifyAccessPopup?userId=' + userId + '&appId='+appId;
+    newWin = window.open(url, '', 'toolbar=0, location=0, status=0, menubar=0, addressbar=no,scrollbars=1, resizable=1, width=1050, height=900, left=200, top=200');
+
+    if (window.focus) {
+        newWin.focus();
+    }    
+    return false;
+}
+
+function openRequestJS(requestName) {
+    var url = '/ems/apex/EMSUPRMainPage?uprid='+requestName;
+
+  var win = window.open(url, '_blank');
+  win.focus();  
+    return false;
+}
+function cancelRequestJS(requestName) {
+    setTimeout("location.reload()",5000);
+    EMSUserAccessProfileTabCntrl.cancelRequest(requestName, function(result, event) {
+         
+        });
+    return false;
+}
+function deleteRequestJS(requestName) {
+    setTimeout("location.reload()",5000);
+    EMSUserAccessProfileTabCntrl.deleteRequest(requestName, function(result, event) {
+         
+        });
+
+    return false;
+}
+
+</script>
+        </head>
+
+
+    <body> 
+        <section>       
+            <apex:pageMessages />
+
+            <apex:form >  
+
+           
+   
+                <div class="large-12 medium-12 small-12 columns left">  
+                    <div class="large-12 columns label-head">
+                        <label class="requestType">Pending Requests</label>
+                    </div>
+
+                    <apex:dataTable styleClass="large-12 medium-12 small-12 columns left" value="{!pendingApps}" var="pApp1"  >
+                        <apex:column value="{!pApp1.AppName}"  headerValue="Application" headerClass="small-2 columns" styleclass="small-2 columns"/> 
+                        
+                        <apex:column headerValue="Requested Entitlements" headerClass="small-3 columns" styleclass="small-3 columns"> 
+                          <b><apex:outputText value="Roles Requested: " rendered="{!pApp1.RoleDisplay <> null}"/></b>
+                            <apex:outputText value="{!pApp1.RoleDisplay}" rendered="{!pApp1.RoleDisplay <> null}"/><br/>
+                            <b><apex:outputText value="Accounts Requested: " rendered="{!pApp1.AccountDisplay <> null}"/></b>
+                            <apex:outputText value="{!pApp1.AccountDisplay}" rendered="{!pApp1.AccountDisplay <> null}"/>
+                        </apex:column>
+                         <apex:column headerValue="Operation" headerClass="small-2 columns" styleclass="small-2 columns"> 
+                            <apex:outputText value="{!pApp1.Operation}"/>
+                        </apex:column>
+                        <apex:column headerValue="Actions" headerClass="small-3 columns" styleclass="small-3 columns"> 
+                         <apex:commandButton onclick="openRequestJS('{!pApp1.requestName}');return false;" value="Open Request" styleClass="button" />
+                            <apex:commandButton onclick="cancelRequestJS('{!pApp1.requestName}');return false;" value="Cancel Request" styleClass="button" rendered="{!$Permission.canCancelRequests}"/>
+                             <apex:commandButton onclick="deleteRequestJS('{!pApp1.requestName}');return false;" value="Delete Request" styleClass="button" rendered="{!$Permission.canDeleteRequests}"/>
+                        </apex:column>
+                        <!--  <apex:column headerValue="Available Roles" headerClass="small-3 columns" styleClass="small-3 columns">
+                        <apex:selectList value="{!pApp.selectedEntId}" multiselect="false" size="1" styleClass="selectList" rendered="{!pApp.hasEntstoOffer==true}" id="selectedEntId">
+                             <apex:selectOptions value="{!pApp.EntOptions}"/>
+                        </apex:selectList>
+                        
+                    </apex:column>
+                 
+                    <apex:column headerValue="Request" headerClass="small-1 columns" styleClass="small-1 columns">
+                    <apex:inputCheckbox value="{!pApp.checked}" id="checked" styleClass="fi-check" rendered="{!pApp.hasEntstoOffer==true}"/>
+                    </apex:column>
+                    -->
+                    </apex:dataTable> 
+   </div>
+
+
+                <div class="large-12 medium-12 small-12 columns left">  
+                    <div class="large-12 columns label-head">
+                        <label class="requestType">Granted</label>
+                    </div>
+
+                    <apex:dataTable styleClass="large-13 medium-13 small-13 columns left" value="{!provAppEnts}" var="pApp"  >
+                        <apex:column value="{!pApp.AppName}"  headerValue="Application" headerClass="small-2 columns" styleclass="small-2 columns"/> 
+                      
+                         <apex:column headerValue="Granted Roles" headerClass="small-3 columns" styleclass="small-3 columns">                      
+                         <apex:outputText value="{!pApp.RoleDisplay}"/>
+
+                </apex:column> 
+                <apex:column headerValue="Granted Accounts" headerClass="small-2 columns" styleclass="small-2 columns">                      
+                         <apex:outputText value="{!pApp.AccountDisplay}"/>
+
+                </apex:column> 
+                <apex:column headerValue="Actions" headerClass="small-3 columns" styleclass="small-3 columns" rendered="{!pApp.migrated}">
+                    <apex:commandButton onclick="removeAccess('{!pApp.AppName}','{!userToRequest}');return false;" value="Deactivate Access" styleClass="button" rendered="{!$Permission.canSubmitDeleteRequest}"/>
+                    <apex:commandButton onclick="modifyAccess('{!pApp.AppName}','{!userToRequest}');return false;" value="Modify Access"  styleClass="button" rendered="{!$Permission.canSubmitModifyRequest}"/>
+                </apex:column>
+ <apex:column headerValue="Actions" headerClass="small-3 columns" styleclass="small-3 columns" rendered="{!pApp.migrated==false}">
+                   <apex:outputText value="Application is not migrated. Please use Ag2Ag to modify/remove access."/>
+                </apex:column>
+                        <!--  <apex:column headerValue="Available Roles" headerClass="small-3 columns" styleClass="small-3 columns">
+                        <apex:selectList value="{!pApp.selectedEntId}" multiselect="false" size="1" styleClass="selectList" rendered="{!pApp.hasEntstoOffer==true}" id="selectedEntId">
+                             <apex:selectOptions value="{!pApp.EntOptions}"/>
+                        </apex:selectList>
+                        
+                    </apex:column>
+                 
+                    <apex:column headerValue="Request" headerClass="small-1 columns" styleClass="small-1 columns">
+                    <apex:inputCheckbox value="{!pApp.checked}" id="checked" styleClass="fi-check" rendered="{!pApp.hasEntstoOffer==true}"/>
+                    </apex:column>
+                    -->
+                    </apex:dataTable> 
+
+
+                </div>
+                </apex:form></section>
+                </body>
+                </html>
+</apex:page>

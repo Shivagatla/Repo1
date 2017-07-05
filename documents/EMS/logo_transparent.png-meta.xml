@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Document xmlns="http://soap.sforce.com/2006/04/metadata">
+    <description>LoL logo (transparent PNG)</description>
+    <internalUseOnly>false</internalUseOnly>
+    <name>Transparent Land O&apos;Lakes logo</name>
+    <public>true</public>
+</Document>

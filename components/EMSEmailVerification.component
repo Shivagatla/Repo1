@@ -1,0 +1,39 @@
+<apex:component controller="EMSEmailVerificationCntrl" id="emailComponent" allowDML="true"> 
+  <apex:form id="loginForm" forceSSL="true">
+      <center>
+        <apex:panelGrid bgcolor="white" columns="1" style="align: center;"> 
+          <br/>
+          <br/>
+          <apex:panelGrid width="758" cellpadding="0" cellspacing="0" bgcolor="white" columns="1" style="topPanel" > 
+            <br/>
+             <apex:commandButton action="{!verify}" value="Verify Me" id="submit" rendered="{!hasRun==false}"/>
+            <apex:outputPanel layout="block" styleClass="topPanelContainer" rendered="{!hasRun==true}">
+           
+
+
+              <apex:panelGrid width="758" cellpadding="0" cellspacing="0" bgcolor="white" columns="2" > 
+                <apex:image url="{!URLFOR($Resource.SiteSamples, 'img/clock.png')}"/>
+                
+                <apex:panelGroup rendered="{! NOT(verified)}">
+                  <br/>
+               <apex:outputText styleClass="title">Your email has been not been verified.  Please contact Land O'Lakes support at: 800-555-1212 <a href="www.landolakes.com">www.landolakes.com</a></apex:outputText>
+                  <br/>
+                </apex:panelGroup>
+                <apex:panelGroup rendered="{!verified}}">
+                  <br/>
+                  <apex:outputText styleClass="title">Your email has been verified.  You will receive your final registration email once it has been reviewed.  This may take up to 24 hours.  For more information please visit: <a href="www.landolakes.com">www.landolakes.com</a></apex:outputText>
+                  <br/>
+                  <br/>
+
+                  <br/>
+                </apex:panelGroup>
+
+              </apex:panelGrid> 
+            </apex:outputPanel>
+           <!-- <c:SitePoweredBy /> -->
+          </apex:panelGrid> 
+       </apex:panelGrid>
+      </center>
+      <br/>
+</apex:form>
+</apex:component>

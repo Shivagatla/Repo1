@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomObjectTranslation xmlns="http://soap.sforce.com/2006/04/metadata">
+    <caseValues>
+        <plural>false</plural>
+        <value>Agreement</value>
+    </caseValues>
+    <caseValues>
+        <plural>true</plural>
+        <value>Agreements</value>
+    </caseValues>
+    <fields>
+        <label><!-- Description --></label>
+        <name>Description__c</name>
+    </fields>
+    <fields>
+        <label><!-- Grower User --></label>
+        <name>Grower_User__c</name>
+        <relationshipLabel><!-- Agreements --></relationshipLabel>
+    </fields>
+    <fields>
+        <label><!-- Retailer Name --></label>
+        <name>Retailer_Name__c</name>
+        <relationshipLabel><!-- Agreements --></relationshipLabel>
+    </fields>
+    <fields>
+        <label><!-- Short Description --></label>
+        <name>Short_Description__c</name>
+    </fields>
+    <fields>
+        <label><!-- Sign Date --></label>
+        <name>Sign_Date__c</name>
+    </fields>
+    <fields>
+        <label><!-- Sign Status --></label>
+        <name>Sign_Status__c</name>
+        <picklistValues>
+            <masterLabel>Accepted</masterLabel>
+            <translation><!-- Accepted --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Declined</masterLabel>
+            <translation><!-- Declined --></translation>
+        </picklistValues>
+    </fields>
+    <fields>
+        <label><!-- Type --></label>
+        <name>Type__c</name>
+        <picklistValues>
+            <masterLabel>Ag Tech Agreement</masterLabel>
+            <translation><!-- Ag Tech Agreement --></translation>
+        </picklistValues>
+    </fields>
+    <recordTypes>
+        <label><!-- Grower Agreement --></label>
+        <name>Grower_Agreement</name>
+    </recordTypes>
+    <recordTypes>
+        <label><!-- Retailer Agreement --></label>
+        <name>Retailer_Agreement</name>
+    </recordTypes>
+    <startsWith>Consonant</startsWith>
+</CustomObjectTranslation>

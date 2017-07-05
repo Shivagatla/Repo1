@@ -1,0 +1,22 @@
+<apex:component >
+       <div class="top-blue-bar">
+    
+        <div class="row"> 
+            <div class = "large-12 columns right">
+               
+            </div>
+        </div>
+        
+     </div> 
+          
+     <div class="green-line">
+     </div>
+     
+    <div class="row"> 
+    <div class="large-12 columns">
+        <h1 class = "logoTop">
+            <a href="index.html"><img class="headerLogo" src = "images/header-logo.jpg" style="cursor:pointer;"/></a>
+        </h1>
+    </div>
+    </div>
+</apex:component>

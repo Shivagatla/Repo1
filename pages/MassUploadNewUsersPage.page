@@ -1,0 +1,155 @@
+<apex:page controller="NewUsersMassUploadCtrl" sidebar="false" tabStyle="Mass_Upload_New_Users__tab">
+    <head>
+        <apex:stylesheet value="{!URLFOR($Resource.EMSHtmlStyleNew, 'css/foundation.css')}"/>
+        <apex:stylesheet value="{!URLFOR($Resource.EMSHtmlStyleNew, 'css/font-awesome.css')}"/>
+        <apex:stylesheet value="{!URLFOR($Resource.EMSHtmlStyleNew, 'css/finalSteps.css')}"/>
+        <apex:includeScript value="{!URLFOR($Resource.EMSHtmlStyleNew, 'js/jquery-1.9.1.js')}"/>
+        <apex:includeScript value="{!URLFOR($Resource.EMSHtmlStyleNew, 'js/jquery.validate.min.js')}"/>
+        <apex:includeScript value="{!URLFOR($Resource.EMSHtmlStyleNew, 'js/foundation.min.js')}"/>
+        <apex:includeScript value="{!URLFOR($Resource.EMSHtmlStyleNew, 'js/additional-methods.min.js')}"/>
+        <script type="text/javascript">
+        $(document).ready(function() {
+            $('.submitButton').removeClass('btn');
+            $(document).foundation();
+            $('[id$=uploadFileFormNew]').validate();
+            $('[id$=fileInputNew]').rules("add",{
+                extension: "csv"                
+            });
+            
+            $('.validateClass').click(function(){
+                $('[id$=fileInputNew]').rules("add",{
+                    required: true,
+                    messages:{
+                        required:"Please select a file and then upload."
+                    }
+                });
+            });
+            
+            $('.provisionClass').click(function(){
+                $('[id$=fileInputNew]').rules("add",{
+                    required: false
+                });
+            });
+            
+            $('.notifyClass').click(function(){
+                $('[id$=fileInputNew]').rules("add",{
+                    required: false
+                });
+            });
+            
+            // help info
+            $('#helpiconNew').click(function(){
+                $('#stepsToImportNew').foundation('reveal','open');
+            });
+            $('.close-reveal-modal').click(function(){
+                $(this).parent().hide();
+                $('.reveal-modal-bg').hide();
+                $('#stepsToImportNew').removeClass('open');
+            })
+            var ieOldFn = null;
+            var fileName = 'MassUploadNewUserTemplate.csv';
+            window.URL = window.URL || window.webkitURL;
+            var blobObj = new Blob(['FirstName,LastName,Email,Phone,Job,MgrName,MgrEmail,MgrPhone,RetailerName,RetailerCity,RetailerState,IsWinfield,RetailerNo,IsPurina,AccountNo,IsCorporate,FarmOrCoopName,IsDairy,CompanyName,IsMassLoad,Status']);
+            var lnkElement = document.getElementById('lnkFile');
+            
+            if (typeof window.navigator.msSaveOrOpenBlob != "undefined") { //Internet Explorer
+                var clickFn = function() {
+                    window.navigator.msSaveOrOpenBlob(blobObj, fileName);
+                };
+                if(ieOldFn !== null){
+                    //To avoid repetitions, the previous click event handler is removed
+                    lnkElement.removeEventListener('click', ieOldFn, true);
+                }
+                lnkElement.addEventListener('click', clickFn, true);
+                ieOldFn = clickFn;
+            } else {
+                var fileUrl = window.URL.createObjectURL(blobObj);
+                lnkElement.setAttribute('href', fileUrl);
+                lnkElement.setAttribute('download', fileName);
+            }
+        });
+        </script>
+        <style>
+            .tabs li {padding: 0;margin: 0;}
+            .submitButton {width: 60%;font-size: x-large;font-family: cursive;}
+        </style>
+    </head>
+    <header> 
+        <!-- Header Logo -->
+        <div class="row"> 
+            <div class="large-12 medium-12 small-12 text-center">
+                <div class="top-blue-bar">
+                </div>   
+            </div>
+            <div class="green-line"></div>            
+            <div class="large-12 medium-12 small-12">
+                <div class="large-12 medium-12 small-12 columns clearfix blue-bar">
+                    <div class="left">                            
+                        <a href="/ems/EMSSelfRegistrationPage">
+                            <apex:image style="cursor:pointer;" url="{!URLFOR($Resource.EMSHtmlStyleNew, 'images/header-logo.jpg')}"/>
+                        </a>
+                    </div>
+                    <div class="right">
+                        <a href="#" id="helpiconNew">
+                            <apex:image style="cursor:pointer;" url="{!URLFOR($Resource.EMSHtmlStyleNew, 'images/helpicon.png')}"/>
+                        </a>
+                    </div>
+                </div>                
+            </div>
+        </div>        
+    </header>
+    <section>
+        <div class="row">
+            <div class="large-12 medium-12 small-12" style="clear: both; text-align: center; padding-top: 1%;">
+                <h3 style="color: #afe07f;font-family: cursive;">New Users Mass Upload</h3>
+            </div>
+        </div>
+    </section>
+    <section>
+        <c:PageMessages />
+        <div class="row" style="padding:2%;">
+            <div class="large-12 medium-12 small-12 columns text-center">
+                <apex:form id="uploadFileFormNew">
+                    <div class="large-12 medium-12 small-12" style="padding: 5%;">
+                        <div class="large-6 medium-12 small-12 columns">
+                            <apex:inputFile value="{!csvFileBodyImportNew}" id="fileInputNew" fileName="{!contentTypeImportNew}" fileSize="{!fileSizeImportNew}"/>
+                        </div>
+                        <div class="large-6 medium-12 small-12 columns right" style="text-align: right;">
+                            <i>Click <b><span><a href="#" id="lnkFile">Link</a></span></b> to download the template</i>
+                        </div>
+                    </div>
+                    <div class="large-12 medium-12 small-12" style="padding: 5%;">
+                        <div class="large-3 medium-12 small-12 columns" style="margin-top: 3%;">Step 1 - </div>
+                        <div class="large-9 medium-12 small-12 columns" style="text-align: centre;">
+                            <apex:commandButton styleClass="submitButton validateClass" value="Validate & Upload" action="{!doValidateAndUpload}"/>
+                        </div>
+                    </div>
+                    <div class="large-12 medium-12 small-12" style="padding: 5%;">
+                        <div class="large-3 medium-12 small-12 columns" style="margin-top: 3%;">Step 2 - </div>
+                        <div class="large-9 medium-12 small-12 columns" style="text-align: centre;">
+                            <apex:commandButton styleClass="submitButton provisionClass" value="Provisioning" action="{!doMassProvisioning}"/>
+                        </div>
+                    </div>
+                    <div class="large-12 medium-12 small-12" style="padding: 5%;">
+                        <div class="large-3 medium-12 small-12 columns" style="margin-top: 3%;">Step 3 - </div>
+                        <div class="large-9 medium-12 small-12 columns" style="text-align: centre;">
+                            <apex:commandButton styleClass="submitButton notifyClass" value="Email Notification" action="{!doMassEmailing}"/>
+                        </div>
+                    </div>
+                </apex:form>
+            </div>
+        </div>
+    </section>
+    <footer>
+        <c:LogoFooterBar />
+    </footer>
+    <div id="stepsToImportNew" class="reveal-modal divModal">
+        <h1>Steps to import Users</h1>
+        <br/>
+        <h3>Step 1</h3>
+        <li>Download Template from page</li>
+        <h3>Step 2</h3>
+        <li>Input data as per the template</li>
+        <a class="close-reveal-modal">&#215;</a>
+    </div>
+</apex:page>

@@ -1,0 +1,6 @@
+App Name:{!Application__c.Name}
+Description: {!Application__c.Description__c}
+
+Target Ag2Ag ID: {!User.Ag2Ag_ID__c}
+
+Additional Request Instructions:

@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<EmailTemplate xmlns="http://soap.sforce.com/2006/04/metadata">
+    <available>true</available>
+    <description>Welcome email sent to a new BYOID customer. Supports only AnswerTech as of now.</description>
+    <encodingKey>ISO-8859-1</encodingKey>
+    <letterhead>Internal_Letterhead</letterhead>
+    <name>New EMS User Is Provisioned BYOID Login</name>
+    <style>freeForm</style>
+    <subject>Welcome to AnswerTech</subject>
+    <textOnly>Dear {!Target_User.FirstName},
+
+This email is your notification that your registration is complete
+
+Your Login Id: {!Target_User..External_Fed_Id__c}
+
+There is one final step we need to complete to enable you to start accessing AnswerTech. You will receive an email upon completion within 1 to 3 business days.  
+
+If you have any questions or concerns, please call us toll free at 1-866-270-4706. Thank you for your business and we look forward to serving you in the future.
+
+Sincerely,
+AnswerTech</textOnly>
+    <type>html</type>
+</EmailTemplate>

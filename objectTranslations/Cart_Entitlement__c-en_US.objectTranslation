@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomObjectTranslation xmlns="http://soap.sforce.com/2006/04/metadata">
+    <caseValues>
+        <plural>false</plural>
+        <value>Cart Entitlement</value>
+    </caseValues>
+    <caseValues>
+        <plural>true</plural>
+        <value>Entilements In Car</value>
+    </caseValues>
+    <fields>
+        <label><!-- Account Information --></label>
+        <name>Account_Information__c</name>
+    </fields>
+    <fields>
+        <label><!-- Account --></label>
+        <name>Account__c</name>
+        <relationshipLabel><!-- Entilements In Car --></relationshipLabel>
+    </fields>
+    <fields>
+        <label><!-- Entitlement Code --></label>
+        <name>Ent_code__c</name>
+        <relationshipLabel><!-- Entilements In Car --></relationshipLabel>
+    </fields>
+    <fields>
+        <label><!-- Parent App --></label>
+        <name>Parent_App__c</name>
+        <relationshipLabel><!-- Cart Entitlements --></relationshipLabel>
+    </fields>
+    <fields>
+        <label><!-- User Provisioning Request --></label>
+        <name>RelatedUPR__c</name>
+        <relationshipLabel><!-- Requested Entitlements --></relationshipLabel>
+    </fields>
+    <recordTypes>
+        <label><!-- Fine Grained --></label>
+        <name>Fine_Grained</name>
+    </recordTypes>
+    <recordTypes>
+        <label><!-- Role --></label>
+        <name>Role</name>
+    </recordTypes>
+    <startsWith>Vowel</startsWith>
+</CustomObjectTranslation>

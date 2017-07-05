@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ConnectedApp xmlns="http://soap.sforce.com/2006/04/metadata">
+    <contactEmail>websitesupport@landolakes.com</contactEmail>
+    <infoUrl>https://connect3.winfieldsolutionsllc.com/webcenter/spaces/Connect3/page/Home</infoUrl>
+    <label>Connect 3®</label>
+</ConnectedApp>

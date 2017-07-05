@@ -1,0 +1,32 @@
+<table border="0" cellpadding="5" width="550" cellspacing="5" height="400" >
+<tr valign="top" height="400" >
+<td tEditID="c1r1" style=" background-color:#FFFFFF; color:#000000; bEditID:r3st1; bLabel:main; font-size:12pt; font-family:arial;" aEditID="c1r1" locked="0" >
+<![CDATA[<p class="MsoNormal" style="color: rgb(0, 0, 0); font-family: arial; font-size: 12pt;">Dear&nbsp;<o:p></o:p><span style="font-size: 12pt;">{!userName},</span></p><p class="MsoNormal" style="color: rgb(0, 0, 0); font-family: arial; font-size: 12pt;"><br></p>
+
+<p class="MsoNormal" style="color: rgb(0, 0, 0); font-family: arial; font-size: 12pt;">Answer Tech® is a web portal and mobile app store that
+brings together top agronomic decision-support and management applications in
+one complete toolbox. <o:p></o:p></p><p class="MsoNormal" style="color: rgb(0, 0, 0); font-family: arial; font-size: 12pt;"><br></p>
+
+<p class="MsoNormal" style="color: rgb(0, 0, 0); font-family: arial; font-size: 12pt;">Answer Tech® also provides regular online content about
+agriculture technology, including practical reviews of applications, how-to
+articles with step-by-step instructions, and Winfield United’s perspective on
+the latest advancements in the industry.<br>
+<!--[if !supportLineBreakNewLine]--><br>
+<!--[endif]--><o:p></o:p></p>
+
+<p class="MsoNormal" style="color: rgb(0, 0, 0); font-family: arial; font-size: 12pt;"><br>
+To begin using Answer Tech<sup><span style="font-family: Georgia, serif;">®</span></sup>
+and accessing your technology applications please click below&nbsp;to create a password and read and accept our terms and conditions.</p><p class="MsoNormal" style="color: rgb(0, 0, 0); font-family: arial; font-size: 12pt;"><br></p><p class="MsoNormal"><font face="arial">{!resetUrl}</font><br>
+<br><font face="arial"><span style="font-size: 12pt;">
+Your username is:&nbsp;</span></font><span style='color: rgb(0, 0, 0); font-family: "Book Antiqua", serif; font-size: 12pt;'>{!userId}</span><br>
+<br><font face="arial"><span style="font-size: 12pt;">
+Once your password is created you can access Answer Tech</span></font><sup style="color: rgb(0, 0, 0); font-family: arial; font-size: 12pt;"><span style="font-family: Georgia, serif;">® </span></sup><font face="arial"><span style="font-size: 12pt;">at:&nbsp;
+<br><a href="https://www.answertech.com/">https://www.answertech.com/</a></span></font><br>
+<!--[if !supportLineBreakNewLine]--><br>
+<!--[endif]--><font face="arial"><span style="font-size: 12pt;"><o:p></o:p></span></font></p>
+
+<span style="color: rgb(0, 0, 0); line-height: 107%; font-family: Calibri, sans-serif; font-size: 11pt;"><br>
+If you have any questions or concerns, please contact Customer Service at </span><span style="color: rgb(0, 0, 0); line-height: 107%; font-family: Calibri, sans-serif; font-size: 11pt;"><a href="tel:1-866-270-4706">1-866-270-4706</a></span><span style="color: rgb(0, 0, 0); line-height: 107%; font-family: Calibri, sans-serif; font-size: 11pt;"> or email </span><span style="color: rgb(0, 0, 0); line-height: 107%; font-family: Calibri, sans-serif; font-size: 11pt;"><a href="mailto:winfieldcustomerservice@landolakes.com">winfieldcustomerservice@landolakes.com</a></span><span style="color: rgb(0, 0, 0); line-height: 107%; font-family: Calibri, sans-serif; font-size: 11pt;">. Thank you for your
+business and we look forward to serving you in the future.</span>]]></td>
+</tr>
+</table>

@@ -1,0 +1,274 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomObjectTranslation xmlns="http://soap.sforce.com/2006/04/metadata">
+    <caseValues>
+        <plural>false</plural>
+        <value>Application</value>
+    </caseValues>
+    <caseValues>
+        <plural>true</plural>
+        <value>Applications</value>
+    </caseValues>
+    <fields>
+        <label><!-- App Code --></label>
+        <name>App_Code__c</name>
+    </fields>
+    <fields>
+        <help><!-- Store a Application URL here.  If one exists then the Application will show up in My Links.  If not, then it will be hidden. --></help>
+        <label><!-- App Portal URL --></label>
+        <name>App_Portal_URL__c</name>
+    </fields>
+    <fields>
+        <help><!-- Store a Home Page URL here.  If one exists then the Home Page will show up in My Links.  If not, then it will be hidden. --></help>
+        <label><!-- App URL --></label>
+        <name>App_URL__c</name>
+    </fields>
+    <fields>
+        <label><!-- ApproverType --></label>
+        <name>ApproverType__c</name>
+        <picklistValues>
+            <masterLabel>Queue</masterLabel>
+            <translation><!-- Queue --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>User</masterLabel>
+            <translation><!-- User --></translation>
+        </picklistValues>
+    </fields>
+    <fields>
+        <label><!-- Approver --></label>
+        <name>Approver__c</name>
+        <relationshipLabel><!-- Applications --></relationshipLabel>
+    </fields>
+    <fields>
+        <help><!-- This field depicts whether or not this is a base access system, like active directory.  This flag is user segment independent - -  which means it applies to everyone. --></help>
+        <label><!-- Base Access --></label>
+        <name>Base_Access__c</name>
+    </fields>
+    <fields>
+        <label><!-- Business Unit --></label>
+        <name>Business__c</name>
+        <picklistValues>
+            <masterLabel>Corporate</masterLabel>
+            <translation><!-- Corporate --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Dairy</masterLabel>
+            <translation><!-- Dairy --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>FGI</masterLabel>
+            <translation><!-- FGI --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Purina</masterLabel>
+            <translation><!-- Purina --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>WinField</masterLabel>
+            <translation><!-- WinField --></translation>
+        </picklistValues>
+    </fields>
+    <fields>
+        <label><!-- BusinessLink URL --></label>
+        <name>Businesslink_url__c</name>
+    </fields>
+    <fields>
+        <label><!-- Allow Child Accounts --></label>
+        <name>Children_allowed__c</name>
+    </fields>
+    <fields>
+        <label><!-- Connected App ID --></label>
+        <name>Connected_App_ID__c</name>
+    </fields>
+    <fields>
+        <help><!-- This indicates if the application does not require a manual provisioning case to be created. --></help>
+        <label><!-- Does Not Need Manual Steps --></label>
+        <name>Connected_App__c</name>
+    </fields>
+    <fields>
+        <label><!-- Delegated Admin Approval Required --></label>
+        <name>DA_Approval_Required__c</name>
+    </fields>
+    <fields>
+        <label><!-- Description --></label>
+        <name>Description__c</name>
+    </fields>
+    <fields>
+        <help><!-- This is the name of the profile, permission set, or custom permission that should be added to the user --></help>
+        <label><!-- EMS Application Object Name --></label>
+        <name>EMS_Application_Object_Name__c</name>
+    </fields>
+    <fields>
+        <label><!-- EMS Application Type --></label>
+        <name>EMS_Application_Type__c</name>
+        <picklistValues>
+            <masterLabel>Custom Permission</masterLabel>
+            <translation><!-- Custom Permission --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Permission Set</masterLabel>
+            <translation><!-- Permission Set --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Profile</masterLabel>
+            <translation><!-- Profile --></translation>
+        </picklistValues>
+    </fields>
+    <fields>
+        <label><!-- EMS Application --></label>
+        <name>EMS_Application__c</name>
+    </fields>
+    <fields>
+        <label><!-- FG Account Field --></label>
+        <name>FG_Account_Field__c</name>
+        <picklistValues>
+            <masterLabel>AIMS_Number__c</masterLabel>
+            <translation><!-- AIMS_Number__c --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Customer_Number__c</masterLabel>
+            <translation><!-- Customer_Number__c --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>GUID__c</masterLabel>
+            <translation><!-- GUID__c --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>PAES_Number__c</masterLabel>
+            <translation><!-- PAES_Number__c --></translation>
+        </picklistValues>
+    </fields>
+    <fields>
+        <label><!-- Admin Instructions --></label>
+        <name>FG_Admin_Instructions__c</name>
+    </fields>
+    <fields>
+        <label><!-- Default User Account for FG --></label>
+        <name>FG_Default_user_acct__c</name>
+    </fields>
+    <fields>
+        <label><!-- Fine-Grain Filter prefix --></label>
+        <name>FG_Filter_prefix__c</name>
+        <picklistValues>
+            <masterLabel>FD</masterLabel>
+            <translation><!-- FD --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>MD</masterLabel>
+            <translation><!-- MD --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>WF</masterLabel>
+            <translation><!-- WF --></translation>
+        </picklistValues>
+    </fields>
+    <fields>
+        <label><!-- External User Instructions --></label>
+        <name>FG_Instructions__c</name>
+    </fields>
+    <fields>
+        <label><!-- Number of FG Ents Allowed Per Account --></label>
+        <name>FG_Max_Ents__c</name>
+    </fields>
+    <fields>
+        <label><!-- FG Search Filter --></label>
+        <name>FG_Search_Filter__c</name>
+        <picklistValues>
+            <masterLabel>No Validation</masterLabel>
+            <translation><!-- No Validation --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Use Parent Account Search Filter</masterLabel>
+            <translation><!-- Use Parent Account Search Filter --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Use User Account Search Filter</masterLabel>
+            <translation><!-- Use User Account Search Filter --></translation>
+        </picklistValues>
+    </fields>
+    <fields>
+        <label><!-- Fine Grain Uses Web Service --></label>
+        <name>FG_Web_service__c</name>
+    </fields>
+    <fields>
+        <label><!-- Fine-Grained Management --></label>
+        <name>FG_mgmt__c</name>
+    </fields>
+    <fields>
+        <help><!-- This is the text for a potential group representation, like the AD group. --></help>
+        <label><!-- Group Designation --></label>
+        <name>Group_Designation__c</name>
+    </fields>
+    <fields>
+        <label><!-- Home Page --></label>
+        <name>Home_Page__c</name>
+    </fields>
+    <fields>
+        <label><!-- Approval Queue Can Approve for Del.Admin --></label>
+        <name>Internal_Delegated_Bypass__c</name>
+    </fields>
+    <fields>
+        <label><!-- Internal Group --></label>
+        <name>Internal_Group__c</name>
+    </fields>
+    <fields>
+        <label><!-- Migrated --></label>
+        <name>Migrated__c</name>
+    </fields>
+    <fields>
+        <help><!-- This determines if there is an approval process if no roles are on the request --></help>
+        <label><!-- Needs A Role --></label>
+        <name>Needs_Role__c</name>
+    </fields>
+    <fields>
+        <label><!-- Manual Provisioning Queue --></label>
+        <name>Provisioning_Queue__c</name>
+    </fields>
+    <fields>
+        <label><!-- Queue Name --></label>
+        <name>Queue_Name__c</name>
+    </fields>
+    <fields>
+        <label><!-- Requires Approval --></label>
+        <name>Requires_Approval__c</name>
+    </fields>
+    <fields>
+        <label><!-- Send Email --></label>
+        <name>Send_Email__c</name>
+    </fields>
+    <fields>
+        <label><!-- Short description --></label>
+        <name>Short_description__c</name>
+    </fields>
+    <fields>
+        <help><!-- This is the email given to customers as support for this application. --></help>
+        <label><!-- Support Email --></label>
+        <name>Support_Email__c</name>
+    </fields>
+    <fields>
+        <help><!-- This is the phone number given to customers as support for this application. --></help>
+        <label><!-- Support Phone --></label>
+        <name>Support_Phone__c</name>
+    </fields>
+    <fields>
+        <label><!-- System Application --></label>
+        <name>System_Application__c</name>
+    </fields>
+    <fields>
+        <label><!-- Roles Use AD Role Name Attribute --></label>
+        <name>Use_AD_Role_Name__c</name>
+    </fields>
+    <fields>
+        <label><!-- Visible --></label>
+        <name>Visible__c</name>
+    </fields>
+    <startsWith>Vowel</startsWith>
+    <validationRules>
+        <errorMessage><!-- Please enter a value in Queue Name for the Approver Queue --></errorMessage>
+        <name>Enforce_Required_Fields_for_ApprovalType</name>
+    </validationRules>
+    <validationRules>
+        <errorMessage><!-- Please enter a value for the User Approver --></errorMessage>
+        <name>Enforce_Required_Fields_for_UserApprover</name>
+    </validationRules>
+</CustomObjectTranslation>

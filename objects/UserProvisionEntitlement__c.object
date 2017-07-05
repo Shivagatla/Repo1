@@ -1,6 +1,58 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <CustomObject xmlns="http://soap.sforce.com/2006/04/metadata">
+    <actionOverrides>
+        <actionName>Accept</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>CancelEdit</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Clone</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Delete</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Edit</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>List</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>New</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>SaveEdit</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Tab</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>View</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <allowInChatterGroups>false</allowInChatterGroups>
+    <compactLayoutAssignment>SYSTEM</compactLayoutAssignment>
+    <deploymentStatus>Deployed</deploymentStatus>
+    <enableActivities>true</enableActivities>
+    <enableBulkApi>true</enableBulkApi>
     <enableEnhancedLookup>true</enableEnhancedLookup>
+    <enableFeeds>true</enableFeeds>
+    <enableHistory>true</enableHistory>
+    <enableReports>true</enableReports>
+    <enableSearch>true</enableSearch>
+    <enableSharing>true</enableSharing>
+    <enableStreamingApi>true</enableStreamingApi>
+    <externalSharingModel>ReadWrite</externalSharingModel>
     <fields>
         <fullName>Entitlement_Code__c</fullName>
         <deleteConstraint>SetNull</deleteConstraint>
@@ -56,6 +108,7 @@
         <trackTrending>false</trackTrending>
         <type>Lookup</type>
     </fields>
+    <label>User Provision Entitlement</label>
     <listViews>
         <fullName>EMS_Level_3_Support_UserProvisionEntitlement</fullName>
         <filterScope>Queue</filterScope>
@@ -99,4 +152,34 @@
             <allInternalUsers></allInternalUsers>
         </sharedTo>
     </listViews>
+    <nameField>
+        <displayFormat>UPE-{00000000}</displayFormat>
+        <label>UserProvisionEntitlement Name</label>
+        <trackFeedHistory>true</trackFeedHistory>
+        <trackHistory>true</trackHistory>
+        <type>AutoNumber</type>
+    </nameField>
+    <pluralLabel>User Provision Entitlements</pluralLabel>
+    <searchLayouts>
+        <customTabListAdditionalFields>UPA_Parent__c</customTabListAdditionalFields>
+        <customTabListAdditionalFields>Related_SF_User__c</customTabListAdditionalFields>
+        <customTabListAdditionalFields>ParentApp__c</customTabListAdditionalFields>
+        <customTabListAdditionalFields>Entitlement_Code__c</customTabListAdditionalFields>
+        <customTabListAdditionalFields>CREATED_DATE</customTabListAdditionalFields>
+        <customTabListAdditionalFields>LAST_UPDATE</customTabListAdditionalFields>
+        <lookupDialogsAdditionalFields>UPA_Parent__c</lookupDialogsAdditionalFields>
+        <lookupDialogsAdditionalFields>Related_SF_User__c</lookupDialogsAdditionalFields>
+        <lookupDialogsAdditionalFields>ParentApp__c</lookupDialogsAdditionalFields>
+        <lookupDialogsAdditionalFields>Entitlement_Code__c</lookupDialogsAdditionalFields>
+        <searchFilterFields>NAME</searchFilterFields>
+        <searchFilterFields>ParentApp__c</searchFilterFields>
+        <searchFilterFields>Entitlement_Code__c</searchFilterFields>
+        <searchFilterFields>UPA_Parent__c</searchFilterFields>
+        <searchResultsAdditionalFields>UPA_Parent__c</searchResultsAdditionalFields>
+        <searchResultsAdditionalFields>Related_SF_User__c</searchResultsAdditionalFields>
+        <searchResultsAdditionalFields>ParentApp__c</searchResultsAdditionalFields>
+        <searchResultsAdditionalFields>Entitlement_Code__c</searchResultsAdditionalFields>
+    </searchLayouts>
+    <sharingModel>ReadWrite</sharingModel>
+    <visibility>Public</visibility>
 </CustomObject>

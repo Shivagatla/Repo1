@@ -1,0 +1,1300 @@
+<!-- ****************************************************************>
+-- Initial Version: Deb Volk
+-- 2/10/2016 : Shilpa Bhor
+-- S-04447 : Customer Registration Page - Password Verbiage Change
+-- 2/17/2016 : Gurditta Garg
+-- S-03873, S-04842 : New Customer Registration Page
+****************************************************************** -->
+
+<apex:page id="communitiesSelfRegPage" title="EMS | New Customer Registration" showHeader="false" sidebar="false" 
+           controller="EMSSelfRegistrationCntrl" standardStylesheets="false" cache="false">
+    <head>
+        <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no"/>
+        <apex:stylesheet value="{!URLFOR($Resource.EMSHtmlStyleNew, 'css/foundation.css')}"/>
+        <apex:stylesheet value="{!URLFOR($Resource.EMSHtmlStyleNew, 'css/font-awesome.css')}"/>
+        <apex:stylesheet value="{!URLFOR($Resource.EMSHtmlStyleNew, 'css/finalSteps.css')}"/>
+        <apex:includeScript value="{!URLFOR($Resource.EMSHtmlStyleNew, 'js/jquery-1.9.1.js')}"/>
+        <apex:includeScript value="{!URLFOR($Resource.EMSHtmlStyleNew, 'js/jquery.validate.min.js')}"/>
+        <apex:includeScript value="{!URLFOR($Resource.EMSHtmlStyleNew, 'js/foundation.min.js')}"/>
+        <apex:includeScript value="{!URLFOR($Resource.EMSHtmlStyleNew, 'js/custom.js')}"/>    
+        <apex:includeScript value="{!URLFOR($Resource.EMSHtmlStyleNew, 'js/jquery.maskedinput.js')}"/>
+        <style>            
+            @media only screen and (max-width: 500px) {
+               #managersInfo{margin-top:9px;}
+          	   #branding{margin-top:9px;}
+               .companySelection .iconInput label.error {text-align: left;margin-left: 0px;}
+               .DairyCSS .iconInput label.error {text-align: left;margin-left: 25% !important;}
+            }
+            @media only screen and (min-width: 600px) {
+               .companySelection .iconInput label.error {text-align: left;margin-left: 21%;}
+               .DairyCSS .iconInput label.error {text-align: left;margin-left: 41% !important;}
+            }
+            .captchaCss{border: 1px solid #d6dbdf;border-radius: 5px;padding: 10px;}
+            .captchaCss label.error{display:block;width:100%;}                        
+            .ReadAgreementCSS {text-align: center;color: #fff;padding: 15px;background: #008cba;border: 3px solid #008cba;border-radius: 10px;display: table-cell;vertical-align: middle;} overflow-x: hidden;
+        </style>
+        <script type="text/javascript">
+        var step = 0,checkSelected;
+        var maxSteps;
+        var initialValue,steponeActive = 0,flag,formValid;
+        var mapOfBR = new Object();
+        var businessRolesKey = [];
+        var dataBR = {!BRDesc};
+        var BUParam = '{!$CurrentPage.parameters.BU}';
+        var RNParam = '{!$CurrentPage.parameters.RN}';
+        var RefByParam = '{!$CurrentPage.parameters.RefBy}';
+        var ReferringAppParam = '{!$CurrentPage.parameters.ReferringApp}';
+        var isNewWithParams = true;
+        function next(){
+            //when the step is equal to zero
+            console.log('=== step in next ===' + step);
+            if(step==0) {
+                //console.log('step 0 start');
+                $("[id$=selectJobClassification]").empty();
+                businessRolesKey.splice(0, businessRolesKey.length)
+                $.each($('.companySelection > div > div').find('p.active'), function (key, value) {
+                    if ($(this).is(':visible')) {
+                        if(value.id == 'CorpLogo') {
+                            businessRolesKey[0] = 'true';
+                        }if(value.id == 'LOLLogo') {
+                            businessRolesKey[1] = 'true';
+                        }if(value.id == 'purinaLogo') {
+                            businessRolesKey[2] = 'true';
+                       }if(value.id == 'winfieldLogo') {
+                            businessRolesKey[3] = 'true';
+                        }if(value.id == 'FGILogo'){
+                            businessRolesKey[4] = 'true';
+                        }                        
+                    }
+                });//console.debug('===businessRolesKey size===' + businessRolesKey.length);
+                for(var i=0;i<5;i++) {
+                    if(businessRolesKey[i] == null) {
+                        businessRolesKey[i] = 'false';
+                    }
+                }
+                $('[id$=selectJobClassification]').append(
+                    $("<option></option>")
+                    .attr("value", '')
+                    .text('')
+                );
+                var brkey = businessRolesKey.join("-");//console.debug('===brkey===' + brkey);
+                var uniqueArrayIteration = SelectJobOptions(brkey);//console.debug('===uniqueArrayIteration===' + uniqueArrayIteration);
+                var roleDescriptionString = '<h1>Role Definitions:</h1>';
+                $.each(uniqueArrayIteration, function(key, value) {
+                    $.each(dataBR, function(key1, value1) {
+                        if(value == key1){
+                            roleDescriptionString = roleDescriptionString + '<h3>'+key1+'</h3><li>'+value1+'</li>';
+                        }
+                    });
+                });
+                $('#roleInfoDiv').append(roleDescriptionString);
+                $('[id$=managerName]').val('');
+                $('[id$=managerEmail]').val('');
+                $('[id$=managerPhone]').val('');
+                $('#managersInfo').hide();
+                //console.log('inside stp 0');
+                showHideBrand();
+            }
+            //console.log('step 0 end');
+            if(step==1) {
+                //console.log('step 1 start');                
+                $("label[id$=userExistError]").remove();
+                var emailIdTyped = $('[id$=email]').val();                
+                Visualforce.remoting.Manager.invokeAction('{!$RemoteAction.EMSSelfRegistrationCntrl.doesUserExist}',emailIdTyped, function(result, event){
+                    if(result) {
+                        valNext(false);
+                        $( '<label for="communitiesSelfRegPage:loginForm:email" id ="userExistError" class="error">This email is already used OR You are using @landolakes.com. Please register with another email address</label>' ).insertAfter('[id$=email]');                        
+                    } else {
+                        valNext(true);
+                    }
+                    $('#branding').hide();
+                }, {escape:true});
+            } else {
+                valNext(true);
+            }
+            if(step == 3) {
+                $('[id$=steps] .left').show();
+                $('[id$=steps] .right').hide();
+                $('[id$=steps]').show();
+            }
+        }
+        function SelectJobOptions(brkey){
+            var uniqueArrayIteration = [];
+            $.each(mapOfBR, function(key,value){
+                if(mapOfBR[key] == brkey && $.inArray(key.replace(/\d+/g, ''), uniqueArrayIteration) == -1)  {
+                    uniqueArrayIteration.push(key.replace(/\d+/g, ''));
+                    $('[id$=selectJobClassification]').append(
+                        $("<option></option>")
+                        .attr("value", key.replace(/\d+/g, ''))
+                        .text(key.replace(/\d+/g, ''))
+                    );
+                }                 
+            });
+            return uniqueArrayIteration;
+        }
+        function valNext(douserexistalready) {
+            if(step < maxSteps-1 && douserexistalready){
+                step++;
+                $('form > div:lt('+maxSteps+')').not($('form > div').eq(step)).not($('form > div.not')).hide();
+                $('form > div:lt('+maxSteps+')').eq(step).show();
+                if(!$('[id$=loginForm]').valid()){
+                    $('[id$=steps] .right').addClass('opacityFive');
+                    $('[id$=steps] .right').attr('disabled','disabled');
+                }
+                formValid.resetForm();
+                if(step < maxSteps-1){
+                    $('[id$=steps]').show();
+                    $('[id$=steps] .left').show();
+                    $('[id$=steps] .right').val(initialValue+(step+2)+" >");
+                } else {
+                    $('[id$=steps]').hide();
+                }
+            }            
+        }        
+        function previous(){
+            console.log('=== step in previous ===' + step);
+            if(step==2){
+               showHideBrand();
+            }
+            if(step==1) {
+                $('#roleInfoDiv').find('*').not('.close-reveal-modal').remove();                
+            }
+            // When user clicks on back button when BU, RN and RefBy params are send via url for Winfield Business Unit.
+            if (step==1 && BUParam == 'WF' && RNParam != '' && RefByParam != '' && isNewWithParams) {
+                isNewWithParams = false;
+                $('#winfieldDiv').click();
+                disableRetailerDetails(true);
+            }
+            if(step > 0){
+                step--;
+                $('form > div:lt('+maxSteps+')').not($('form > div').eq(step)).not($('form > div.not')).hide();
+                $('form > div:lt('+maxSteps+')').eq(step).show();
+                formValid.resetForm();
+                $('[id$=steps] .right').show();
+                $('[id$=steps] .right').removeClass('opacityFive');
+                $('[id$=steps] .right').removeAttr('disabled');
+                if(step > 0){
+                    $('[id$=steps]').show();
+                    $('[id$=steps] .right').val(initialValue+(step+2)+" >");
+                } else {
+                    $('[id$=steps] .left').hide();
+                    $('[id$=steps] .right').val(initialValue+(step+2)+" >");
+                }
+            }
+        }
+        function disableRetailerDetails(isDisable){
+            //console.log('= customer number on focus =');
+            if(isDisable){
+                //Remove required for Retailer Name, City and State fields.
+                $('[id$=retailerNumber]').rules("add", {required: true});
+                //$('[id$=referredBy]').rules("add", {required: true});
+                $('[id$=retailerName]').rules( "remove", "required" );
+                $('[id$=retailerCity]').rules( "remove", "required" );
+                $('[id$=retailerState]').rules( "remove", "required" );
+                //Remove values of Retailer Name, City and State fields.
+                $('[id$=retailerName]').val("");
+                $('[id$=retailerCity]').val("");
+                $('[id$=retailerState]').val("");
+                //Disable Retailer Name, City and State fields.
+                $('[id$=retailerName]').attr("disabled", true); 
+                $('[id$=retailerCity]').attr("disabled", true) ;
+                $('[id$=retailerState]').attr("disabled", true) ;
+            }
+            else{
+                //Make Retailer Number, Name, City and State fields required.
+                $('[id$=retailerNumber]').rules("add", {required: true});
+                //$('[id$=referredBy]').rules("add", {required: true});
+                $('[id$=retailerName]').rules("add", {required: true});
+                $('[id$=retailerCity]').rules("add", {required: true});
+                $('[id$=retailerState]').rules("add", {required: true});
+                //Enable Retailer Name, City and State fields.
+                $('[id$=retailerName]').attr("disabled", false); 
+                $('[id$=retailerCity]').attr("disabled", false) ;
+                $('[id$=retailerState]').attr("disabled", false) ;
+            }
+            //Remove error class from the Retailer Name, City and State.
+            $('[id$=retailerName]').removeClass("error");
+            $('[id$=retailerCity]').removeClass("error");
+            $('[id$=retailerState]').removeClass("error");
+            //Add valid class on the Retailer Name, City and State.
+            $('[id$=retailerName]').addClass("valid");
+            $('[id$=retailerCity]').addClass("valid");
+            $('[id$=retailerState]').addClass("valid");
+            //Remove error labels for the Retailer Name, City and State.
+            $('[id$=retailerName]').parent().find('label').css("display","none");
+            $('[id$=retailerCity]').parent().find('label').css("display","none");
+            $('[id$=retailerState]').parent().find('label').css("display","none");
+        }
+        function disableRetailerNoField(isDisable){
+            //console.log('= retailer name on focus =');            
+            if(isDisable){
+                //Remove required for Retailer Number field.
+                $('[id$=retailerNumber]').rules( "remove", "required" );
+                //$('[id$=referredBy]').rules( "remove", "required" );
+                $('[id$=retailerName]').rules("add", {required: true});
+                $('[id$=retailerCity]').rules("add", {required: true});
+                $('[id$=retailerState]').rules("add", {required: true});
+                //Remove value of Retailer Number field.
+                $('[id$=retailerNumber]').val("");
+                //$('[id$=referredBy]').val("");
+                //Disable Retailer Number field.
+                $('[id$=retailerNumber]').attr("disabled", true); 
+                //$('[id$=referredBy]').attr("disabled", true); 
+            }
+            else{
+                //Make Retailer Number field required.
+                $('[id$=retailerNumber]').rules("add", {required: true});
+                //$('[id$=referredBy]').rules("add", {required: true});
+                $('[id$=retailerName]').rules("add", {required: true});
+                $('[id$=retailerCity]').rules("add", {required: true});
+                $('[id$=retailerState]').rules("add", {required: true});
+                //Enable Retailer Number field.
+                $('[id$=retailerNumber]').attr("disabled", false);
+                //$('[id$=referredBy]').attr("disabled", false);
+            }
+            //Remove error class from Retailer Number field.
+            $('[id$=retailerNumber]').removeClass("error");
+            //$('[id$=referredBy]').removeClass("error");
+            //Add valid class on Retailer Number field.
+            $('[id$=retailerNumber]').addClass("valid");
+            //$('[id$=referredBy]').addClass("valid");
+            //Remove error labels for Retailer Number field.
+            $('[id$=retailerNumber]').parent().find('label').css("display","none");
+            //$('[id$=referredBy]').parent().find('label').css("display","none");
+        }
+        function onDisableTrue(){
+            $('[id$=fgiLicensee]').rules( "add", "required" );
+            $('[id$=fgiLicensee]').attr("disabled", false);
+            
+            $('[id$=fgiLicenseeCity]').rules( "add", "required" );
+            $('[id$=fgiLicenseeCity]').attr("disabled", false);
+            
+            $('[id$=fgiLicenseeState]').rules( "add", "required" );
+            $('[id$=fgiLicenseeState]').attr("disabled", false);
+            
+            $('[id$=fgiCompany]').rules( "add", "required" );
+            $('[id$=fgiCompany]').attr("disabled", false);
+            
+            $('[id$=fgiCompanyCity]').rules( "add", "required" );
+            $('[id$=fgiCompanyCity]').attr("disabled", false);
+            
+            $('[id$=fgiCompanyState]').rules( "add", "required" );
+            $('[id$=fgiCompanyState]').attr("disabled", false);
+        }
+        function disableFGIManager(isDisable){
+            if(isDisable){
+                onDisableTrue();
+            }else{
+                $('[id$=fgiCompany]').rules( "add", "required" );                
+                $('[id$=fgiCompany]').attr("disabled", false);
+                
+                $('[id$=fgiCompanyCity]').rules( "add", "required" );                
+                $('[id$=fgiCompanyCity]').attr("disabled", false);
+                
+                $('[id$=fgiCompanyState]').rules( "add", "required" );                
+                $('[id$=fgiCompanyState]').attr("disabled", false);
+                
+                $('[id$=fgiLicensee]').rules( "remove", "required" );
+                $('[id$=fgiLicensee]').val("");
+                $('[id$=fgiLicensee]').attr("disabled", true);
+                
+                $('[id$=fgiLicensee]').removeClass("error");
+                $('[id$=fgiLicensee]').addClass("valid");
+                $('[id$=fgiLicensee]').parent().find('label').css("display","none");
+                
+                $('[id$=fgiLicenseeCity]').rules( "remove", "required" );
+                $('[id$=fgiLicenseeCity]').val("");
+                $('[id$=fgiLicenseeCity]').attr("disabled", true);
+                
+                $('[id$=fgiLicenseeCity]').removeClass("error");
+                $('[id$=fgiLicenseeCity]').addClass("valid");
+                $('[id$=fgiLicenseeCity]').parent().find('label').css("display","none");
+                
+                $('[id$=fgiLicenseeState]').rules( "remove", "required" );
+                $('[id$=fgiLicenseeState]').val("");
+                $('[id$=fgiLicenseeState]').attr("disabled", true);
+                
+                $('[id$=fgiLicenseeState]').removeClass("error");
+                $('[id$=fgiLicenseeState]').addClass("valid");
+                $('[id$=fgiLicenseeState]').parent().find('label').css("display","none");
+            }
+        }        
+        function disableFGIRetailer(isDisable){
+            if(isDisable){
+                onDisableTrue();
+            }else{
+                $('[id$=fgiLicensee]').rules( "add", "required" );                
+                $('[id$=fgiLicensee]').attr("disabled", false);
+                
+                $('[id$=fgiLicenseeCity]').rules( "add", "required" );                
+                $('[id$=fgiLicenseeCity]').attr("disabled", false);
+                
+                $('[id$=fgiLicenseeState]').rules( "add", "required" );                
+                $('[id$=fgiLicenseeState]').attr("disabled", false);
+                
+                $('[id$=fgiCompany]').rules( "remove", "required" );
+                $('[id$=fgiCompany]').val("");
+                $('[id$=fgiCompany]').attr("disabled", true);
+                
+                $('[id$=fgiCompany]').removeClass("error");
+                $('[id$=fgiCompany]').addClass("valid");
+                $('[id$=fgiCompany]').parent().find('label').css("display","none");
+                
+                $('[id$=fgiCompanyCity]').rules( "remove", "required" );
+                $('[id$=fgiCompanyCity]').val("");
+                $('[id$=fgiCompanyCity]').attr("disabled", true);
+                
+                $('[id$=fgiCompanyCity]').removeClass("error");
+                $('[id$=fgiCompanyCity]').addClass("valid");
+                $('[id$=fgiCompanyCity]').parent().find('label').css("display","none");
+                
+                $('[id$=fgiCompanyState]').rules( "remove", "required" );
+                $('[id$=fgiCompanyState]').val("");
+                $('[id$=fgiCompanyState]').attr("disabled", true);
+                
+                $('[id$=fgiCompanyState]').removeClass("error");
+                $('[id$=fgiCompanyState]').addClass("valid");
+                $('[id$=fgiCompanyState]').parent().find('label').css("display","none");
+            }
+        }
+        function showHideBrand(){
+               if($('[id$=fgiCompany]').val() != '' && $('[id$=fgiCompanyCity]').val() != '' && $('[id$=fgiCompanyState]').val() != '') $('#branding').show();
+                else $('#branding').hide();
+        }
+        $(document).ready(function() {
+            $(document).foundation();
+            $("[id$=phone]").mask("(999) 999-9999");
+            $("[id$=managerPhone]").mask("(999) 999-9999");
+            maxSteps = $('form .step').length;
+            initialValue = $('[id$=steps] .right').val();
+            $('[id$=steps] .right').val(initialValue+"2 >");                        
+            $(document).on('keyup',function(event){
+                $(window).keydown(function(event){
+                    if(event.keyCode == 13) {
+                        event.preventDefault();
+                        return false;
+                    }
+                });
+                flag = (step == 0) && steponeActive>0;
+                if($('[id$=loginForm]').valid() && (flag || step > 0)){
+                    $('[id$=steps] .right').removeClass('opacityFive');
+                    $('[id$=steps] .right').removeAttr('disabled');
+                } else {
+                    $('#userExistError').remove();
+                    $('[id$=steps] .right').addClass('opacityFive');
+                    $('[id$=steps] .right').attr('disabled','disabled');
+                }
+            });
+            flag = (step == 0) && steponeActive>0;
+            $('[id$=steps] .right').click(function(){
+                flag = (step == 0) && steponeActive>0;
+                if($('[id$=loginForm]').valid() && (flag || step > 0)){
+                    next();
+                }
+            });
+            $('[id$=steps] .left').click(function(){
+                previous();
+            });
+            formValid = $('[id$=loginForm]').validate({ignore:":not(:visible)"});            
+            $('[id$=firstName]').rules("add",{
+                required: true,
+                messages:{
+                    required:"Please enter First Name"
+                }
+            });     
+            $('[id$=email]').rules("add",{
+                required: true,
+                email: true,
+                messages:{
+                    required:"Please enter an Email Address.",
+                    email:"Please enter a valid Email Address."
+                }
+            });
+            $('[id$=selectJobClassification]').rules("add",{
+                required: true,
+                messages:{
+                    required:"Please choose a valid role"
+                }
+            });
+            $('[id$=managerEmail]').rules("add",{
+                required: true,
+                email: true,
+                messages:{
+                    required:"Please enter an Email Address.",
+                    email:"Please enter a valid Email Address."
+                }
+            });            
+            $('[id$=lastName]').rules("add",{
+                required: true,
+                messages:{
+                    required:"Please enter Last Name"
+                }
+            });
+            $('[id$=managerName]').rules("add",{
+                required: true,
+                messages:{
+                    required:"Please enter Manager's Name"
+                }
+            });
+            $('[id$=retailerNumber]').rules("add",{
+                required: true,
+                messages:{
+                    required:"Please enter your Retailer/Owner Number"
+                }
+            });
+            $('[id$=referredBy]').rules("add",{
+                required: false,
+                messages:{
+                    required:""
+                }
+            });
+            $('[id$=referringApp]').rules("add",{
+                required: false,
+                messages:{
+                    required:""
+                }
+            });
+            $('[id$=retailerName]').rules("add",{
+                required: true,
+                messages:{
+                    required:"Please enter your Retailer/Owner Name"
+                }
+            });
+            $('[id$=retailerCity]').rules("add",{
+                required: true,
+                messages:{
+                    required:"Please enter your Retailer City"
+                }
+            });
+            $('[id$=retailerState]').rules("add",{
+                required: true,
+                messages:{
+                    required:"Please enter your Retailer State"
+                }
+            });
+            $('[id$=accountId]').rules("add",{
+                required: true,
+                messages:{
+                    required:"Please enter your Account Number"
+                }
+            });
+            $('[id$=farmId]').rules("add",{
+                required: function(){
+                    if($('[id$=farmName]').val()=="")//return value based on textbox1 status
+                        return true;
+                    else
+                        return false;
+                },
+                messages:{
+                    required:"Please enter your Farm ID (Optional)"
+                }
+            });
+            $('[id$=lol-company]').rules("add",{
+                required: true,
+                messages:{
+                    required:"Please enter your company name"
+                }
+            });
+            $('[id$=farmName]').rules("add",{
+                required: true,
+                messages:{
+                    required:"Please enter your farm name"
+                }
+            });
+            $('[id$=phone]').rules("add",{
+                required: true,
+                validatePhone: true,
+                messages:{
+                    required:"Please enter Phone Number",
+                    validatePhone:"Please enter a valid Phone Number."
+                }
+            });
+            $('[id$=managerPhone]').rules("add",{
+                required: true,
+                validatePhone: true,
+                messages:{
+                    required:"Please enter Phone Number",
+                    validatePhone:"Please enter a valid Phone Number."
+                }
+            });              
+            $('[id$=password]').rules("add",{
+                required: true,
+                validatePassword: true,
+                messages:{
+                    required:"Please enter a Password",
+                    validatePassword:"Minimum of 8 characters and can contain Alphabets, numbers and $@$!%*#?&"
+                }
+            });
+            $('[id$=confirmPassword]').rules("add",{
+                required: true,
+                equalTo: '[id$=password]',
+                messages:{
+                    required:"Please re-enter your Password.",
+                    equalTo:"Please enter the same Password as above."
+                }
+            });            
+            $('[id$=robotCheckbox]').rules("add",{
+                required: true,
+                messages:{
+                    required:" "
+                }
+            });            
+            $('[id$=agTechCheckbox]').rules("add",{
+                required: false,
+                messages:{
+                    required:" "
+                }
+            });
+            
+            $('[id$=Checkbox1]').rules("add",{
+                required: false,
+                messages:{
+                    required:" "
+                }
+            });
+            
+            $('[id$=Checkbox2]').rules("add",{
+                required: false,
+                messages:{
+                    required:" "
+                }
+            });
+            
+            $('[id$=Checkbox3]').rules("add",{
+                required: false,
+                messages:{
+                    required:" "
+                }
+            });
+            
+            /*Validate Step 1 for Winfield which allows user to enter either Retailer No or Retailer Name, City and State.*/
+            $('.RetailerNoClass').keyup(function(){
+                if($('[id$=retailerNumber]').val() == '') disableRetailerDetails(false); else disableRetailerDetails(true);
+            });
+            
+            $('.RetailerClass').keyup(function(){
+                if($('[id$=retailerName]').val() == '' && $('[id$=retailerCity]').val() == '' && $('[id$=retailerState]').val() == '') 
+                    disableRetailerNoField(false); else disableRetailerNoField(true);
+            });
+            /*Validation ends*/
+            $('[id$=fgiCompany]').rules("add",{
+                required: true,
+                messages:{
+                    required:"Please enter company name."
+                }
+            });
+            $('[id$=fgiCompanyCity]').rules("add",{
+                required: true,
+                messages:{
+                    required:"Please enter company city."
+                }
+            });
+            $('[id$=fgiCompanyState]').rules("add",{
+                required: true,
+                messages:{
+                    required:"Please enter company state."
+                }
+            });
+            $('[id$=fgiLicensee]').rules("add",{
+                required: true,
+                messages:{
+                    required:"Please enter Licensee name."
+                }
+            });
+            $('[id$=fgiLicenseeCity]').rules("add",{
+                required: true,
+                messages:{
+                    required:"Please enter Licensee city."
+                }
+            });
+            $('[id$=fgiLicenseeState]').rules("add",{
+                required: true,
+                messages:{
+                    required:"Please enter Licensee state."
+                }
+            });
+            /*Validate Step 1 for FGI where user can either give manager or retailer name.*/
+            $('.FgiManagerClass').keyup(function(){
+                if($('[id$=fgiCompany]').val() == '' && $('[id$=fgiCompanyCity]').val() == '' && $('[id$=fgiCompanyState]').val() == '') disableFGIManager(true); else disableFGIManager(false);
+            });
+            $('.FgiRetailerClass').keyup(function(){
+                if($('[id$=fgiLicensee]').val() == '' && $('[id$=fgiLicenseeCity]').val() == '' && $('[id$=fgiLicenseeState]').val() == '') disableFGIRetailer(true); else disableFGIRetailer(false);
+            });
+            
+            /* Customised the validation methods */
+            $.validator.addMethod("validatePhone", function(value, element) {
+                var pattern = new RegExp(/^[(]{0,1}[0-9]{3}[)]{0,1}[-\s\.]{0,1}[0-9]{3}[-\s\.]{0,1}[0-9]{4}$/);
+                return pattern.test(value);
+            });            
+            $.validator.addMethod("validatePassword", function(value, element) {
+                var pattern = new RegExp(/^(?=.*[A-Za-z])(?=.*\d)(?=.*[$@$!%*#?&])[A-Za-z\d$@$!%*#?&]{8,}$/);
+                return pattern.test(value);
+            });
+            $('.company-logo').on("click" , function() {
+                if(!$(this).hasClass('active')) {
+                    $(this).parent().find('.iconInput').css("display","block");
+                    $(this).parent().find("input[type=text]").css("display","inline-block");
+                    $(this).parent().find("input[type=text]").prop('disabled', false);
+                    $(this).parent().find(".iconDefault").css("display","inline-block");
+                    $(this).parent().find("label").css("display","block");
+                    $(this).addClass("active");
+                    $(this).find('p').css("visibility","visible");
+                    $(this).find('p').css("display","table-cell");
+                    $(this).parent().attr("id","logo_1");
+                    $(this).addClass("non-active");
+                    $(this).find('div').css("display","none");
+                    $(this).parent().find('.ORClass').css("display","inline");
+                } else {                    
+                    $(this).parent().find("input[type=text]").removeClass("error");
+                    $(this).parent().find("input[type=text]").val('');
+                    $(this).parent().find("input[type=text]").prop('disabled', true);
+                    $(this).parent().find("input[type=text]").css("display","none");
+                    $(this).parent().find(".iconDefault").css("display","none");
+                    $(this).parent().find("label").css("display","none");
+                    $(this).removeClass("active");
+                    $(this).parent().find("label").remove();
+                    $(this).find('p').css("visibility","hidden");
+                    $(this).find('p').css("display","none");
+                    $(this).parent().attr("id","logo_0");
+                    $(this).addClass("non-active");
+                    $(this).find('div').css("display","table-cell");
+                    $(this).parent().find('.ORClass').css("display","none");
+                }
+                steponeActive=0;
+                checkSelected=0;
+                $.each( $('.company-logo'), function( key, value ) {
+                    if($(value).hasClass('active')) {
+                        steponeActive++;
+                    }
+                });
+                $.each( $('.companySelection .company-logo'), function( key, value ) {
+                    if($(value).hasClass('active')) {
+                        checkSelected++;
+                    }
+                });
+                flag = (step == 0) && steponeActive>0;
+                if(checkSelected>0){
+                    $('.logoCSSHideShow,.ORCss').not($(this).parents('.logoCSSHideShow')).hide();
+                }else if((steponeActive-checkSelected)>0){  
+                    $('.logoCSSHideShow,.ORCss').not($(this).parents('.logoCSSHideShow')).hide();
+                }else{
+                    $('.logoCSSHideShow,.ORCss').show();
+                }
+            });            
+            // modal dialoge open and close
+            $('#helpicon').click(function(){
+                $('#'+'step'+step).foundation('reveal','open');
+            });
+            $('.close-reveal-modal').click(function(){
+                $(this).parent().hide();
+                $('.reveal-modal-bg').hide();
+                $('#'+'step'+step).removeClass('open');
+            })            
+            // role info
+            $('#roleInfo').click(function(){
+                $('#roleInfoDiv').foundation('reveal','open');
+            });
+            $('.close-reveal-modal').click(function(){
+                $(this).parent().hide();
+                $('.reveal-modal-bg').hide();
+                $('#roleInfoDiv').removeClass('open');
+            })
+            // Ag Tech Agreement PDF
+            $('#agTechPDF').click(function(){
+                $('#agreementPDF').foundation('reveal','open');
+            });
+            $('.close-reveal-modal').click(function(){
+                $(this).parent().hide();
+                $('.reveal-modal-bg').hide();
+                $('#agreementPDF').removeClass('open');
+            })            
+            var hashmap = {};
+            // manager's fields based on I'm drop down
+            $($('[id$=selectJobClassification]')).change(function() {
+                var dpvalue = $(this).val();
+                if(dpvalue == 'Farmer'){
+                    $('#agreementDiv').show();
+                    $('#spaceDiv').show();
+                    $('#managersInfo').hide();
+                    $('[id$=steps] .right').removeClass('opacityFive');
+                    $('[id$=steps] .right').removeAttr('disabled');
+                }
+                else if(dpvalue == ''){
+                    $('#agreementDiv').hide();
+                    $('#spaceDiv').hide();
+                    $('#managersInfo').hide();
+                    $('[id$=steps] .right').addClass('opacityFive');
+                    $('[id$=steps] .right').attr('disabled','disabled');
+                }
+                    else{
+                        $('#agreementDiv').hide();
+                        $('#spaceDiv').hide();
+                        $.each(hashmap, function(key, value) {
+                            if(dpvalue == key) {
+                                $('[id$=managerName]').val('');
+                                $('[id$=managerEmail]').val('');
+                                $('[id$=managerPhone]').val('');
+                                $('#managersInfo').show();
+                                $('[id$=steps] .right').addClass('opacityFive');
+                                $('[id$=steps] .right').attr('disabled','disabled');
+                                return false;
+                            } else {
+                                $('#managersInfo').hide();
+                                $('[id$=steps] .right').removeClass('opacityFive');
+                                $('[id$=steps] .right').removeAttr('disabled');
+                            }
+                        });                    
+                    }
+                $('[id$=loginForm]').valid();
+            });
+            var data = {!CustomSettings};
+            $.each(data, function(key, value) {
+                mapOfBR[key] = data[key].slice(0,-1).join("-");
+                if(data[key].slice(-1)[0] == true) {
+                    hashmap[key.replace(/\d+/g, '')] = data[key].slice(-1)[0];
+                }
+            });
+            $('.alert-box').addClass('row');
+            $('#cancelButton').click(function() {
+                open("/ems/EMSSelfRegistrationPage", '_self').close();
+            });
+            // When site url contains BU, RN and RefBy as params for Winfield business Unit.
+            if (BUParam == 'WF' && RNParam != '' && RefByParam != '') {
+                // prefill values to retailer number and referred by field.
+                $('[id$=retailerNumber]').val(RNParam);
+                $('[id$=referredBy]').val(RefByParam);
+                $('[id$=referringApp]').val(ReferringAppParam);
+                // Move to Step 2
+                valNext(true);
+                // Prefill job classification field with Winfield options.
+                $("[id$=selectJobClassification]").empty();
+                $('[id$=selectJobClassification]').append(
+                    $("<option></option>")
+                    .attr("value", '')
+                    .text('')
+                );
+                var brkey = 'false-false-false-true';
+                SelectJobOptions(brkey);
+            }
+            else if(BUParam == 'WF'){
+                $('#winfieldDiv').click();
+                $('[id$=retailerNumber]').val(RNParam);
+                $('[id$=referredBy]').val(RefByParam);
+                $('[id$=referringApp]').val(ReferringAppParam);
+            }
+                else{
+                    $('[id$=retailerNumber]').val(RNParam);
+                    $('[id$=referredBy]').val(RefByParam);
+                    $('[id$=referringApp]').val(ReferringAppParam);
+                }
+        });
+        </script>
+    </head>
+    <header> 
+        <!-- Header Logo -->
+        <div class="row"> 
+            <div class="large-12 medium-12 small-12 text-center">
+                <div class="top-blue-bar">
+                </div>   
+            </div>
+            <div class="green-line"></div>            
+            <div class="large-12 text-center">
+                <section>               
+                    <div class="large-12 clearfix blue-bar">
+                        <div class="left">                            
+                            <a href="/ems/EMSSelfRegistrationPage">
+                                <apex:image style="cursor:pointer;" url="{!URLFOR($Resource.EMSHtmlStyleNew, 'images/header-logo.jpg')}"/>
+                            </a>
+                        </div>
+                        <div class="right">
+                            <a href="#" id="helpicon">
+                                <apex:image style="cursor:pointer;" url="{!URLFOR($Resource.EMSHtmlStyleNew, 'images/helpicon.png')}"/>
+                            </a>
+                        </div>
+                    </div>                    
+                    
+                    <div class = "large-6 text-center customerReg" style="margin-bottom: -15px;">
+                        <h3>Customer Registration</h3>
+                        <p style="margin-top: -10px;font-size: small;margin-bottom: 15px;">Please complete the 4 steps, then select REGISTER.</p>
+                    </div>                
+                </section>
+            </div>
+        </div>
+    </header> 
+    
+    <section>
+        <c:PageMessages />        
+        <apex:form id="loginForm" >
+            <div class="row lightblue-bg step clearfix">
+                <div class="large-12 medium-12 small-12 columns text-center stepsBoxes" style="margin-top: 5px;margin-bottom: 5px;">
+                    <span class="stepsBox" style="border:2px rgb(38, 55, 71) solid;color:rgb(38, 55, 71);">1</span>   
+                    <span class="stepsBox disable" style="border:2px rgb(38, 55, 71) solid;color:rgb(38, 55, 71);">2</span>
+                    <span class="stepsBox disable" style="border:2px rgb(38, 55, 71) solid;color:rgb(38, 55, 71);">3</span>
+                    <span class="stepsBox disable" style="border:2px rgb(38, 55, 71) solid;color:rgb(38, 55, 71);">4</span>
+                </div>
+                
+                <div class="large-12 medium-12 small-12 columns" style="margin-top: -20px;margin-bottom: -10px;">
+                    <p style="font-size: small;" class="companySelectHeading text-center"><b>MUST</b> Select the company or companies that you do business with </p>    
+                </div>
+                
+                <div class="large-12 medium-12 small-12 columns companySelection">
+                    <div class="row logoCSSHideShow">
+                        <div class="large-12 medium-12 small-12 columns companyContainer">
+                            <div class="row" style="padding-bottom: 5px;">
+                                <div class="large-4 medium-4 small-12 columns"> 
+                                    <h5>WinField United</h5>
+                                    <div class="company-logo" id="winfieldDiv" style="margin-bottom: 5px;margin-top: 0;">
+                                        <div class="non-active" style="visibility: visible;"/>
+                                        <p class="active" style="visibility:hidden; display:none;" id="winfieldLogo">
+                                            <i class="fi-check"/>
+                                        </p>
+                                        <span>
+                                            <apex:image url="{!URLFOR($Resource.EMSHtmlStyleNew, 'images/winfield-logo.jpg')}"/>
+                                        </span>
+                                    </div>
+                                    <div class="iconInput" style="display:none;">
+                                        <span title="{!$Label.Retailer_Number_Tooltip}" 
+                                              rel="tooltip" style="display:none;" class="iconDefault">i</span>
+                                        <apex:inputText styleClass="RetailerNoClass" style="margin-top: 3px;margin-bottom:0px;" html-placeholder="RETAILER/OWNER NUMBER" id="retailerNumber" value="{!retailerNumber}"/>
+                                    </div>                                    
+                                    <div class="iconInput" style="display:none;margin-top: 10px;margin-bottom: 10px;">
+                                        <span class="ORClass" style="display:none;width: 26px;height: 26px;color: black;text-align: center;font-weight: bold;">OR</span>
+                                    </div>
+                                    <div class="iconInput" style="display:none;">
+                                        <span title="{!$Label.Retailer_Name_OwnerTooltip}" 
+                                              rel="tooltip" style="display:none;" class="iconDefault">i</span>
+                                        <apex:inputText styleClass="RetailerClass" style="margin-top: 3px;margin-bottom:0px;" html-placeholder="RETAILER/OWNER NAME" id="retailerName" value="{!retailerName}"/>
+                                    </div>
+                                    <div class="iconInput" style="display:none;">
+                                        <span title="{!$Label.Retailer_City_Tooltip}" 
+                                              rel="tooltip" style="display:none;" class="iconDefault">i</span>
+                                        <apex:inputText styleClass="RetailerClass" style="margin-top:3px;margin-bottom:0px;" html-placeholder="RETAILER CITY" id="retailerCity" value="{!retailerCity}"/>
+                                    </div>
+                                    <div class="iconInput" style="display:none;">
+                                        <span title="{!$Label.Retailer_State_Tooltip}" 
+                                              rel="tooltip" style="display:none;" class="iconDefault">i</span>
+                                        <apex:inputText styleClass="RetailerClass" style="margin-top:3px;margin-bottom:0px;" html-placeholder="RETAILER STATE" id="retailerState" value="{!retailerState}"/>
+                                    </div>
+                                    <br/>
+                                    <div class="iconInput" style="display:none;">
+                                        <span title="{!$Label.Referred_By_Tooltip}" 
+                                              rel="tooltip" style="display:none;" class="iconDefault">i</span>
+                                        <apex:inputText styleClass="RetailerNoClass" style="margin-top: 3px;margin-bottom:0px;" html-placeholder="REFFERED BY" id="referredBy" value="{!referredBy}"/>
+                                    </div>                                    
+                                    <div style="display:none;">
+                                        <span title="Enter Referring App" 
+                                              rel="tooltip" style="display:none;" class="iconDefault">i</span>
+                                        <apex:inputText styleClass="RetailerNoClass" style="margin-top: 3px;margin-bottom:0px;" html-placeholder="REFFEING APP" id="referringApp" value="{!referringApp}"/>
+                                    </div>
+                                </div>
+                                <div class="large-4 medium-4 small-12 columns"> 
+                                    <h5>Purina Animal Nutrition</h5>
+                                    <div class="company-logo" style="margin-bottom: 5px;margin-top: 0;">
+                                        <div class="non-active" style="visibility: visible;"/>
+                                        <p class="active" style="visibility:hidden; display:none;" id="purinaLogo">
+                                            <i class="fi-check"/>
+                                        </p>
+                                        <span>
+                                            <apex:image url="{!URLFOR($Resource.EMSHtmlStyleNew, 'images/purina-logo.jpg')}"/>
+                                        </span>
+                                    </div>
+                                    <div class="iconInput" style="display:none;">
+                                        <span title="Account number is presented on your invoices. Refer to the upper right hand corner of the document." 
+                                              rel="tooltip" class="iconDefault">i</span>
+                                        <apex:inputText html-placeholder="ACCOUNT # - REQUIRED" id="accountId" value="{!accountNumber}" style="margin-bottom: 0px;"/>
+                                    </div>
+                                </div>
+                                <div class="large-4 medium-4 small-12 columns">   
+                                    <h5>Member Owner</h5> 
+                                    <div class="company-logo" style="margin-bottom: 5px;margin-top: 0;">
+                                        <div class="non-active" style="visibility: visible;"/>
+                                        <p class="active" style="visibility:hidden; display:none;" id="CorpLogo">
+                                            <i class="fi-check"/>
+                                        </p>
+                                        <span>
+                                            <apex:image url="{!URLFOR($Resource.EMSHtmlStyleNew, 'images/landOlakesINC-logo.jpg')}"/>
+                                        </span>
+                                    </div>
+                                    <div class="iconInput" style="display:none;"> 
+                                        <span title="Business name affiliated with Land O'Lakes" rel="tooltip" class="iconDefault">i</span>
+                                        <apex:inputText id="farmName" style="margin-bottom:0px;" html-placeholder="FARM/CO-OP NAME-REQUIRED" value="{!farmName}"/>
+                                    </div>
+                                    <div class="iconInput" style="display:none;"> 
+                                        <span title="Member Number" rel="tooltip" class="iconDefault">i</span>
+                                        <apex:inputText id="farmId" style="margin-top:3px;margin-bottom: 0px;" html-placeholder="FARM ID/PAES # - OPTIONAL" value="{!farmID}"/>
+                                    </div>
+                                </div> 
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row ORCss">
+                        <div class="large-12 medium-12 small-12 text-center columns">
+                            <h5>OR</h5>
+                        </div>
+                    </div>
+                    <div class="row logoCSSHideShow companyContainer DairyCSS">
+                        <div class="large-12 medium-12 small-12 columns" style="margin-top: -10px;margin-bottom: 25px;">  
+                            <h5>Dairy Foods</h5> 
+                            <div class="company-logo" style="margin-bottom: 5px;margin-top: 0;">
+                                <div class="non-active" style="visibility: visible;"/>
+                                <p class="active" style="visibility:hidden; display:none;" id="LOLLogo">
+                                    <i class="fi-check"/>
+                                </p> 
+                                <span>
+                                    <apex:image url="{!URLFOR($Resource.EMSHtmlStyle, 'images/landOlakes-logo.jpg')}"/>
+                                </span>
+                            </div>
+                            <div class="iconInput" style="display:none;">
+                                <span title="The name of the company you are employed by." rel="tooltip" class="iconDefault">i</span>   
+                                <apex:inputText html-placeholder="COMPANY - REQUIRED" id="lol-company" value="{!company}" style="margin-bottom: 0px;" />
+                            </div>
+                        </div>  
+                    </div>
+                    <div class="row ORCss">
+                        <div class="large-12 medium-12 small-12 text-center columns">
+                            <h5>OR</h5>
+                        </div>
+                    </div>
+                    <div class="row logoCSSHideShow companyContainer DairyCSS">
+                        <div class="large-12 medium-12 small-12 columns" style="margin-top: -10px;margin-bottom: 25px;">  
+                            <h5>Forage Genetics International</h5> 
+                            <div class="company-logo" style="margin-bottom: 5px;margin-top: 0;">
+                                <div class="non-active" style="visibility: visible;"/>
+                                <p class="active" style="visibility:hidden; display:none;" id="FGILogo">
+                                    <i class="fi-check"/>
+                                </p> 
+                                <span>
+                                    <apex:image url="{!URLFOR($Resource.EMSHtmlStyleNew, 'images/Forage-Genetics-International-Logo.png')}"/>
+                                </span>
+                            </div>
+                            <div class="iconInput" style="display:none;">
+                                <span title="{!$Label.The_name_of_the_Company}" 
+                                      rel="tooltip" style="display:none;" class="iconDefault">i</span>
+                                <apex:inputText styleClass="FgiManagerClass" html-placeholder="COMPANY NAME" id="fgiCompany" value="{!fgiCompany}" style="margin-top:3px;margin-bottom: 0px;" />
+                            </div>
+                            <div class="iconInput" style="display:none;">
+                                <span title="{!$Label.The_city_of_the_Company}" rel="tooltip" class="iconDefault">i</span>   
+                                <apex:inputText styleClass="FgiManagerClass" html-placeholder="COMPANY CITY" id="fgiCompanyCity" value="{!fgiCompanyCity}" style="margin-top:3px;margin-bottom: 0px;" />
+                            </div>
+                            <div class="iconInput" style="display:none;">
+                                <span title="{!$Label.The_state_of_the_Company}" rel="tooltip" class="iconDefault">i</span>   
+                                <apex:inputText styleClass="FgiManagerClass" html-placeholder="COMPANY STATE" id="fgiCompanyState" value="{!fgiCompanyState}" style="margin-top:3px;margin-bottom: 0px;" />
+                            </div>
+                            <div class="iconInput" style="display:none;margin-top: 10px;margin-bottom: 10px;">
+                                <span class="ORClass" style="display:none;width: 26px;height: 26px;color: black;text-align: center;font-weight: bold;">OR</span>
+                            </div>
+                            <div class="iconInput" style="display:none;margin-top: -10px;">
+                                <span title="{!$Label.The_name_of_the_Licensee}" rel="tooltip" class="iconDefault">i</span>   
+                                <apex:inputText styleClass="FgiRetailerClass" html-placeholder="LICENSEE NAME" id="fgiLicensee" value="{!fgiLicensee}" style="margin-top:3px;margin-bottom: 0px;" />
+                            </div>
+                            <div class="iconInput" style="display:none;">
+                                <span title="{!$Label.The_city_of_the_Licensee}" rel="tooltip" class="iconDefault">i</span>   
+                                <apex:inputText styleClass="FgiRetailerClass" html-placeholder="LICENSEE CITY" id="fgiLicenseeCity" value="{!fgiLicenseeCity}" style="margin-top:3px;margin-top:3px;margin-bottom: 0px;" />
+                            </div>
+                            <div class="iconInput" style="display:none;">
+                                <span title="{!$Label.The_state_of_the_Licensee}" rel="tooltip" class="iconDefault">i</span>   
+                                <apex:inputText styleClass="FgiRetailerClass" html-placeholder="LICENSEE STATE" id="fgiLicenseeState" value="{!fgiLicenseeState}" style="margin-top:3px;margin-bottom: 0px;" />
+                            </div>
+                        </div>  
+                    </div>
+                </div>
+            </div>
+            
+            <div class="row large-12 form-bg step" style="display:none;padding:1%;" id="formData">
+                <div class="row">
+                    <div class="large-12 medium-12 small-12 text-center columns left stepsBoxes">
+                        <span class="stepsBox disable" style="border:2px rgb(38, 55, 71) solid;color:rgb(38, 55, 71);">1</span>   
+                        <span class="stepsBox" style="border:2px rgb(38, 55, 71) solid;color:rgb(38, 55, 71);">2</span>
+                        <span class="stepsBox disable" style="border:2px rgb(38, 55, 71) solid;color:rgb(38, 55, 71);">3</span>
+                        <span class="stepsBox disable" style="border:2px rgb(38, 55, 71) solid;color:rgb(38, 55, 71);">4</span>
+                    </div>
+                </div>
+                <div style="padding: 1% 0;">
+                    <div class="left large-6 medium-6 small-12 columns">
+                        <div class="row collapse prefix-radius">
+                            <div class="large-12 medium-12 small-12 columns">
+                                <div class="large-4 medium-4 small-12 columns">
+                                    <span class="prefix"><strong>First Name</strong><span class="red-star"><em>*</em></span></span>
+                                </div>
+                                <div class="large-8 medium-8 small-12 columns">  
+                                    <apex:inputText id="firstName" value="{!firstName}"/>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row collapse prefix-radius">
+                            <div class="large-12 medium-12 small-12 columns">                            
+                                <div class="large-4 medium-4 small-12 columns">
+                                    <span class="prefix"><strong>Last Name</strong><span class="red-star"><em>*</em></span></span>
+                                </div>
+                                <div class="large-8 medium-8 small-12 columns">
+                                    <apex:inputText id="lastName" value="{!lastName}"/>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row collapse prefix-radius">
+                            <div class="large-12 medium-12 small-12 columns">
+                                <div class="large-4 medium-4 small-12 columns">
+                                    <span class="prefix"><strong>Email</strong><span class="red-star"><em>*</em></span></span>
+                                </div>
+                                <div class="large-8 medium-8 small-12 columns">
+                                    <apex:inputText id="email" value="{!email}"/>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row collapse prefix-radius">
+                            <div class="large-12 medium-12 small-12 columns">
+                                <div class="large-4 medium-4 small-12 columns">
+                                    <span class="prefix"><strong>Phone</strong><span class="red-star"><em>*</em></span></span>
+                                </div>
+                                <div class="large-8 medium-8 small-12 columns">
+                                    <apex:inputText id="phone" value="{!primaryPhone}"/>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row collapse prefix-radius">
+                            <div class="large-12 medium-12 small-12 columns">
+                                <div class="large-4 medium-4 small-12 columns">
+                                    <span class="prefix"><strong>I Am</strong><span class="red-star"><em>*</em></span></span>
+                                </div>
+                                <div class="large-7 medium-7 small-10 columns">
+                                    <apex:selectList value="{!jobClassification}" multiselect="false" size="1" id="selectJobClassification">
+                                        <apex:selectOptions value="{!items}"/>
+                                    </apex:selectList>
+                                </div>
+                                <div class="large-1 medium-1 small-2 columns" style="padding: 1% 0%;">
+                                    <span class="iconDefault" id="roleInfo">i</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="right large-6 medium-6 small-12 columns" id="branding" style="display:none;">
+                        <div class="row collapse prefix-radius">
+                            <div class="large-12 medium-12 small-12 columns">
+                                <div class="large-12 medium-12 small-12 columns">
+                                    <span class="prefix"><strong>Select your brand(s) to report or materials for marketing</strong></span>
+                                </div>
+                            </div>                            
+                            <div class="row collapse prefix-radius">
+                                <div class="large-12 medium-12 small-12 columns" style="background-color: #f2f2f2;">                                    
+                                    <div class="large-10 medium-10 small-12 columns" style="padding-left: 29px; margin-top: 3px;">
+                                        <label for="brand1">
+                                            <span><strong>{!$Label.brand1}</strong></span>
+                                        </label>   
+                                    </div>
+                                    <div class="large-2 medium-2 small-12 columns" style="padding-left: 40px;padding-top: 1px;padding-bottom: 1px;">
+                                        <apex:inputCheckbox id="Checkbox1" styleClass="fi-check" value="{!brand1}" style="height: 19px;"/>
+                                    </div>                                
+                                </div>
+                            </div>
+                            <div class="row collapse prefix-radius">
+                                <div class="large-12 medium-12 small-12 columns" style="background-color: #f2f2f2;">                                    
+                                    <div class="large-10 medium-10 small-12 columns" style="padding-left: 29px;">
+                                        <label for="brand2">
+                                            <span><strong>{!$Label.brand2}</strong></span>
+                                        </label>   
+                                    </div> 
+                                    <div class="large-2 medium-2 small-12 columns" style="padding-left: 40px;padding-top: 1px;padding-bottom: 1px;">
+                                        <apex:inputCheckbox id="Checkbox2" styleClass="fi-check" value="{!brand2}" style="height: 19px;"/>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row collapse prefix-radius" >
+                                <div class="large-12 medium-12 small-12 columns" style="background-color: #f2f2f2;">
+                                    <div class="large-10 medium-10 small-12 columns" style="padding-left: 29px;">
+                                        <label for="brand3">
+                                            <span><strong>{!$Label.brand3}</strong></span>
+                                        </label>   
+                                    </div> 
+                                    <div class="large-2 medium-2 small-12 columns" style="padding-left: 40px;height: 31px;padding-top: 1px;padding-bottom: 1px;">
+                                        <apex:inputCheckbox id="Checkbox3" styleClass="fi-check" value="{!brand3}" style="height: 19px;"/>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="right large-6 medium-6 small-12 columns" id="managersInfo" style="display:none;">
+                        <div class="row collapse prefix-radius">
+                            <div class="large-12 medium-12 small-12 columns">
+                                <div class="large-4 medium-4 small-12 columns">
+                                    <span class="prefix"><strong>Manager's Name</strong><span class="red-star"><em>*</em></span></span>
+                                </div>
+                                <div class="large-8 medium-8 small-12 columns">
+                                    <apex:inputText id="managerName" value="{!managerName}"/>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row collapse prefix-radius">
+                            <div class="large-12 medium-12 small-12 columns">
+                                <div class="large-4 medium-4 small-12 columns">
+                                    <span class="prefix"><strong>Manager's Phone</strong><span class="red-star"><em>*</em></span></span>
+                                </div>                                
+                                <div class="large-8 medium-8 small-12 columns">
+                                    <apex:inputText id="managerPhone" value="{!managerPhone}"/>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row collapse prefix-radius">
+                            <div class="large-12 medium-12 small-12 columns">
+                                <div class="large-4 medium-4 small-12 columns">
+                                    <span class="prefix"><strong>Manager's Email</strong><span class="red-star"><em>*</em></span></span>
+                                </div>
+                                <div class="large-8 medium-8 small-12 columns">
+                                    <apex:inputText id="managerEmail" value="{!managerEmail}"/>
+                                </div>
+                            </div>
+                        </div>
+                    </div>                    
+                </div>
+            </div>
+            
+            <div class="row large-12 stripe-bg step" style="display:none;" id="credentials">
+                <div class="row">
+                    <div class="large-12 text-center columns left stepsBoxes">
+                        <span class="stepsBox disable" style="border:2px rgb(38, 55, 71) solid;color:rgb(38, 55, 71);">1</span>   
+                        <span class="stepsBox disable" style="border:2px rgb(38, 55, 71) solid;color:rgb(38, 55, 71);">2</span>
+                        <span class="stepsBox" style="border:2px rgb(38, 55, 71) solid;color:rgb(38, 55, 71);">3</span>
+                        <span class="stepsBox disable" style="border:2px rgb(38, 55, 71) solid;color:rgb(38, 55, 71);">4</span>
+                    </div>
+                </div>
+                <div class="large-12 medium-12 small-12 columns">
+                    <div class="large-6 medium-12 small-12 columns">
+                        <div class="row collapse prefix-radius">
+                            <div class="large-12 medium-12 small-12 columns">
+                                <div class="large-4 medium-5 small-12 columns">
+                                    <span class="prefix"><strong>Password</strong><span class="red-star"><em>*</em></span></span>
+                                </div>
+                                <div class="large-8 medium-7 small-12 columns">  
+                                    <apex:inputSecret id="password" value="{!password}"/>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row collapse prefix-radius">
+                            <div class="large-12 medium-12 small-12 columns">
+                                <div class="large-4 medium-5 small-12 columns">
+                                    <span class="prefix"><strong>Confirm Password</strong><span class="red-star"><em>*</em></span></span>
+                                </div>
+                                <div class="large-8 medium-7 small-12 columns">  
+                                    <apex:inputSecret id="confirmPassword" value="{!confirmPassword}"/>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="large-6 medium-12 small-12 columns">
+                        <div class="large-12 medium-12 small-12 columns">   
+                            <ul><em><strong>Must Include:</strong></em>
+                                <li>Length between 8-32 characters (no spaces)</li>
+                            </ul>
+                            <ol><em><strong>Must Include Following:</strong></em>
+                                <li>At least one Alphabet (A-Z, a-z)</li>
+                                <li>At least one number (0-9)</li>
+                                <li>At least one special character ($@$!%*#?&amp;)</li>
+                            </ol>
+                        </div> 
+                    </div>
+                </div>
+            </div>
+            <div class="large-12 medium-12 small-12 columns left step" style="display:none;" id="captha">
+                <div class="row">
+                    <div class="large-12 medium-12 small-12 text-center columns left stepsBoxes">
+                        <span class="stepsBox disable" style="border:2px rgb(38, 55, 71) solid;color:rgb(38, 55, 71);">1</span>   
+                        <span class="stepsBox disable" style="border:2px rgb(38, 55, 71) solid;color:rgb(38, 55, 71);">2</span>
+                        <span class="stepsBox disable" style="border:2px rgb(38, 55, 71) solid;color:rgb(38, 55, 71);">3</span>
+                        <span class="stepsBox" style="border:2px rgb(38, 55, 71) solid;color:rgb(38, 55, 71);">4</span>
+                    </div>
+                </div>
+                <div class="row" id="agreementDiv" style="display:none;">
+                    <div style="padding: 2%;" class="large-12 large-centered medium-6 medium-centerd small-12 small-centered columns captchaCss">
+                        <div class="clearfix">
+                            <div  class="large-1 medium-1 small-12 columns">
+                                <apex:inputCheckbox id="agTechCheckbox" value="{!isAgThAgreement}" styleClass="fi-check"/>
+                            </div>
+                            <div  class="large-7 medium-7 small-12 columns">
+                                <label for="agTechCheckbox">{!$Label.AgTechAgreement}
+                                </label>
+                            </div>
+                            <div  class="large-4 medium-4 small-12 columns">
+                                <a id="agTechPDF" href="#"><b class="ReadAgreementCSS">Read the full agreement.</b></a>
+                            </div>
+                        </div>                        
+                    </div> 
+                </div>
+                <div id="spaceDiv" style="display: none;">
+                    <br/>
+                </div>                
+                <div class="row">
+                    <div style="padding: 2%;" class="large-12 large-centered medium-6 medium-centerd small-12 small-centered columns captchaCss">
+                        <label class="checkboxError text-center" for="tickCheckbox">Please tick the checkbox</label>
+                        <div class="clearfix">
+                            <div  class="large-1 medium-1 small-12 columns">
+                                <input id="robotCheckbox" type="checkbox" name="robotCheckbox" class="fi-check"/>
+                            </div>
+                            <div  class="large-7 medium-7 small-12 columns">
+                                <label for="robotCheckbox">By checking the box to the left, I acknowledge the information that I have provided for getting access to Business Link/ applications are true</label>
+                            </div>
+                            <div class="large-4 medium-4 small-12 columns"> 
+                                <apex:image url="{!URLFOR($Resource.EMSHtmlStyleNew, 'images/captcha.jpg')}"/> 
+                                <span>reCAPTCHA</span>
+                                <span>Privacy-Terms</span>
+                            </div>                            
+                        </div>
+                        <div style="padding-top: 2%;" class="large-12 medium-12 small-12 columns text-center formButtons">
+                            <apex:commandButton styleClass="button" action="{!registerUser}" value="REGISTER" id="register"/>
+                            <input type="submit" class="button" value="CANCEL" id="cancelButton" html-formnovalidate="formnovalidate"/>
+                        </div>
+                    </div> 
+                </div>
+            </div>
+            <div class="large-12 medium-12 small-12 columns left not" id="steps">
+                <div class="row">
+                    <input type="button" value="Back" class="button left" style="display:none;"/>
+                    <input type="button" value="Continue to step " class="button right opacityFive" disabled="disabled"/>
+                </div>
+            </div>
+        </apex:form>
+    </section>
+    <footer style="clear: both;">
+        <c:LogoFooterBar />
+    </footer>
+    <style>
+        .divModal{background: #eee none repeat scroll 0 0;border-radius:5px;padding: 3%;}
+    </style>
+    <div id="step0" class="reveal-modal divModal">
+        <h1>Business Unit Help Content:</h1>
+        <h3>Winfield Customer Number:</h3>
+        <li>Customer number is presented on your invoices. Refer to the upper right hand corner of the document.</li>
+        <h3>Purina Account Number:</h3>
+        <li>Account number is presented on your invoices. Refer to the upper right hand corner of the document.</li>
+        <h3>Dairy Foods Company:</h3>
+        <li>The name of the company you are employed by.</li>
+        <h3>Corporate Farm ID or PAES ID:</h3>
+        <li>Member Number.</li>        
+        <h3>Corporate Farm or Co-op Name:</h3>
+        <li>Business name affiliated with Land O'Lakes</li>  
+        <a class="close-reveal-modal">&#215;</a>
+    </div>
+    <div id="step1" class="reveal-modal divModal">
+        <h1>Step 2</h1>
+        <p><li>Fill out personal information.</li>
+            <li>If you are unsure of your role, please select the information icon (i) for further role definition.</li></p>
+        <a class="close-reveal-modal">&#215;</a>
+    </div>
+    <div id="step2" class="reveal-modal divModal">
+        <h1>Step 3</h1>
+        <p><li>Creates your own password.</li>
+            <li>Your password must meet the requirements displayed.</li></p>
+        <a class="close-reveal-modal">&#215;</a>
+    </div>
+    <div id="step3" class="reveal-modal divModal">
+        <h1>Step 4</h1>
+        <p><li>Validate that you are not a robot</li>
+            <li>Click 'REGISTER' </li></p>
+        <a class="close-reveal-modal">&#215;</a>
+    </div>
+    <div id="roleInfoDiv" class="reveal-modal divModal">
+        <a class="close-reveal-modal">&#215;</a>
+    </div>
+    <div id="agreementPDF" class="reveal-modal divModal">
+        <iframe width="100%" height="500px" src="{!agTechPDFUrl}"></iframe>
+        <a class="close-reveal-modal">&#215;</a>
+    </div>
+</apex:page>

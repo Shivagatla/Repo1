@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<EmailTemplate xmlns="http://soap.sforce.com/2006/04/metadata">
+    <available>true</available>
+    <encodingKey>ISO-8859-1</encodingKey>
+    <letterhead>Internal_Letterhead</letterhead>
+    <name>EMS: Email Verification for New Users</name>
+    <style>freeForm</style>
+    <subject>{!IF(Receiving_User.Profile=&apos;EMS External User&apos;,&quot;Please verify your email for the Land O Lakes/Winfield/Purina/Dairy/FGI Customer Portal&quot;,&quot;Access to Salesforce EMS granted&quot;)}</subject>
+    <textOnly>Hi {!Receiving_User.FirstName},
+
+
+
+{!IF(Receiving_User.Profile=&apos;EMS External User&apos;,&quot;Thank you for registering for BusinessLink. Your registration is almost complete, the last step is to verify your email address.&quot;,&quot;&quot;)}
+
+
+
+{!IF(Receiving_User.Profile=&apos;EMS External User&apos;,&quot;To complete your final step for Business Link registration either click on the link below or copy and paste the link directly into your browser.&quot;,&quot;&quot;)}
+
+
+
+{!IF(Receiving_User.Profile=&apos;EMS External User&apos;,&quot;Please verify yourself at:&quot;,&quot;&quot;)}
+
+
+
+{!IF(Receiving_User.Profile=&apos;EMS External User&apos;, $Label.Community_URL+&quot;EMSVerification?uid=&quot;+Receiving_User.Username+&quot;&amp;em=&quot;+Receiving_User.Email+&quot;&amp;key=&quot;+Receiving_User.Verify_Hash__c,&quot;&quot;)}
+
+
+
+{!IF(Receiving_User.Profile=&apos;EMS External User&apos;,&quot;After verification, your registration will be reviewed and access to the Business Link portal will be granted and ID sent in an email.&quot;,&quot;&quot;)}
+
+
+
+{!IF(Receiving_User.Profile=&apos;EMS External User&apos;,&quot;&quot;,&quot;You should have access to Salesforce EMS within My Links on your default portal.&quot;)}
+
+
+
+Sincerely,
+
+Business Link</textOnly>
+    <type>html</type>
+</EmailTemplate>

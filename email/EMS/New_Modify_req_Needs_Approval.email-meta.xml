@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<EmailTemplate xmlns="http://soap.sforce.com/2006/04/metadata">
+    <available>true</available>
+    <description>Notify Access Approver of a pending modify access request</description>
+    <encodingKey>ISO-8859-1</encodingKey>
+    <letterhead>Internal_Letterhead</letterhead>
+    <name>New Modify Request Needs Approval</name>
+    <style>freeForm</style>
+    <subject>[EMS] New Modify Access Request needs approval - {!UserProvisioningRequest.AppName}</subject>
+    <textOnly>A new access request needs your attention.
+
+Request Details:
+Application: {!UserProvisioningRequest.AppName}
+User: {!UserProvisioningRequest.ExternalUserId}
+Ag2Ag ID:{!User.Ag2Ag_ID__c}
+Action: {!UserProvisioningRequest.Operation}
+User Reason: {!UserProvisioningRequest.User_Reason__c}
+Other Request Information: {!UserProvisioningRequest.Other_Details__c}
+
+Please click here to review the details:
+https://landolakesinc.force.com/ems/{!UserProvisioningRequest.Id}</textOnly>
+    <type>html</type>
+</EmailTemplate>

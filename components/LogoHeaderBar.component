@@ -1,0 +1,24 @@
+<apex:component >
+    <style>
+        .top-blue-bar {background-color:#29383d;text-align:right;font-size:.8rem;padding:.5rem 0;}
+        .green-line {height: 5px;background-color: #669933;}
+        .blue-bar{background-color:#29383d;}
+    </style>
+    <!-- Attribute Definitions -->
+    <apex:attribute name="headerName" description="This is the name of the page as per the functionality" type="String" required="true"/>
+    <div class="row"> 
+        <div class="large-12 medium-12 small-12">
+            <div class="top-blue-bar">
+            </div>   
+        </div>
+        <div class="green-line"></div>            
+        <div class="clearfix blue-bar">
+            <div class="large-8 medium-6 small-6 columns" style="padding: 0;">                            
+                <apex:image style="cursor:pointer;" url="{!URLFOR($Resource.EMSHtmlStyleNew, 'images/header-logo.jpg')}"/>
+            </div>
+            <div class="large-4 medium-6 small-6 columns" style="text-align:right;padding: 1%;">
+                <h4 style="color: #eee;"><strong>{!headerName}</strong></h4>
+            </div>
+        </div>   
+    </div>
+</apex:component>

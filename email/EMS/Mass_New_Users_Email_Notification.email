@@ -1,0 +1,24 @@
+<table border="0" cellpadding="5" width="550" cellspacing="5" height="400" >
+<tr valign="top" height="400" >
+<td tEditID="c1r1" style=" background-color:#FFFFFF; bEditID:r3st1; color:#000000; bLabel:main; font-size:12pt; font-family:arial;" aEditID="c1r1" locked="1" >
+<![CDATA[<span style="color: rgb(0, 0, 0); font-family: &quot;Book Antiqua&quot;, serif; font-size: 12pt;">Hi&nbsp;</span><font style="color: rgb(0, 0, 0); font-family: arial; font-size: 12pt;" face="Book Antiqua, serif" color="#44546a">{!userName},</font><div style="color: rgb(0, 0, 0); font-family: arial; font-size: 12pt;"><font face="Book Antiqua, serif" color="#44546a"><br></font></div><div style="color: rgb(0, 0, 0); font-family: arial; font-size: 12pt;"><span style="color: rgb(0, 0, 0); font-family: &quot;Book Antiqua&quot;, serif; font-size: 12pt;">Thank you for registering for business link</span><span style="color: rgb(0, 0, 0); font-family: &quot;Book Antiqua&quot;, serif; font-size: 12pt;">. Your registration is almost complete</span><span style="color: rgb(68, 84, 106); font-family: &quot;Book Antiqua&quot;, serif; font-size: 12pt;">.</span></div><div style="color: rgb(0, 0, 0); font-family: arial; font-size: 12pt;"><span style="color: rgb(68, 84, 106); font-family: &quot;Book Antiqua&quot;, serif; font-size: 12pt;"><br></span></div><div style="color: rgb(0, 0, 0); font-family: arial; font-size: 12pt;"><span style="color: rgb(0, 0, 0); font-family: &quot;Book Antiqua&quot;, serif; font-size: 12pt;">Your user ID/UserName is: {!userId}</span></div><div style="color: rgb(0, 0, 0); font-family: arial; font-size: 12pt;"><span style="font-family: &quot;Book Antiqua&quot;, serif; font-size: 12pt;"><br></span></div><div><p class="MsoNormal" style="color: rgb(0, 0, 0); font-family: arial; font-size: 12pt;"><span style="font-family: &quot;Book Antiqua&quot;,serif;">After
+resetting the password, you will be authorized to
+have access to your applications. <o:p></o:p></span></p><br><p style="color: rgb(0, 0, 0); font-family: arial; font-size: 12pt;"><b><u><span style="font-family: &quot;Book Antiqua&quot;, serif;">Pleas</span></u></b><b><u><span style="color: rgb(68, 84, 106); font-family: &quot;Book Antiqua&quot;,serif;">e </span></u></b><b><u><span style="font-family: &quot;Book Antiqua&quot;,serif;">Reset your password at:&nbsp;<o:p></o:p></span></u></b></p><p style="color: rgb(0, 0, 0); font-family: arial; font-size: 12pt;"><b><u><span style="font-family: &quot;Book Antiqua&quot;,serif;"><br></span></u></b></p><p class="MsoNormal" style="color: rgb(0, 0, 0); font-family: arial; font-size: 12pt;">{!<span style="font-size: 12pt;">resetUrl</span><span style="font-size: 12pt;">}</span></p>
+
+<p class="MsoNormal" style="color: rgb(0, 0, 0); font-family: arial; font-size: 12pt;"><span style="font-family: &quot;Book Antiqua&quot;, serif;"><br></span></p><p class="MsoNormal">Please log into the application at the Business Link portal.
+</p>
+
+<p class="MsoNormal" style="color: rgb(0, 0, 0); font-family: arial; font-size: 12pt;"><span style="font-family: &quot;Book Antiqua&quot;, serif;">&nbsp;</span></p>
+
+<p class="MsoNormal" style="color: rgb(0, 0, 0); font-family: arial; font-size: 12pt;"><span style="font-family: &quot;Book Antiqua&quot;, serif;">If
+you have any questions or concerns, please call us toll free at 1-866-270-4706
+or email at <a href="mailto:websitesupport@landolakes.com">websitesupport@landolakes.com</a>.
+Thank you for your business and we look forward to serving you in the future.<o:p></o:p></span></p>
+
+<p class="MsoNormal" style="color: rgb(0, 0, 0); font-family: arial; font-size: 12pt;"><span style="font-family: &quot;Book Antiqua&quot;, serif; font-size: 12pt;"><br></span></p>
+
+<p class="MsoNormal" style="color: rgb(0, 0, 0); font-family: arial; font-size: 12pt;"><span style="font-family: &quot;Book Antiqua&quot;, serif;">Sincerely,<o:p></o:p></span></p>
+
+<span style="color: rgb(0, 0, 0); font-family: &quot;Book Antiqua&quot;, serif; font-size: 12pt;">Business Link</span></div>]]></td>
+</tr>
+</table>

@@ -1,0 +1,140 @@
+<apex:page controller="EMSUPRController" showHeader="false" sidebar="false">
+
+
+
+<script>
+ function openLookup(baseURL, width, modified, searchParam){
+    var originalbaseURL = baseURL;
+    var originalwidth = width;
+    var originalmodified = modified;
+    var originalsearchParam = searchParam;
+
+    var lookupType = baseURL.substr(baseURL.length-3, 3);
+    if (modified == '1') baseURL = baseURL + searchParam;
+
+    var isCustomLookup = false;
+
+    // Following "001" is the lookup type for Account object so change this as per your standard or custom object
+    if(lookupType == "001"){
+
+      var urlArr = baseURL.split("&");
+      var txtId = '';
+      if(urlArr.length > 2) {
+        urlArr = urlArr[1].split('=');
+        txtId = urlArr[1];
+      }
+
+      // Following is the url of Custom Lookup page. You need to change that accordingly
+      baseURL = "{!$Site.Prefix}/apex/CustomAccountLookup?txt=" + txtId;
+
+      // Following is the id of apex:form control "myForm". You need to change that accordingly
+      baseURL = baseURL + "&frm=" + escapeUTF("{!$Component.myForm}");
+      if (modified == '1') {
+         baseURL = baseURL + "&lksearch=" + searchParam + "&appId=" + "{!upr.ConnectedAppId}"+"&userId="+"{!upr.SalesforceUserId}";
+      }
+
+      // Following is the ID of inputField that is the lookup to be customized as custom lookup
+      if(txtId.indexOf('Account') > -1 ){
+        isCustomLookup = true;
+      }
+    }
+
+
+    if(isCustomLookup == true){
+      openPopup(baseURL, "lookup", 350, 480, "width="+width+",height=480,toolbar=no,status=no,directories=no,menubar=no,resizable=yes,scrollable=no", true);
+    }
+    else {
+      if (modified == '1') originalbaseURL = originalbaseURL + originalsearchParam;
+      openPopup(originalbaseURL, "lookup", 350, 480, "width="+originalwidth+",height=480,toolbar=no,status=no,directories=no,menubar=no,resizable=yes,scrollable=no", true);
+    } 
+  }
+</script>
+ 
+        <script>
+        j$ = jQuery.noConflict();
+        j$(document).ready( function () {
+            var contactTable3 = j$('[id$="contacttable3"]').DataTable({
+             
+                order: [[1, 'asc']],sDom: 'rtlip', pageLength:10,bLengthChange:false,"autoWidth" : true,
+                 "language": {
+                    "emptyTable": "All accounts in the hierarchy are added.  To add more non-hierarchy accounts, use the search feature above.",
+                    "zeroRecords": "All accounts in the hierarchy are added.  To add more non-hierarchy accounts, use the search feature above."
+                },
+                initComplete: function() {
+                    
+                }
+            });
+          
+
+        });
+        j$('#contacttable3 div.title').text("Account Entitlements");
+        </script>
+         <script>
+         function drawTables3(){
+            var contacttable3 = j$('[id$="contacttable3"]').DataTable({
+                order: [[1, 'asc']],sDom: 'rtp', pageLength:10,bLengthChange:false,"autoWidth" : true,
+                "language": {
+                    "emptyTable": "All accounts in the hierarchy are added.  To add more non-hierarchy accounts, use the search feature above.",
+                    "zeroRecords": "All accounts in the hierarchy are added.  To add more non-hierarchy accounts, use the search feature above."
+                },
+                "destroy" : true,
+                initComplete: function() {
+                   
+                }
+            });
+            
+            contacttable3.columns.adjust().draw(); // Redraw the DataTable
+  
+            
+        }
+        
+        </script>
+<apex:form >
+<apex:pageBlockSection title="Add Non-Hierarchy Account" >
+<apex:inputField value="{!newContact.AccountId}"/>
+ <apex:commandButton value="Add Account To Request" action="{!addAccount}"  reRender="tblData,accountmessages" oncomplete="drawTables()"/>
+
+</apex:pageBlockSection> 
+<apex:pageBlockSection id="addaccountform" columns="1">
+
+
+
+ <apex:commandButton value="Close" onClick="dialog.hide()" oncomplete="RefreshPrimaryTab('{!$Site.Prefix}','{!upr.id}'); return true;" id="accountclose" />
+ </apex:pageBlockSection> 
+ <apex:pageBlockSection id="accountmessages">
+  <apex:outputText value="{!message}" style="color:red;"/> 
+ </apex:pageBlockSection>
+<apex:outputPanel id="tblData3" title="Hierarchy Accounts"> 
+<div class="title" />
+  <table id="contacttable3" class="display" style="padding: 1% 0px;">
+                    <thead >
+                        <tr>
+                            <th></th>
+                            <th>Entitlement Type</th>
+                            <th>Entitlement Name</th>
+                            <th>Entitlement Information</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <apex:repeat value="{!allAccts}" var="item">
+                            <tr>
+                                <td> <div class="x-grid3-cell-inner x-grid3-col-ACTION_COLUMN" id="0015500000CBKy2_ACTION_COLUMN">
+                                        <apex:commandLink action="{!addEntitlement}"  rendered="{!$Permission.canUpdateRequests && !isApproved}" reRender="tblData,tblData3,accountmessages" oncomplete="drawTables3();" >
+                                            <apex:param value="{!item.objid}" name="entToAdd" assignTo="{!entToAdd}"/>
+                                            <span>Add To Request</span></apex:commandLink>
+                                    </div> 
+                                </td>
+                                <td>{!item.entType}</td>
+                                <td>{!item.Name}</td>
+                                <td>{!item.Description}</td>
+                            </tr>
+                        </apex:repeat>
+                    </tbody>
+                </table>
+              
+</apex:outputPanel> 
+
+
+</apex:form>
+  
+</apex:page>

@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<EmailTemplate xmlns="http://soap.sforce.com/2006/04/metadata">
+    <available>true</available>
+    <description>New customer registration - review - case assignment notification</description>
+    <encodingKey>ISO-8859-1</encodingKey>
+    <letterhead>Internal_Letterhead</letterhead>
+    <name>New EMS User Review</name>
+    <style>freeForm</style>
+    <subject>[EMS] New Customer Registration - {!Case.Contact}</subject>
+    <textOnly>*** NEW CASE ASSIGNMENT NOTIFICATION ***
+
+The following case has been assigned to you.
+Company:{!Case.Account}
+Contact Name: {!Case.Contact}
+Case #: {!Case.CaseNumber}
+Subject: {!Case.Subject}
+Description: {!Case.Description}
+
+Click on the link to access the case:
+https://landolakesinc.force.com/ems/{!Case.Id}</textOnly>
+    <type>html</type>
+</EmailTemplate>

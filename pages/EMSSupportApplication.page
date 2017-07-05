@@ -1,0 +1,11 @@
+<apex:page showHeader="true" standardStylesheets="false" sidebar="true">
+<h3> EMS Support Page</h3>
+<p/>
+<p/>
+   <apex:tabPanel switchType="client" selectedTab="name2" id="theTabPanel">
+
+    <apex:tab label="Policy Assignment" name="policy" id="tab3"><c:EMSDefaultAssignmentComp /></apex:tab>
+    <apex:tab label="Connected App Migration" name="connectedapp" id="tab4"><c:AppMenuItemComponent /></apex:tab>
+    </apex:tabPanel>
+
+</apex:page>

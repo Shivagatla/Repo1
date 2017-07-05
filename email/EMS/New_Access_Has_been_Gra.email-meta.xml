@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<EmailTemplate xmlns="http://soap.sforce.com/2006/04/metadata">
+    <available>true</available>
+    <description>Sent to a customer after access request has been approved for a particular application</description>
+    <encodingKey>ISO-8859-1</encodingKey>
+    <letterhead>Internal_Letterhead</letterhead>
+    <name>New Access Has been Granted</name>
+    <style>freeForm</style>
+    <subject>Access to {!UserProvisioningRequest.AppName} has been granted to you</subject>
+    <textOnly>Hi {!UserProvisioningRequest.OwnerFirstName},
+
+This email is your notification that you are now authorized to have access to {!UserProvisioningRequest.AppName}. Your user ID is listed below and you must use the password that you had created at the time of registration.
+
+Your user ID is: {!UserProvisioningRequest.ExternalUserId}
+
+{!IF(UserProvisioningRequest.AppBusinessUnit__c = &apos;true&apos;,&quot;Using your ID above, please log into the Business Link Portal, where you initially registered. There, you will find the application under My Links.&quot;,&quot;Please log into the application at: &quot;+UserProvisioningRequest.BusinessLink_URL__c)}
+
+If you have any questions or concerns, please call us toll free at 1-866-270-4706 or email at websitesupport@landolakes.com. Thank you for your business and we look forward to serving you in the future.
+
+Sincerely,
+
+Business Link</textOnly>
+    <type>html</type>
+</EmailTemplate>

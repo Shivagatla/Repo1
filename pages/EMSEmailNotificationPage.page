@@ -1,0 +1,199 @@
+<apex:page sidebar="false" showHeader="false" controller="EMSEmailNotificationPageCtrl">
+    <html>
+        <head>
+            <title>Password and Ag Tech Agreement</title>
+            <!-- Default Foundation css -->
+            <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no"/>
+            <apex:stylesheet value="{!URLFOR($Resource.EMSHtmlStyle, 'css/foundation.css')}"/>
+            <apex:stylesheet value="{!URLFOR($Resource.EMSHtmlStyle, 'css/font-awesome.css')}"/>
+            <apex:stylesheet value="{!URLFOR($Resource.EMSHtmlStyle, 'css/final.css')}"/>
+            
+            <!-- JQuery Library -->
+            <apex:includeScript value="{!URLFOR($Resource.EMSHtmlStyle, 'js/jquery-1.9.1.js')}"/>
+            <apex:includeScript value="{!URLFOR($Resource.EMSHtmlStyle, 'js/customapex.js')}"/>
+            <apex:includeScript value="{!URLFOR($Resource.EMSHtmlStyle, 'js/jquery.validate.min.js')}"/>
+            
+            <!-- Default Foundation javascript -->
+            <apex:includeScript value="{!URLFOR($Resource.EMSHtmlStyle, 'js/foundation.min.js')}"/>
+            <apex:includeScript value="{!URLFOR($Resource.EMSHtmlStyle, 'js/modernizr.js')}"/>
+            
+            <script type="text/javascript">
+            $(document).ready(function() {
+                $(document).foundation();
+                // Ag Tech Agreement PDF.
+                $('#agTechPDF').click(function(){
+                    $('#agreementPDF').foundation('reveal','open');
+                });
+                $('.close-reveal-modal').click(function(){
+                    $(this).parent().hide();
+                    $('.reveal-modal-bg').hide();
+                    $('#agreementPDF').removeClass('open');
+                });
+                //Reset password form.
+                $('[id$=loginForm]').validate();
+                $('[id$=password]').rules("add",{
+                    required: true,
+                    validatePassword: true,
+                    messages:
+                    {
+                        required:"Please enter a password",
+                        validatePassword:"Minimum of 8 characters and can contain Alphabets, numbers and $@$!%*#?&"
+                    }
+                });
+                
+                $('[id$=vpsw]').rules("add",{
+                    required: true,
+                    equalTo: '[id$=password]',
+                    messages:
+                    {
+                        required:"Please re-enter your password.",
+                        equalTo:"Please enter the same password as above."
+                    }
+                });
+                
+                jQuery.validator.addMethod("validatePassword",
+                                           function(value, element) {
+                                               var pattern = new RegExp(/^(?=.*[A-Za-z])(?=.*\d)(?=.*[$@$!%*#?&])[A-Za-z\d$@$!%*#?&]{8,}$/);
+                                               return pattern.test(value);
+                                           });
+            });
+            </script>
+            <style>
+                @media only screen and (max-width: 500px) {
+                    .headerCSS{width: inherit;text-align: center;font-size: large;margin-left: -15px;font-weight: bold;}
+                    .headerDivCSS{margin-top:60px;margin-bottom:30px;padding-right:0;}
+                }
+                @media only screen and (min-width: 500px) {
+                    .headerCSS{width: inherit;text-align: center;font-size: x-large;margin-left: -15px;font-weight: bold;}
+                    .headerDivCSS{margin-top:40px;padding-right:0;}
+                }
+                .ReadAgreementCSS {text-align: center;color: #fff;padding: 15px;background: #008cba;border: 3px solid #008cba;border-radius: 10px;display: table-cell;vertical-align: middle;}
+                .activeTab {background-color: #236FBD; color:white; background-image:none}
+                .inactiveTab { background-color: lightgrey; color:black; background-image:none}
+                .showDiv{display: block;}
+                .hideDiv{display: none;}
+            </style>
+        </head>
+        <body>
+            <header> 
+                <!-- Header Logo -->
+                <div class="top-blue-bar">
+                    <div class="row"> 
+                        <div class = "large-12 columns right" style="height: 40px;"></div>
+                    </div>
+                </div>
+                <div class="green-line" style="height: 20px;"></div>
+                <div class="row"> 
+                    <div class="large-12 columns">
+                        <h1 class = "logoTop">                            
+                            <apex:image style="cursor:pointer;" styleClass="headerLogo" url="{!URLFOR($Resource.EMSHtmlStyle, 'images/header-logo.jpg')}"/>
+                        </h1>
+                    </div>
+                </div>
+                
+                <!-- Header Text -->
+                <div class="row"> 
+                    <div class = "large-12 medium-12 small-12 columns">
+                        <div class="large-12 medium-12 small-12 columns right headerDivCSS"> 
+                            <p class="headerCSS">
+                                <apex:outputPanel rendered="{!isGrower}">Password and Ag Tech Agreement</apex:outputPanel>
+                                <apex:outputPanel rendered="{!!isGrower}">Create Password</apex:outputPanel>
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </header>
+            <section>
+                <apex:pageMessages id="error"/>
+                <apex:outputPanel rendered="{!validToken}">
+                    <apex:form id="loginForm">
+                        <apex:outputPanel rendered="{!(!isSuccess && isGrower)}">
+                            <div class="row">
+                                <div class="large-12 medium-12 small-12 columns left">
+                                    <div class="large-12 columns formBG2" style="margin-top: -25px;margin-bottom: -40px;">
+                                        <div class="clearfix">
+                                            <div  class="large-1 medium-1 small-2 columns" style="padding: 2%;margin-top: 5px;">
+                                                <apex:inputCheckbox id="agTechCheckbox" value="{!isAgThAgreement}" styleClass="fi-check"/>
+                                            </div>
+                                            <div  class="large-7 medium-7 small-10 columns" style="padding: 2%;">
+                                                <label for="agTechCheckbox">{!$Label.AgTechAgreement}
+                                                </label>
+                                            </div>
+                                            <div  class="large-4 medium-4 small-12 columns" style="padding: 2%;margin-top: 5px;text-align: center;">
+                                                <a id="agTechPDF" href="#"><b class="ReadAgreementCSS">Read the full agreement.</b></a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </apex:outputPanel>
+                        <apex:outputPanel rendered="{!!isSuccess}">
+                            <div class="stripe-bg">                            
+                                <div class="row">
+                                    <div class="large-12 medium-12 small-12 columns left">
+                                        <div class="large-12 columns formBG2" style="margin-top: -25px;margin-bottom: -70px;">
+                                            <div class="large-7 columns left">
+                                                <div class="row">
+                                                    <div class = "large-4 columns">
+                                                        <label for="password" class="left">Create a new password*</label>
+                                                    </div>
+                                                    <div class = "large-7 columns left">
+                                                        <apex:inputSecret required="true" id="password" value="{!password}"/>
+                                                    </div>
+                                                </div>
+                                                <div class="row">
+                                                    <div class = "large-4 columns">
+                                                        <label for="vpsw" class="left">Confirm your password*</label>
+                                                    </div>
+                                                    <div class = "large-7 columns left">
+                                                        <apex:inputSecret required="true" id="vpsw" value="{!confirmPassword}"/>
+                                                    </div>
+                                                </div>
+                                                <div class="row">
+                                                    <div class = "large-12 columns required">
+                                                        <p>*Required</p>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="large-5 columns">   
+                                                <p class="passwordMessage">Must Include: 
+                                                    <span>Length between 8-32 characters (no spaces)</span>
+                                                </p>
+                                                <ul class="passwordMessage">Must Include Following: 
+                                                    <li>At least one Alphabet (A-Z, a-z)</li>
+                                                    <li>At least one number (0-9)</li>
+                                                    <li>At least one special character ($@$!%*#?&amp;)</li>
+                                                    <li></li>                                                
+                                                </ul>
+                                            </div>
+                                        </div>                                      
+                                    </div>                                
+                                </div>                            
+                            </div>
+                        </apex:outputPanel>
+                        <apex:outputPanel rendered="{!!isSuccess}">
+                            <div class="large-12 medium-12 small-12 columns text-center formButtons">
+                                <apex:commandButton styleClass="button" id="cpwbtn" action="{!submit}" value="Submit"/>
+                            </div>
+                        </apex:outputPanel>
+                        <apex:outputPanel rendered="{!isSuccess}">
+                            <p style="text-align: center;font-size: x-large;margin-top: 10px;">Your have successfully submitted your response.</p>
+                        </apex:outputPanel>
+                    </apex:form>
+                </apex:outputPanel>
+                <apex:outputPanel rendered="{!!validToken}">
+                    <p style="text-align: center;font-size: x-large;margin-top: 10px;">Sorry - this link has expired. Please contact your bussiness.</p>
+                </apex:outputPanel>
+            </section>
+            <footer>
+                <div class="large-12 columns left text-center">
+                    <p>@2015 Land O'Lakes, Inc. All Rights Reserved</p>
+                </div>
+            </footer>
+        </body>
+    </html>
+    <div id="agreementPDF" class="reveal-modal divModal">
+        <iframe width="100%" height="500px" src="{!agTechPDFUrl}"></iframe>
+        <a class="close-reveal-modal">&#215;</a>
+    </div>
+</apex:page>

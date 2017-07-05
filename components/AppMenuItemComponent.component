@@ -1,0 +1,58 @@
+<apex:component controller="EMSAppMenuItemCntl" allowDML="true">
+<apex:sectionHeader title="Create AppMenuItem/Connected App" />
+<apex:form >
+
+<apex:pageBlock title="" mode="edit" >
+
+<apex:outputLabel style="color:red" value="{!messages}"/>
+<apex:pageBlockButtons location="top">
+
+<apex:commandButton value="Create" action="{!createAppMenuItem}"/>
+<apex:commandButton value="Create Connected Apps" action="{!fixData}"/>
+<apex:commandButton value="Link Connected Apps" action="{!linkData}"/>
+
+
+<apex:commandButton value="Cancel" action="{!cancelAppMenuItem}"/>
+</apex:pageBlockButtons>
+
+<apex:pageBlockSection >
+  <apex:pageBlockSectionItem >
+<font color="blue">This tab supports bulk migration of applications that do not fire triggers.  Typically this tab will only be used during the initial cutover or bulk-loading more than 30 applications at a time.</font>
+</apex:pageBlockSectionItem>
+  <apex:pageBlockSectionItem >
+<b>Legend:</b>
+<p/><font color="green">Create:</font> Creates an appmenuitem with the application name below.
+<p/><font color="green">Create Connected Apps:</font> Creates SF Connected Apps for the Application Catalog entries that do not have one
+<p/><font color="green">Link Connected Apps:</font> This links Application Catalog entries with SF Connected Apps
+
+</apex:pageBlockSectionItem>
+</apex:pageBlockSection>
+
+
+  <apex:pageBlockSection title="Application Information" columns="1">
+              <apex:pageBlockSectionItem >
+
+              <apex:outputLabel value="Application To Create as an AppMenuItem" ></apex:outputLabel>
+
+              <apex:inputText value="{!applicationName}" ></apex:inputText>
+
+              </apex:pageBlockSectionItem>
+
+               <apex:pageBlockSectionItem rendered="{!renderList}">
+
+             <apex:dataList value="{!appToBeCreated}" var="app">
+					<apex:outputText value="{!app.Name}"/>
+
+
+             </apex:dataList>
+
+              </apex:pageBlockSectionItem>
+
+
+</apex:pageBlockSection>
+
+</apex:pageBlock>
+</apex:form>
+
+
+</apex:component>

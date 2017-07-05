@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Flow xmlns="http://soap.sforce.com/2006/04/metadata">
+    <description>This has removal of access and modification of access</description>
+    <label>Generic Provisioning Flow 2.0</label>
+    <processType>UserProvisioningFlow</processType>
+</Flow>
