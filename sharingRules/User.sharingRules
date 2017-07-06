@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<SharingRules xmlns="http://soap.sforce.com/2006/04/metadata">
+    <sharingCriteriaRules>
+        <fullName>All_Users</fullName>
+        <accessLevel>Edit</accessLevel>
+        <label>All Users</label>
+        <sharedTo>
+            <portalRoleAndSubordinates>LandOLakesInternalCustomerUser</portalRoleAndSubordinates>
+        </sharedTo>
+        <criteriaItems>
+            <field>IsActive</field>
+            <operation>equals</operation>
+            <value>True</value>
+        </criteriaItems>
+    </sharingCriteriaRules>
+    <sharingCriteriaRules>
+        <fullName>Any_user</fullName>
+        <accessLevel>Edit</accessLevel>
+        <label>Any user</label>
+        <sharedTo>
+            <portalRole>LandOLakesInternalCustomerUser</portalRole>
+        </sharedTo>
+        <criteriaItems>
+            <field>ProfileId</field>
+            <operation>equals</operation>
+            <value>00e1a000000ZiZf</value>
+        </criteriaItems>
+    </sharingCriteriaRules>
+    <sharingOwnerRules>
+        <fullName>All_user</fullName>
+        <accessLevel>Edit</accessLevel>
+        <label>All user</label>
+        <sharedTo>
+            <portalRole>LandOLakesInternalCustomerUser</portalRole>
+        </sharedTo>
+        <sharedFrom>
+            <allCustomerPortalUsers></allCustomerPortalUsers>
+        </sharedFrom>
+    </sharingOwnerRules>
+    <sharingOwnerRules>
+        <fullName>Internal_can_see_all_users</fullName>
+        <accessLevel>Edit</accessLevel>
+        <label>Internal can see all users</label>
+        <sharedTo>
+            <portalRoleAndSubordinates>LandOLakesInternalCustomerUser</portalRoleAndSubordinates>
+        </sharedTo>
+        <sharedFrom>
+            <allCustomerPortalUsers></allCustomerPortalUsers>
+        </sharedFrom>
+    </sharingOwnerRules>
+    <sharingOwnerRules>
+        <fullName>Internal_can_see_internal_users</fullName>
+        <accessLevel>Edit</accessLevel>
+        <label>Internal can see internal users</label>
+        <sharedTo>
+            <portalRoleAndSubordinates>LandOLakesInternalCustomerUser</portalRoleAndSubordinates>
+        </sharedTo>
+        <sharedFrom>
+            <allInternalUsers></allInternalUsers>
+        </sharedFrom>
+    </sharingOwnerRules>
+</SharingRules>
