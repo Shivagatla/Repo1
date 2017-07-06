@@ -32,12 +32,5 @@
         <name>UPA_Parent__c</name>
         <relationshipLabel><!-- UP Fine Grain Entitlements --></relationshipLabel>
     </fields>
-    <layouts>
-        <layout>Fine-Grained Entitlement Layout</layout>
-        <sections>
-            <label><!-- Custom Links --></label>
-            <section>Custom Links</section>
-        </sections>
-    </layouts>
     <startsWith>Consonant</startsWith>
 </CustomObjectTranslation>

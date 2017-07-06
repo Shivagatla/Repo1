@@ -38,12 +38,5 @@
         <label><!-- Requires Approval --></label>
         <name>Requires_Approval__c</name>
     </fields>
-    <layouts>
-        <layout>Entitlement Layout</layout>
-        <sections>
-            <label><!-- Custom Links --></label>
-            <section>Custom Links</section>
-        </sections>
-    </layouts>
     <startsWith>Vowel</startsWith>
 </CustomObjectTranslation>

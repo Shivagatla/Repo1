@@ -145,12 +145,5 @@
         <label><!-- Requires Validation --></label>
         <name>Requires_Validation__c</name>
     </fields>
-    <layouts>
-        <layout>LoL - Access Policy Rule Layout</layout>
-        <sections>
-            <label><!-- Custom Links --></label>
-            <section>Custom Links</section>
-        </sections>
-    </layouts>
     <startsWith>Vowel</startsWith>
 </CustomObjectTranslation>
