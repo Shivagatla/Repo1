@@ -1,3 +1,0 @@
-<apex:page showHeader="false" standardStyleSheets="false">
-    <c:EMSHeaderComponent />
-</apex:page>

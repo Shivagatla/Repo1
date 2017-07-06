@@ -1,3 +1,0 @@
-<!--mainVFPage-->
-<apex:page id="mainPage" showHeader="false" sidebar="false" controller="EMSMainPageCntrl" standardStylesheets="false" action="{!redir}">
-</apex:page>

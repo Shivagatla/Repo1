@@ -1,7 +1,0 @@
-Hi {!User.FirstName},
-
-Your registration for the Land O'Lakes portal has completed. 
-
-Your login is: {!User.External_Fed_Id__c}
-
-Please log in at: http://www.winfield.com/BusinessLinkLogin
