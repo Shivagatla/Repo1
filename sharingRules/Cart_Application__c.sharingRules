@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<SharingRules xmlns="http://soap.sforce.com/2006/04/metadata">
+    <sharingCriteriaRules>
+        <fullName>All_internal_users</fullName>
+        <accessLevel>Edit</accessLevel>
+        <label>All internal users</label>
+        <sharedTo>
+            <allCustomerPortalUsers></allCustomerPortalUsers>
+        </sharedTo>
+        <criteriaItems>
+            <field>Name</field>
+            <operation>notEqual</operation>
+            <value>null</value>
+        </criteriaItems>
+    </sharingCriteriaRules>
+    <sharingOwnerRules>
+        <fullName>Based_on_Owner_1</fullName>
+        <accessLevel>Edit</accessLevel>
+        <label>Based on Owner 1</label>
+        <sharedTo>
+            <allCustomerPortalUsers></allCustomerPortalUsers>
+        </sharedTo>
+        <sharedFrom>
+            <allInternalUsers></allInternalUsers>
+        </sharedFrom>
+    </sharingOwnerRules>
+    <sharingOwnerRules>
+        <fullName>Based_on_Owner_2</fullName>
+        <accessLevel>Edit</accessLevel>
+        <label>Based on Owner 2</label>
+        <sharedTo>
+            <allCustomerPortalUsers></allCustomerPortalUsers>
+        </sharedTo>
+        <sharedFrom>
+            <allCustomerPortalUsers></allCustomerPortalUsers>
+        </sharedFrom>
+    </sharingOwnerRules>
+</SharingRules>
