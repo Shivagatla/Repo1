@@ -1,0 +1,1 @@
+public virtual class EMSException extends Exception {}

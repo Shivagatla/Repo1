@@ -1,0 +1,236 @@
+<apex:page controller="EMSMyProfileCntrl" showHeader="false" sidebar="false"  standardStylesheets="false" title="EMS | My Profile">
+    <head>
+        <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no"/>
+        <apex:stylesheet value="{!URLFOR($Resource.EMSHtmlStyleNew, 'css/foundation.css')}"/>
+        <apex:stylesheet value="{!URLFOR($Resource.EMSHtmlStyleNew, 'css/finalSteps.css')}"/>
+        <apex:includeScript value="{!URLFOR($Resource.EMSHtmlStyleNew, 'js/jquery-1.9.1.js')}"/>
+        <apex:includeScript value="{!URLFOR($Resource.EMSHtmlStyleNew, 'js/jquery.validate.min.js')}"/>
+        <apex:includeScript value="{!URLFOR($Resource.EMSHtmlStyleNew, 'js/foundation.min.js')}"/>
+        <apex:includeScript value="{!URLFOR($Resource.EMSHtmlStyleNew, 'js/jquery.maskedinput.js')}"/>
+        <style>
+            .buttonCon{padding: 1% 0%;margin-top: 2%;}
+            .infoCon{margin-top: 2%;padding: 4%;}
+        </style>
+        <script>
+        $(document).ready(function(){
+            // role info
+            $('#helpInfo').click(function(){
+                $('#helpinfodiv').foundation('reveal','open');
+            });
+            $('.close-reveal-modal').click(function(){
+                $(this).parent().hide();
+                $('.reveal-modal-bg').hide();
+                $('#helpinfodiv').removeClass('open');
+                $('#appinfodiv').removeClass('open');
+                $('#appinfodiv').find('h1').remove();
+                $('#appinfodiv').find('p').remove();
+            });
+        });
+        </script>
+    </head>
+    <header> 
+        <c:LogoHeaderBar headerName="Your Profile"/>
+        <div class="row">
+            <div class="large-12 medium-12 small-12 columns right" style="padding: 2% 2% 0% 2%;">
+                <span style="float: right;">
+                    <table style="background: #dbe6ee none repeat scroll 0 0;border: medium none;">
+                        <tr>
+                            <apex:outputText rendered="{!isFarmerUser}">
+                                <td class="openAccesses" style="padding-right: 25px;"></td>
+                                <td><a href="/ems/EMSMyAccessPage">My Access</a></td>
+                                <td><span>|</span></td>
+                            </apex:outputText>
+                            <td class="helpCircle" style="padding-right: 25px;"></td>
+                            <td><a href="#" id="helpInfo">Help</a></td>
+                        </tr>
+                    </table>
+                </span>
+            </div>
+        </div>
+    </header>
+    <section>
+        <c:PageMessages />
+        <div class="row">
+            <apex:form id="theForm">
+                <apex:outputPanel id="userDetail">
+                    <div style="background: #eff1f2 none repeat scroll 0 0;">
+                        <div class="large-12 medium-12 small-12">
+                            <apex:pageBlock id="editUserDetail" rendered="{!isEdit}">
+                                <div class="row" id="unique">
+                                    <div class="large-6 medium-12 small-12 columns">
+                                        <div class="large-12 medium-4 small-8 heading columns" style="font-family: inherit;font-size: inherit;font-weight: inherit;">
+                                            USER INFORMATION
+                                        </div>
+                                        <div class="large-12 medium-12 small-12 columns content infoCon">
+                                            <div class="large-12 columns">
+                                                <div class="large-5 medium-6 small-12 columns">
+                                                    <apex:outputLabel value="Your Business Link ID:"/>
+                                                </div>
+                                                <div class="large-7 medium-6 small-12 columns">
+                                                    <apex:outputField id="detailusername" value="{!user.External_Fed_Id__c}"/>
+                                                </div>
+                                            </div>
+                                            <div class="large-12 columns">
+                                                <div class="large-3 medium-6 small-12 columns">
+                                                    <apex:outputLabel value="First Name:"/>
+                                                </div>
+                                                <div class="large-9 medium-6 small-12 columns">
+                                                    <apex:outputField id="detailfirstName" value="{!user.firstName}"/>
+                                                </div>
+                                            </div>
+                                            <div class="large-12 columns">
+                                                <div class="large-3 medium-6 small-12 columns">
+                                                    <apex:outputLabel value="Last Name:"/>
+                                                </div>
+                                                <div class="large-9 medium-6 small-12 columns">
+                                                    <apex:outputField id="detaillastName" value="{!user.lastName}"/>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="large-6 medium-12 small-12 columns">
+                                        <div class="large-12 medium-4 small-8 heading columns" style="font-family: inherit;font-size: inherit;font-weight: inherit;">
+                                            CONTACT INFORMATION
+                                        </div>                                        
+                                        <div class="large-12 medium-12 small-12 columns content infoCon" >
+                                            <div class="large-12 columns">
+                                                <div class="large-3 medium-6 small-12 columns">
+                                                    <apex:outputLabel value="Email:"/>
+                                                </div>
+                                                <div class="large-9 medium-6 small-12 columns">
+                                                    <apex:inputField id="detailemail" value="{!user.email}"/>
+                                                </div>
+                                            </div>
+                                            <div class="large-12 columns">
+                                                <div class="large-3 medium-6 small-12 columns">
+                                                    <apex:outputLabel value="Phone:"/>
+                                                </div>
+                                                <div class="large-9 medium-6 small-12 columns">
+                                                    <apex:inputField id="detailphone" value="{!user.phone}"/>
+                                                </div>
+                                                <script type="text/javascript"> 
+                                                $(document).ready(function() {
+                                                    $(document).foundation();
+                                                    $("[id$=detailphone]").mask("(999) 999-9999");
+                                                    $('[id$=theForm]').validate();          
+                                                    $('[id$=detailphone]').rules("add",{
+                                                        required: true,
+                                                        messages:{
+                                                            required:"Please enter Phone Number"
+                                                        }
+                                                    });
+                                                    $('[id$=detailemail]').rules("add",{
+                                                        required: true,
+                                                        email: true,
+                                                        messages:{
+                                                            required:"Please enter an Email Address.",
+                                                            email:"Please enter a valid Email Address."
+                                                        }
+                                                    });
+                                                });
+                                                </script> 
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="large-12 medium-12 small-12 text-center" style="padding-bottom: 2%;">
+                                    <apex:commandButton styleClass="submitButton" id="save" style="border-radius: 8px;padding: 1%;width: 18%;" value="Save" action="{!save}"/>
+                                    <apex:commandButton styleClass="submitButton" id="cancel" style="padding: 1%;width: 18%;" value="Cancel" action="{!cancel}" rerender="userDetail" immediate="true"/>
+                                </div>
+                            </apex:pageBlock>         
+                        </div>
+                    </div>
+                    <div style="background: #eff1f2 none repeat scroll 0 0;">
+                        <div class="large-12 medium-12 small-12">
+                            <apex:pageBlock id="viewUserDetail" rendered="{!!isEdit}">
+                                <div class="row" id="unique2">
+                                    <div class="large-6 medium-12 small-12 columns">
+                                        <div class="large-12 medium-4 small-8 heading columns" style="font-family: inherit;font-size: inherit;font-weight: inherit;">
+                                            USER INFORMATION
+                                        </div>
+                                        <div class="large-12 medium-12 small-12 columns content infoCon">
+                                            <div class="large-12 columns">
+                                                <div class="large-5 medium-6 small-12 columns">
+                                                    <apex:outputLabel value="Your Business Link ID:"/>
+                                                </div>
+                                                <div class="large-7 medium-6 small-12 columns">
+                                                    <apex:outputField id="detailusername" value="{!user.External_Fed_Id__c}"/>
+                                                </div>
+                                            </div>
+                                            <div class="large-12 columns">
+                                                <div class="large-3 medium-6 small-12 columns">
+                                                    <apex:outputLabel value="First Name:"/>
+                                                </div>
+                                                <div class="large-9 medium-6 small-12 columns">
+                                                    <apex:outputField id="detailfirstName" value="{!user.firstName}"/>
+                                                </div>
+                                            </div>
+                                            <div class="large-12 columns">
+                                                <div class="large-3 medium-6 small-12 columns">
+                                                    <apex:outputLabel value="Last Name:"/>
+                                                </div>
+                                                <div class="large-9 medium-6 small-12 columns">
+                                                    <apex:outputField id="detaillastName" value="{!user.lastName}"/>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="large-12 medium-12 small-12 columns content">
+                                            <apex:outputText id="message" value="{!byoidmessage}"/> 
+                                        </div>
+                                    </div>
+                                    <div class="large-6 medium-12 small-12 columns">
+                                        <div class="large-12 medium-4 small-8 heading columns" style="font-family: inherit;font-size: inherit;font-weight: inherit;">
+                                            CONTACT INFORMATION
+                                        </div>
+                                        <div class="large-12 medium-12 small-12 columns content infoCon" >
+                                            <div class="large-12 columns">
+                                                <div class="large-3 medium-6 small-12 columns">
+                                                    <apex:outputLabel value="Email:"/>
+                                                </div>
+                                                <div class="large-9 medium-6 small-12 columns">
+                                                    <apex:outputField id="detailemail" value="{!user.email}"/>
+                                                </div>
+                                            </div>
+                                            <div class="large-12 columns">
+                                                <div class="large-3 medium-6 small-12 columns">
+                                                    <apex:outputLabel value="Phone:"/>
+                                                </div>
+                                                <div class="large-9 medium-6 small-12 columns">
+                                                    <apex:outputField id="detailphone" value="{!user.phone}"/>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                
+                                <div class="large-12 medium-12 small-12 text-center" style="padding-bottom: 2%;">
+                                    <apex:commandButton styleClass="submitButton" style="border-radius: 8px;padding: 1%;width: 18%;" id="edit" value="Edit" action="{!edit}" rerender="userDetail"/>
+                                    <apex:commandButton styleClass="submitButton" style="border-radius: 8px;padding: 1%;width: 18%;" id="changePassword" value="Change Password" action="{!changePassword}"/>
+                                </div>
+                            </apex:pageBlock>
+                        </div>
+                    </div>
+                </apex:outputPanel>
+            </apex:form>
+        </div>
+    </section>
+    <footer>
+        <c:LogoFooterBar />
+    </footer>
+    <style>
+        .divModal{background: #eee none repeat scroll 0 0;border-radius:5px;padding: 3%;}
+    </style>
+    <div id="helpinfodiv" class="reveal-modal divModal">
+        <h4>Your profile page:</h4>
+        <h6>In this page you will be shown basic user information. </h6>
+        <h4>User information section:</h4>
+        <h6><li>User cannot change first name, last name or Business Link ID.</li></h6>
+        <h4>Contact Information:</h4>
+        <h6><li>To edit contact information, click "Edit" button.</li></h6>
+        <h6><li>Enter valid email ID and phone number and click the "Save" button to submit. Click "Cancel" button if you do not want to save the edited values.</li></h6>
+        <a class="close-reveal-modal">&#215;</a>
+    </div>
+    <div id="appinfodiv" class="large-12 medium-12 small-12 reveal-modal divModal">
+        <a class="close-reveal-modal">&#215;</a>
+    </div>
+</apex:page>

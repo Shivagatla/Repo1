@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomObjectTranslation xmlns="http://soap.sforce.com/2006/04/metadata">
+    <caseValues>
+        <plural>false</plural>
+        <value>Condition</value>
+    </caseValues>
+    <caseValues>
+        <plural>true</plural>
+        <value>Conditions</value>
+    </caseValues>
+    <fields>
+        <label><!-- Operator --></label>
+        <name>Operator__c</name>
+        <picklistValues>
+            <masterLabel>Contains</masterLabel>
+            <translation><!-- Contains --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Does Not Equal</masterLabel>
+            <translation><!-- Does Not Equal --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Equals</masterLabel>
+            <translation><!-- Equals --></translation>
+        </picklistValues>
+    </fields>
+    <fields>
+        <label><!-- Parent Policy --></label>
+        <name>Parent_Policy__c</name>
+        <relationshipLabel><!-- Conditions --></relationshipLabel>
+    </fields>
+    <fields>
+        <label><!-- User Field --></label>
+        <name>User_Field__c</name>
+    </fields>
+    <fields>
+        <label><!-- Value --></label>
+        <name>Value__c</name>
+    </fields>
+    <layouts>
+        <layout>Condition Layout</layout>
+        <sections>
+            <label><!-- Custom Links --></label>
+            <section>Custom Links</section>
+        </sections>
+    </layouts>
+    <startsWith>Consonant</startsWith>
+</CustomObjectTranslation>

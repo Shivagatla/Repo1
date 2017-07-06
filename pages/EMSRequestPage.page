@@ -1,0 +1,52 @@
+<apex:page docType="html-5.0" controller="EMSRequest" showHeader="true" sidebar="false">
+    
+
+ 
+    
+    <apex:pageMessages id="info"/>
+    <apex:form html-novalidate="novalidate" >
+        
+        <apex:pageBlock >
+            <apex:pageBlockTable value="{!requests}" var="a" rendered="{showList()}">
+                
+                <apex:column value="{!a.name}"/>
+                
+            </apex:pageBlockTable>
+          
+            <apex:outputPanel id="userBlock" >
+            Pick a customer portal user to provision.
+                <apex:panelGrid columns="2" width="400px" rendered="{!requestFor == 1}">
+                    <!--apex:selectList value="{!requestUser}" multiselect="false" size="1" styleClass="selectList"  id="requestOtherUser">
+                        <apex:selectOptions value="{!users}"/>
+                    </apex:selectList-->
+                    <apex:inputField value="{!requestedUser.Related_External_User__c}" styleClass="String">
+                    
+                    </apex:inputField>
+                </apex:panelGrid>
+            </apex:outputPanel>
+            <apex:outputPanel id="appInfo">
+            <apex:panelGrid columns="2" style="margin-top:3em;width=400">
+                <apex:outputLabel value="Application" for="connectedApp" />
+                
+                <apex:selectList value="{!connectedApp}" multiselect="false" size="1" styleClass="selectList">
+                    <apex:selectOptions value="{!items}"/>
+                </apex:selectList>                  
+                
+                <apex:outputLabel value="Comments" for="comments"/>
+                
+                <apex:inputText id="comments" value="{!comments}"/>
+            </apex:panelGrid>
+            </apex:outputPanel>
+            <apex:panelGrid columns="2" rendered="{!!submitted}" >
+                <apex:commandButton action="{!createRequest}" value="Submit Request"/>
+                <apex:commandButton action="{!cancel}" immediate="true" value="Cancel"/>
+            </apex:panelGrid>
+        </apex:pageBlock>
+        
+                <div class="footer">Powered by <a href="http://landolakes.com">Land O'Lakes</a></div>
+    </apex:form>
+    
+    
+    
+    
+</apex:page>

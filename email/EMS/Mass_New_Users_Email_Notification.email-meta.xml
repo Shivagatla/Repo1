@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<EmailTemplate xmlns="http://soap.sforce.com/2006/04/metadata">
+    <available>true</available>
+    <encodingKey>ISO-8859-1</encodingKey>
+    <letterhead>Internal_Letterhead</letterhead>
+    <name>Mass New Users Email Notification</name>
+    <style>freeForm</style>
+    <subject>Access for the Land O Lakes/Winfield/Purina/Dairy Customer Portal</subject>
+    <textOnly>Hi {!userName},
+
+Thank you for registering for bussiness link. Your registration is almost complete.
+
+Your user ID/UserName is: {!userId}.
+
+After setting the password, you will be authorized to have access to your applications.
+
+Please set your password at:
+
+{!resetUrl}
+
+Please log into the application at the Business Link portal.
+
+If you have any questions or concerns, please call us toll free at 1-866-270-4706 or email at websitesupport@landolakes.com. Thank you for your business and we look forward to serving you in the future.
+
+
+Sincerely,
+
+Business Link</textOnly>
+    <type>html</type>
+</EmailTemplate>

@@ -1,0 +1,351 @@
+<apex:page controller="EMSUPRController" showHeader="true" sidebar="true">
+  <style>
+        #contacttable td {border: 1px solid #D8D8D8;border-spacing: 0;border-collapse: collapse;}
+        #contacttable th {vertical-align: top;border: 1px solid #888888;border-spacing: 0;text-align:center;background : #A8A8A8;color:white;}
+        #contacttable th:nth-child(1) {text-align: center;}
+        #contacttable td:nth-child(1) {text-align: center;white-space: nowrap;}
+        #contacttable dataTables_length {margin-right: 20px;clear:none;padding-bottom: 3px;}
+        #contacttable2 td {border: 1px solid #D8D8D8;border-spacing: 0;border-collapse: collapse;}
+        #contacttable2 th {vertical-align: top;border: 1px solid #888888;border-spacing: 0;text-align:center;background : #A8A8A8;color:white;}
+        #contacttable2 th:nth-child(1) {text-align: center;}
+        #contacttable2 td:nth-child(1) {text-align: center;white-space: nowrap;}
+        #contacttable2 dataTables_length {margin-right: 20px;clear:none;padding-bottom: 3px;}
+    </style>
+    <head>
+        <apex:includeScript value="{!URLFOR($Resource.EMSHtmlStyle, 'js/jquery-1.9.1.js')}"/>
+        <apex:stylesheet value="{!URLFOR($Resource.EMSHtmlStyle, 'css/font-awesome.css')}"/>
+        <apex:stylesheet value="{!URLFOR($Resource.EMSRequestStyles, 'css/jquery.dataTables.min.css')}"/>
+        <apex:includescript value="{!URLFOR($Resource.EMSRequestStyles, '/js/jquery.dataTables.min.js')}"/>
+        <script>
+        j$ = jQuery.noConflict();
+        j$(document).ready( function () {
+            var contactTable = j$('[id$="contacttable"]').DataTable({
+                order: [[1, 'asc']],sDom: 'frtlip', pageLength:4,bLengthChange:false,"autoWidth" : true,
+                initComplete: function() {
+                    var api = this.api();
+                    var select1 = j$('[id$=typeSelect]');
+                    api.column(1).data().unique().sort().each( function ( d, j ) {
+                        select1.append( '<option value="'+d+'">'+d+'</option>' )
+                    } );
+                    var select2 = j$('[id$=accountSelect]');
+                    api.column(2).data().unique().sort().each( function ( d, j ) {
+                        select2.append( '<option value="'+d+'">'+d+'</option>' )
+                    } );
+                }
+            });
+            j$('[id$=typeSelect]').change(function() {
+                var val = j$.fn.dataTable.util.escapeRegex(
+                    j$(this).val()
+                );
+                contactTable.column(1)
+                .search( val == 'All' ? '' : '^'+val+'$', true, false )
+                .draw();
+            });
+            j$('[id$=accountSelect]').change(function() {
+                var val = j$.fn.dataTable.util.escapeRegex(
+                    j$(this).val()
+                );
+                contactTable.column(2)
+                .search( val == 'All' ? '' : '^'+val+'$', true, false )
+                .draw();
+            });
+        });
+        </script>
+        <script>
+        var dialog;
+        
+        function openDialog(title,pageName,width) {
+            dialog = new SimpleDialog("SD"+Dialogs.getNextId(), false);    
+            dialog.setTitle(title);  
+            dialog.createDialog()
+            dialog.setWidth(width);     
+            
+            dialog.importContentNode(document.getElementById(pageName));   
+           
+            dialog.show();   
+        }
+        
+        
+        // Note: Overwrite standard behavior
+        function setFocusOnLoad() { 
+            // do nothing
+        }
+        function drawTables(){
+            var contactTable = j$('[id$="contacttable"]').DataTable({
+                order: [[1, 'asc']],sDom: 'frtlip', pageLength:4,bLengthChange:false,"autoWidth" : true,
+                "language": {
+                    "emptyTable": "No Entitlements are attached to the request.",
+                    "zeroRecords": "No Entitlements are attached to the request."
+                },
+                "destroy" : true,
+                initComplete: function() {
+                    var api = this.api();
+                    var select1 = j$('[id$=typeSelect]');
+                    api.column(1).data().unique().sort().each( function ( d, j ) {
+                        select1.append( '<option value="'+d+'">'+d+'</option>' )
+                    } );
+                    var select2 = j$('[id$=accountSelect]');
+                    api.column(2).data().unique().sort().each( function ( d, j ) {
+                        select2.append( '<option value="'+d+'">'+d+'</option>' )
+                    } );
+                }
+            });
+            
+            contactTable.columns.adjust().draw(); // Redraw the DataTable
+            
+        }
+        
+
+
+        function RefreshPrimaryTab(prefix,id) 
+        {
+         
+
+                  window.top.location.href = prefix+'/apex/EMSUPRMainPage?uprid=' + id;
+        }
+
+
+    </script>
+    </head>
+
+        <apex:sectionHeader title="User Provisioning Request" subtitle="{!upr.name}"/>
+        <apex:pageBlock title="User Provisioning Request Detail">
+                <apex:pageBlockButtons >
+           
+                </apex:pageBlockButtons>
+                <apex:pageBlockSection title="Information" showHeader="true" columns="2">
+                        <apex:pageBlockSectionItem >
+                                <apex:outputLabel value="Name"/>
+                               <apex:outputText value="{!upr.Name}"/>
+                        </apex:pageBlockSectionItem>
+                        <apex:pageBlockSectionItem >
+                                <apex:outputLabel value="Owner Name"/>
+                               <apex:outputText value="{!upr.Owner.Name}"/>
+                        </apex:pageBlockSectionItem>
+                         <apex:pageBlockSectionItem >
+                            <apex:outputLabel value="Overall Status"/>
+                            <apex:outputText value="{!upr.Overall_Status__c}"/>
+                        </apex:pageBlockSectionItem>
+                        <apex:pageBlockSectionItem >
+                            <apex:outputLabel value="State"/>
+                            <apex:outputText value="{!upr.State}"/>
+                        </apex:pageBlockSectionItem>
+                        <apex:pageBlockSectionItem >
+                            <apex:outputLabel value="Comments"/>
+                            <apex:outputText value="{!upr.Comments__c}"/> 
+                        </apex:pageBlockSectionItem>
+                        <apex:pageBlockSectionItem />
+                </apex:pageBlockSection>
+                <apex:pageBlockSection title="User Information" showHeader="true" columns="2">
+                        <apex:pageBlockSectionItem >
+                            <apex:outputLabel value="Salesforce User"/>
+                            <apex:outputText value="{!upr.SalesforceUser.Name}"/>
+                        </apex:pageBlockSectionItem>
+                        <apex:pageBlockSectionItem >
+                            <apex:outputLabel value="Parent Account Info"/>
+                            <apex:outputText value="{!upr.Parent_Account_Info__c}"/>
+                        </apex:pageBlockSectionItem>
+                        <apex:pageBlockSectionItem >
+                            <apex:outputLabel value="BusinessLink ID"/>
+                            <apex:outputText value="{!upr.Ag2Ag_ID__c}"/>
+                        </apex:pageBlockSectionItem>
+                        <apex:pageBlockSectionItem >
+                            <apex:outputLabel value="User Account"/>
+                            <apex:outputText value="{!upr.Account__c}"/>
+                        </apex:pageBlockSectionItem>
+                        <apex:pageBlockSectionItem >
+                            <apex:outputLabel value="Target Email"/>
+                            <apex:outputText value="{!upr.Target_Email__c}"/>
+                        </apex:pageBlockSectionItem>
+                        <apex:pageBlockSectionItem >
+                            <apex:outputLabel value="Account Address"/>
+                            <apex:outputText value="{!upr.Account_Address__c}"/>
+                        </apex:pageBlockSectionItem>
+                </apex:pageBlockSection>
+                 <apex:pageBlockSection title="Application Information" showHeader="true" columns="2">
+                        <apex:pageBlockSectionItem >
+                            <apex:outputLabel value="Application Name"/>
+                            <apex:outputText value="{!upr.Application__r.Name}"/>
+                        </apex:pageBlockSectionItem>
+                        <apex:pageBlockSectionItem >
+                            <apex:outputLabel value="Connected App"/>
+                            <apex:outputText value="{!upr.AppName}"/>
+                        </apex:pageBlockSectionItem>
+                      <apex:pageBlockSectionItem >
+                            <apex:outputLabel value="User Provision Account"/>
+                            <apex:outputText value="{!upr.UserProvAccount.Name}"/>
+                        </apex:pageBlockSectionItem> 
+                </apex:pageBlockSection>
+                <apex:pageBlockSection title="Request Information" showHeader="true" columns="2">
+                        <apex:pageBlockSectionItem >
+                            <apex:outputLabel value="Operation"/>
+                            <apex:outputText value="{!upr.Operation}"/>
+                        </apex:pageBlockSectionItem>
+                        <apex:pageBlockSectionItem >
+                            <apex:outputLabel value="User Reason"/>
+                            <apex:outputText value="{!upr.User_Reason__c}"/>
+                        </apex:pageBlockSectionItem>
+                      <apex:pageBlockSectionItem >
+                            <apex:outputLabel value="Approval Status"/>
+                            <apex:outputText value="{!upr.ApprovalStatus}"/>
+                        </apex:pageBlockSectionItem> 
+                     <apex:pageBlockSectionItem >
+                            <apex:outputLabel value="Other Details"/>
+                            <apex:outputText value="{!upr.Other_Details__c}"/>
+                        </apex:pageBlockSectionItem> 
+                     <apex:pageBlockSectionItem >
+                            <apex:outputLabel value="Access Policy Rule"/>
+                            <apex:outputText value="{!upr.Responsible_Rule__r.Name}"/>
+                        </apex:pageBlockSectionItem> 
+                    <apex:pageBlockSectionItem />
+                    <apex:pageBlockSectionItem >
+                        
+                     <apex:outputLabel value="Collected Information"/>
+
+                            <apex:outputText value="{!upr.Collected_Information__c}"/>
+                            
+
+                    </apex:pageBlockSectionItem>
+                    <apex:pageBlockSectionItem />
+                </apex:pageBlockSection>
+              
+     
+ <apex:pageBlockSection title="Entitlement Information" showHeader="true" columns="1" id="entInfo">
+<apex:outputPanel id="main">
+        <apex:outputPanel style="display:none">
+            <apex:include pageName="UPREditComments" id="UPREditComments" />
+        </apex:outputPanel>
+        
+        <apex:outputPanel style="display:none">
+            <apex:include pageName="UPRAddAccount" id="UPRAddAccount" />
+        </apex:outputPanel>
+
+         <apex:outputPanel style="display:none;width:900px" >
+            <apex:include pageName="UPRAddRole" id="UPRAddRole" />
+        </apex:outputPanel>
+      <apex:form style="background: #eee;" id="theFormEnts">
+            
+            
+            <div style="padding: 4px;">
+               
+                <apex:commandButton style="width: 150px;padding: 5px;" 
+                                    onclick="openDialog('Update Comments','{!$Component.UPREditComments}',700);return false;" value="Edit Comments" rendered="{!$Permission.canUpdateRequests &&!isApproved}"></apex:commandButton>
+                <apex:commandButton style="width: 150px;padding: 5px;" 
+                                    onclick="openDialog('Modify Account Entitlements','{!$Component.UPRAddAccount}',1150);return false;" value="Add Account Entitlements" rendered="{!$Permission.canUpdateRequests && isFineGrain  && !isApproved}"></apex:commandButton>
+                 <apex:commandButton style="width: 150px;padding: 5px;" 
+                                    onclick="openDialog('Modify Role Entitlements','{!$Component.UPRAddRole}',1100);return false;" value="Add Role Entitlements" rendered="{!$Permission.canUpdateRequests && hasCGEnts && !isApproved}"></apex:commandButton>
+            </div>
+            <apex:outputPanel id="tblData" >
+                <table id="contacttable" class="display" style="padding: 1% 0px;margin-bottom: 1%;">
+                    <thead>
+                        <tr>
+                            <th>Actions</th>
+                            <th>Entitlement Type<div><select id="typeSelect"><option value="All">All</option></select></div></th>
+                            <th>Entitlement Name<div><select id="accountSelect"><option value="All">All</option></select></div></th>
+                            <th>Entitlement Information</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <apex:repeat value="{!requestedFEnts}" var="item">
+                            <tr>
+                                <td>  
+                                    <div class="x-grid3-cell-inner x-grid3-col-ACTION_COLUMN" id="0015500000CBKy2_ACTION_COLUMN">
+                                        <apex:commandLink action="{!removeEnt}"  rendered="{!$Permission.canUpdateRequests && !isApproved}" reRender="tblData" >
+                                            <apex:param value="{!item.id}" name="entToRemove" assignTo="{!entToRemove}"/>
+                                            <span>Delete</span></apex:commandLink>
+                                    </div>
+                                </td>
+                                <td>{!item.entType}</td>
+                                <td>{!item.Name}</td>
+                                <td>{!item.Description}</td>
+                            </tr>
+                        </apex:repeat>
+                    </tbody>
+                </table>
+            </apex:outPutPanel>
+        </apex:form>
+       </apex:outPutPanel>
+ </apex:pageBlockSection>
+
+ <apex:pageblocksection title="Approval History" showheader="true" collapsible="true" columns="1">
+      <apex:outputPanel id="apphist">
+         <apex:outputPanel style="display:none;width:900px" >
+            <apex:include pageName="UPRApproveRequest" id="UPRApproveRequest" />
+        </apex:outputPanel>
+<apex:form style="background: #eee;" id="approvalButtonForm">
+        <apex:commandButton style="width: 150px;padding: 5px;" 
+                                    onclick="openDialog('Approve For Delegate','{!$Component.UPRApproveRequest}',700);return false;" value="Answer for Delegate" rendered="{!$Permission.canUpdateRequests &&!isApproved  && isDelegated && canBeOverridden}"></apex:commandButton>            
+</apex:form>
+    <apex:pageBlockTable value="{!aSW.approvals}" var="s" >
+        <apex:column colspan="5"><b><font color="blue">{!IF(AND(s['listOfSteps'][0].stepstatus != 'Started', s['listOfSteps'][0].ProcessNode.Name != NULL),IF( s['listOfSteps'][0].stepstatus !='Removed','Step : '+s['listOfSteps'][0].ProcessNode.Name + IF(s['listOfSteps'][0].stepstatus=='Pending',' (Pending for first approval) ',''),'Approval Request Recalled'), 'Approval Request Submitted')}</font></b></apex:column>
+        <apex:column colspan="1"><b>{!IF(AND(s['listOfSteps'][0].stepstatus != 'Started',s['listOfSteps'][0].stepstatus != 'NoResponse'),IF( s['listOfSteps'][0].stepstatus !='Removed',s['listOfSteps'][0].stepstatus,'Recalled'), '')}</b></apex:column>
+
+        <apex:column breakBefore="true" colspan="6">
+           
+                <apex:pageBlockTable value="{!s.listOfSteps}" var="step">
+                <apex:column headerValue="Actions">
+                <div class="x-grid3-cell-inner x-grid3-col-ACTION_COLUMN" id="0015500000CBKy2_ACTION_COLUMN">
+                 <apex:outputLink target="_target" value="/{!step.Id}/e?et=REASSIGN&retURL=%2Fems%2F{!upr.Id}" rendered="{!$Permission.canUpdateRequests &&!isApproved && step.Stepstatus='Pending'}">Reassign</apex:outputLink>
+                  | 
+                   <apex:outputLink target="_target" value="/p/process/ProcessInstanceWorkitemWizardStageManager?id={!step.Id}" rendered="{!$Permission.canUpdateRequests &&!isApproved && step.Stepstatus='Pending' && !isDelegated && s.canApproveStep}">Approve/Deny</apex:outputLink>  
+                  </div>
+                  
+
+                </apex:column>
+                    <apex:column headervalue="Date Created" value=" {!step.CreatedDate}"/>
+                    <apex:column headerValue="Status" value="{!step.Stepstatus}" /> 
+                    <apex:column headerValue="Assigned To" value="{!step.OriginalActor.Name}"/>
+                    <apex:column headerValue="Comments" value="{!step.comments}"/>
+                    <apex:column headerValue="Actual Approver" value="{!step.Actor.Name}"/>
+                
+                </apex:pageBlockTable>
+           
+        </apex:column>
+    </apex:pageBlockTable>
+
+</apex:outputPanel>
+</apex:pageblockSection>
+      <apex:pageBlockSection title="Provisioning Information" >
+     
+   <apex:form id="theformCase">
+
+    <apex:pageBlock rendered="{!isApproved && !isCompleted && canChangeState}" id="pbCase">
+      <apex:pageBlockButtons location="bottom" >
+  
+                    <apex:commandButton value="Update Case" action="{!saveState}" rendered="{!isCompleted==false && canChangeState}"  oncomplete="RefreshPrimaryTab('{!$Site.Prefix}','{!upr.id}'); return true;" status="waitStatus"/>
+
+                </apex:pageBlockButtons>
+        <apex:pageBlockSection columns="1" rendered="{!!isCompleted}">
+       
+    
+           
+                
+                 <apex:pageBlockSection rendered="{!isApproved && !isCompleted}" >
+
+               <apex:outputLabel value="Administrator's Instructions" /><apex:outputText id="instructions" value="{!instructions}"/>
+ </apex:pageBlockSection>
+               <apex:pageBlockSection rendered="{!isApproved && !isCompleted}" >
+              <apex:outputLink value="/{!provCase.Id}" target="_blank"> Go to Case Directly</apex:outputLink>
+               </apex:pageBlockSection>
+               <apex:pageBlockSection rendered="{!isApproved && !isCompleted}" >
+                             <apex:inputField required="true" value="{!provCase.status}"/>
+                <apex:inputField required="true" value="{!provCase.Reason}"/>
+              
+              </apex:pageBlockSection>
+  
+        </apex:pageBlockSection>
+      
+    </apex:pageBlock>
+    <apex:pageBlock rendered="{!isApproved==false}">
+      <apex:outputText >This request is not ready to be provisioned.  It needs to be approved first.</apex:outputText>
+    </apex:pageBlock>
+
+        <apex:pageBlock rendered="{!isCompleted}">
+      <apex:outputText >This request has already been completed and the case has been closed..  For more information, click </apex:outputText><apex:outputLink value="/{!provCase.Id}" target="_blank"> here</apex:outputLink>
+    </apex:pageBlock>
+    </apex:form>
+      </apex:pageBlockSection>
+        
+          </apex:pageBlock>
+
+</apex:page>

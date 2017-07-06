@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomObjectTranslation xmlns="http://soap.sforce.com/2006/04/metadata">
+    <caseValues>
+        <plural>false</plural>
+        <value>Entitlement</value>
+    </caseValues>
+    <caseValues>
+        <plural>true</plural>
+        <value>Entitlements</value>
+    </caseValues>
+    <fields>
+        <label><!-- AD Group Optional --></label>
+        <name>AD_Group_Optional__c</name>
+    </fields>
+    <fields>
+        <label><!-- AD Group Label --></label>
+        <name>AD_Group__c</name>
+    </fields>
+    <fields>
+        <label><!-- Approver --></label>
+        <name>Approver__c</name>
+        <relationshipLabel><!-- Entitlements --></relationshipLabel>
+    </fields>
+    <fields>
+        <label><!-- Description --></label>
+        <name>Description__c</name>
+    </fields>
+    <fields>
+        <label><!-- Entitlement Code --></label>
+        <name>Ent_Code__c</name>
+    </fields>
+    <fields>
+        <label><!-- ParentApp --></label>
+        <name>ParentApp__c</name>
+        <relationshipLabel><!-- Available Entitlements --></relationshipLabel>
+    </fields>
+    <fields>
+        <label><!-- Requires Approval --></label>
+        <name>Requires_Approval__c</name>
+    </fields>
+    <layouts>
+        <layout>Entitlement Layout</layout>
+        <sections>
+            <label><!-- Custom Links --></label>
+            <section>Custom Links</section>
+        </sections>
+    </layouts>
+    <startsWith>Vowel</startsWith>
+</CustomObjectTranslation>

@@ -1,0 +1,23 @@
+<apex:page controller="EMSUPRController" showHeader="false" sidebar="false">
+
+<apex:form >
+<apex:pageBlock >
+<apex:pageBlockButtons location="bottom">
+ <apex:commandButton styleClass="submitButton" id="approve2" style="border-radius: 8px;padding: 1%;width: 18%;" value="Approve" action="{!approveRequest}" onClick="dialog.hide()" oncomplete="RefreshPrimaryTab('{!$Site.Prefix}','{!upr.id}'); return true;" status="waitStatus"/>
+  <apex:commandButton styleClass="submitButton" id="reject" style="border-radius: 8px;padding: 1%;width: 18%;" value="Reject" action="{!rejectRequest}" onClick="dialog.hide()" oncomplete="RefreshPrimaryTab('{!$Site.Prefix}','{!upr.id}'); return true;" status="waitStatus"/>
+ <apex:commandButton styleClass="submitButton" id="cancel2" style="border-radius: 8px;padding: 1%;width: 18%;" value="Cancel" onClick="dialog.hide()" oncomplete="RefreshPrimaryTab('{!$Site.Prefix}','{!upr.id}'); return true;" status="waitStatus"/>
+</apex:pageBlockButtons>
+
+
+<apex:pageBlockSection > 
+
+<apex:pageBlockSectionItem >
+<apex:outputText value="Add additional comments" />
+<apex:inputTextArea rows="5" id="approveComments2" value="{!approvalComments}" style="width:200px"/>
+</apex:pageBlockSectionItem>
+</apex:pageBlockSection> 
+
+</apex:pageBlock>
+</apex:form>
+	
+</apex:page>

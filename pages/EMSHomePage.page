@@ -1,0 +1,4 @@
+<!--mainVFPage-->
+<apex:page id="mainPage" showHeader="true" sidebar="true" standardStylesheets="false">
+  Welcome to EMS Support Application
+</apex:page>

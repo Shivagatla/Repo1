@@ -1,0 +1,6 @@
+<messaging:emailTemplate subject="Access Has Been Granted To You" recipientType="User" relatedToType="UserProvisioningRequest">
+<messaging:plainTextEmailBody >
+Congratulations!
+This is your new Visualforce Email Template.
+</messaging:plainTextEmailBody>
+</messaging:emailTemplate>

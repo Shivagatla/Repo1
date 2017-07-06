@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<EmailTemplate xmlns="http://soap.sforce.com/2006/04/metadata">
+    <available>true</available>
+    <description>Notify the user when he does not login from last 365 days.</description>
+    <encodingKey>ISO-8859-1</encodingKey>
+    <letterhead>Internal_Letterhead</letterhead>
+    <name>Deletion/Notification Email</name>
+    <style>freeForm</style>
+    <subject>Your Business Link ID – Deactivated</subject>
+    <textOnly>Hi {!Receiving_User.FirstName},
+
+This email is your notification that your Business Link ID is deactivated due to lack of activity for over a year.
+
+
+
+If you need access to Business Link applications, please register through one of the Business Link portals (links provided below).
+
+
+Business Link URLs
+http://www.winfield.com/BusinessLinkLogin/default.aspx http://www.landolakesinc.com/utility/login/default.aspx http://www.purinamills.com/login/
+https://www.answertech.com/
+http://portal.landolakes.com/
+
+If you have any questions or concerns, please call us toll free at 1-866-270-4706. Thank you for your business and we look forward to serving you in the future.
+
+
+
+Sincerely,
+
+Business Link</textOnly>
+    <type>html</type>
+</EmailTemplate>

@@ -1,0 +1,52 @@
+<apex:page id="communitiesSelfRegConfirmPage" controller="CommunitiesSelfRegConfirmController" showHeader="false" cache="false" standardStylesheets="false" >
+    <head>
+        <apex:stylesheet value="{!URLFOR($Resource.EMSHtmlStyleNew, 'css/foundation.css')}"/>
+        <style>
+            .top-blue-bar {background-color:#29383d;text-align:right;font-size:.8rem;padding:.5rem 0;}
+            .green-line {height: 5px;background-color: #669933;}
+            .blue-bar{background-color:#29383d;}
+            .x{ background: #eee none repeat scroll 0 0;border: 1px solid;border-radius: 5px;margin: 20% 20% 20% 40%;padding: 2%;text-align: center;}
+            .sectionCon{border:2px solid #d6dbdf;border-radius:5px;padding:2%;}
+        </style>
+        <script>
+        function close_window() {
+            open("/ems/EMSSelfRegistrationPage", '_self').close();
+        }
+        </script>
+    </head>
+    <header> 
+        <!-- Header Logo -->
+        <div class="row"> 
+            <div class="large-12 medium-12 small-12 text-center">
+                <div class="top-blue-bar">
+                </div>   
+            </div>
+            <div class="green-line"></div>            
+            <div class="clearfix blue-bar">
+                <div class="large-8 medium-6 small-12 left columns">                            
+                    <a href="/ems/EMSSelfRegistrationPage">
+                        <apex:image style="cursor:pointer;" url="{!URLFOR($Resource.EMSHtmlStyleNew, 'images/header-logo.jpg')}"/>
+                    </a>
+                </div>
+                <div class="large-4 medium-6 small-12 right columns" style="margin-top: 2%;">
+                    <a href="#" onclick="close_window();" class="x">close window</a>
+                </div>
+            </div>   
+        </div>
+    </header>
+    <section>
+        <div class="row" style="padding:2%;background: #eee;">
+            <div class="large-12 medium-12 small-12 columns text-center sectionCon">
+                <div>
+                    <h3>Registration Request Submitted</h3>
+                </div>
+                <div>
+                    <h4>Thank you for registering.  An email has been sent to you for verification.</h4>
+                </div>   
+            </div>
+        </div>
+    </section>
+    <footer>
+        <c:LogoFooterBar />
+    </footer>
+</apex:page>

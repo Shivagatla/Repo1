@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Report xmlns="http://soap.sforce.com/2006/04/metadata">
+    <columns>
+        <field>UserProvisioningRequest*UserProvisioningRequest$Ag2Ag_ID__c</field>
+    </columns>
+    <columns>
+        <field>UserProvisioningRequest*UserProvisioningRequest$Target_User_Name__c</field>
+    </columns>
+    <columns>
+        <field>UserProvisioningRequest*UserProvisioningRequest$Target_Email__c</field>
+    </columns>
+    <columns>
+        <field>UserProvisioningRequest*UserProvisioningRequest$Account__c</field>
+    </columns>
+    <columns>
+        <field>UserProvisioningRequest*UserProvisioningRequest$Account_Address__c</field>
+    </columns>
+    <description>This report will provide the information about R7 pending requests</description>
+    <filter>
+        <criteriaItems>
+            <column>UserProvisioningRequest$AppName</column>
+            <isUnlocked>false</isUnlocked>
+            <operator>equals</operator>
+            <value>R7 Tool</value>
+        </criteriaItems>
+        <criteriaItems>
+            <column>UserProvisioningRequest$Status</column>
+            <isUnlocked>false</isUnlocked>
+            <operator>equals</operator>
+            <value>P</value>
+        </criteriaItems>
+    </filter>
+    <format>Tabular</format>
+    <name>R7 Requests</name>
+    <params>
+        <name>co</name>
+        <value>1</value>
+    </params>
+    <reportType>R7_Access__c</reportType>
+    <scope>organization</scope>
+    <showDetails>true</showDetails>
+    <timeFrameFilter>
+        <dateColumn>UserProvisioningRequest$CompletedDate</dateColumn>
+        <interval>INTERVAL_CUSTOM</interval>
+    </timeFrameFilter>
+</Report>

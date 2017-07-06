@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<StandardValueSet xmlns="http://soap.sforce.com/2006/04/metadata">
+    <sorted>false</sorted>
+    <standardValue>
+        <fullName>On Hold</fullName>
+        <default>false</default>
+        <label>On Hold</label>
+        <closed>false</closed>
+    </standardValue>
+    <standardValue>
+        <fullName>Escalated</fullName>
+        <default>false</default>
+        <label>Escalated</label>
+        <closed>false</closed>
+    </standardValue>
+    <standardValue>
+        <fullName>Closed</fullName>
+        <default>false</default>
+        <label>Closed</label>
+        <closed>true</closed>
+    </standardValue>
+    <standardValue>
+        <fullName>New</fullName>
+        <default>true</default>
+        <label>New</label>
+        <closed>false</closed>
+    </standardValue>
+    <standardValue>
+        <fullName>Reviewed and Accepted</fullName>
+        <default>false</default>
+        <label>Reviewed and Accepted</label>
+        <closed>true</closed>
+    </standardValue>
+    <standardValue>
+        <fullName>Reviewed and Denied</fullName>
+        <default>false</default>
+        <label>Reviewed and Denied</label>
+        <closed>true</closed>
+    </standardValue>
+    <standardValue>
+        <fullName>Reviewed and Denied, Do Not Send Email</fullName>
+        <default>false</default>
+        <label>Reviewed and Denied, Do Not Send Email</label>
+        <closed>true</closed>
+    </standardValue>
+    <standardValue>
+        <fullName>Approve</fullName>
+        <default>false</default>
+        <label>Approve</label>
+        <closed>true</closed>
+    </standardValue>
+    <standardValue>
+        <fullName>Deny</fullName>
+        <default>false</default>
+        <label>Deny</label>
+        <closed>true</closed>
+    </standardValue>
+</StandardValueSet>

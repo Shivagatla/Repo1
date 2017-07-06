@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Report xmlns="http://soap.sforce.com/2006/04/metadata">
+    <columns>
+        <field>User*User$Ag2Ag_ID__c</field>
+    </columns>
+    <columns>
+        <field>User$LastName</field>
+    </columns>
+    <columns>
+        <field>User$FirstName</field>
+    </columns>
+    <columns>
+        <field>User$Email</field>
+    </columns>
+    <columns>
+        <field>User.UserProvAccount$SalesforceUserId$ConnectedApp</field>
+    </columns>
+    <description>EMS User Provisioning Accounts for Invoice Management</description>
+    <filter>
+        <criteriaItems>
+            <column>User.UserProvAccount$SalesforceUserId$ConnectedApp</column>
+            <isUnlocked>false</isUnlocked>
+            <operator>equals</operator>
+            <value>Invoice Management</value>
+        </criteriaItems>
+        <criteriaItems>
+            <column>User$IsActive</column>
+            <isUnlocked>false</isUnlocked>
+            <operator>equals</operator>
+            <value>1</value>
+        </criteriaItems>
+        <criteriaItems>
+            <column>User$Profile</column>
+            <isUnlocked>false</isUnlocked>
+            <operator>equals</operator>
+            <value>EMS External User</value>
+        </criteriaItems>
+        <criteriaItems>
+            <column>User.UserProvAccount$SalesforceUserId$Status</column>
+            <isUnlocked>false</isUnlocked>
+            <operator>equals</operator>
+            <value>a</value>
+        </criteriaItems>
+    </filter>
+    <format>Tabular</format>
+    <name>EMS User Provisioning Accounts - InvMgm</name>
+    <params>
+        <name>co</name>
+        <value>1</value>
+    </params>
+    <reportType>User_Information_Account_Access__c</reportType>
+    <scope>organization</scope>
+    <showDetails>true</showDetails>
+    <sortColumn>User*User$Ag2Ag_ID__c</sortColumn>
+    <sortOrder>Asc</sortOrder>
+    <timeFrameFilter>
+        <dateColumn>User$CreatedDate</dateColumn>
+        <interval>INTERVAL_CUSTOM</interval>
+    </timeFrameFilter>
+</Report>

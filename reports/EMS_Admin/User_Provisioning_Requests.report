@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Report xmlns="http://soap.sforce.com/2006/04/metadata">
+    <columns>
+        <field>UserProvisioningRequest$Name</field>
+    </columns>
+    <columns>
+        <field>UserProvisioningRequest$ExternalUserId</field>
+    </columns>
+    <columns>
+        <field>UserProvisioningRequest$AppName</field>
+    </columns>
+    <columns>
+        <field>UserProvisioningRequest$SubmittedBy</field>
+    </columns>
+    <columns>
+        <field>UserProvisioningRequest$CreatedDate</field>
+    </columns>
+    <columns>
+        <field>UserProvisioningRequest$CompletedDate</field>
+    </columns>
+    <columns>
+        <field>UserProvisioningRequest$Status</field>
+    </columns>
+    <description>User Provisioning Requests - For Security Admin</description>
+    <filter>
+        <booleanFilter>(1 OR 2) OR 3</booleanFilter>
+        <criteriaItems>
+            <column>UserProvisioningRequest$LastActor</column>
+            <isUnlocked>false</isUnlocked>
+            <operator>contains</operator>
+            <value>Jen Miller</value>
+        </criteriaItems>
+        <criteriaItems>
+            <column>UserProvisioningRequest$LastActor</column>
+            <isUnlocked>false</isUnlocked>
+            <operator>contains</operator>
+            <value>Cynthia Havel</value>
+        </criteriaItems>
+        <criteriaItems>
+            <column>UserProvisioningRequest$LastActor</column>
+            <isUnlocked>true</isUnlocked>
+            <operator>contains</operator>
+            <value>Gina Stewart</value>
+        </criteriaItems>
+    </filter>
+    <format>Summary</format>
+    <groupingsDown>
+        <dateGranularity>Day</dateGranularity>
+        <field>UserProvisioningRequest$LastActor</field>
+        <sortOrder>Asc</sortOrder>
+    </groupingsDown>
+    <name>EMS UPR - Security Admin</name>
+    <params>
+        <name>co</name>
+        <value>1</value>
+    </params>
+    <reportType>User_Provisioning_Requests__c</reportType>
+    <scope>organization</scope>
+    <showDetails>true</showDetails>
+    <sortColumn>UserProvisioningRequest$Name</sortColumn>
+    <sortOrder>Desc</sortOrder>
+    <timeFrameFilter>
+        <dateColumn>UserProvisioningRequest$CreatedDate</dateColumn>
+        <endDate>2016-10-31</endDate>
+        <interval>INTERVAL_CUSTOM</interval>
+        <startDate>2016-01-01</startDate>
+    </timeFrameFilter>
+</Report>

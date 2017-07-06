@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Report xmlns="http://soap.sforce.com/2006/04/metadata">
+    <columns>
+        <field>User$CreatedDate</field>
+    </columns>
+    <columns>
+        <field>User*User$Ag2Ag_ID__c</field>
+    </columns>
+    <columns>
+        <field>User$LastName</field>
+    </columns>
+    <columns>
+        <field>User$FirstName</field>
+    </columns>
+    <columns>
+        <field>User*User$JobClassification__c</field>
+    </columns>
+    <columns>
+        <field>User$Email</field>
+    </columns>
+    <columns>
+        <field>User$Phone</field>
+    </columns>
+    <columns>
+        <field>User$Account.Name</field>
+    </columns>
+    <columns>
+        <field>User$Account.BillingStreet</field>
+    </columns>
+    <columns>
+        <field>User$Account.BillingCity</field>
+    </columns>
+    <columns>
+        <field>User$Account.BillingState</field>
+    </columns>
+    <columns>
+        <field>User$Account.BillingPostalCode</field>
+    </columns>
+    <description>Report for TalentLink</description>
+    <filter>
+        <booleanFilter>1 AND ( 2 OR 3 OR 4)  AND 5</booleanFilter>
+        <criteriaItems>
+            <column>User.UserProvAccount$SalesforceUserId$ConnectedApp</column>
+            <isUnlocked>false</isUnlocked>
+            <operator>contains</operator>
+            <value>Land OLakes,Inc. Business Link</value>
+        </criteriaItems>
+        <criteriaItems>
+            <column>User*User$JobClassification__c</column>
+            <isUnlocked>false</isUnlocked>
+            <operator>equals</operator>
+            <value>Retailer Sales</value>
+        </criteriaItems>
+        <criteriaItems>
+            <column>User*User$JobClassification__c</column>
+            <isUnlocked>false</isUnlocked>
+            <operator>equals</operator>
+            <value>Retailer Management</value>
+        </criteriaItems>
+        <criteriaItems>
+            <column>User*User$JobClassification__c</column>
+            <isUnlocked>true</isUnlocked>
+            <operator>equals</operator>
+            <value>Retailer Operations</value>
+        </criteriaItems>
+        <criteriaItems>
+            <column>User*User$seed__c</column>
+            <isUnlocked>true</isUnlocked>
+            <operator>equals</operator>
+            <value>1</value>
+        </criteriaItems>
+    </filter>
+    <format>Tabular</format>
+    <name>TalentLink New Registration</name>
+    <params>
+        <name>co</name>
+        <value>1</value>
+    </params>
+    <reportType>User_Information_Account_Access__c</reportType>
+    <scope>organization</scope>
+    <showDetails>true</showDetails>
+    <sortColumn>User$CreatedDate</sortColumn>
+    <sortOrder>Asc</sortOrder>
+    <timeFrameFilter>
+        <dateColumn>User.UserProvAccount$SalesforceUserId$CreatedDate</dateColumn>
+        <interval>INTERVAL_YESTERDAY</interval>
+    </timeFrameFilter>
+</Report>

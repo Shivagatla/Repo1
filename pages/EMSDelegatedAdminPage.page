@@ -1,0 +1,444 @@
+<apex:page controller="EMS_DA_UserList" extensions="EMS_DA_Request" showHeader="false" sidebar="false" standardStylesheets="false" action="{!redir}">
+    <head>
+        <apex:stylesheet value="{!URLFOR($Resource.EMSHtmlStyleNew, 'css/foundation.css')}"/>
+        <apex:stylesheet value="{!URLFOR($Resource.EMSHtmlStyleNew, 'css/font-awesome.css')}"/>
+        <apex:stylesheet value="{!URLFOR($Resource.EMSHtmlStyleNew, 'css/finalSteps.css')}"/>
+        <apex:stylesheet value="{!URLFOR($Resource.EMSHtmlStyleNew, 'css/datatables.min.css')}"/>
+        <apex:includeScript value="{!URLFOR($Resource.EMSHtmlStyleNew, 'js/jquery-1.9.1.js')}"/>
+        <apex:includeScript value="{!URLFOR($Resource.EMSHtmlStyleNew, 'js/foundation.min.js')}"/>
+        <apex:includeScript value="{!URLFOR($Resource.EMSHtmlStyleNew, 'js/datatables.min.js')}"/>
+        <apex:includeScript value="{!URLFOR($Resource.EMSHtmlStyleNew, 'js/jquery.blockUI.js')}"/>
+        <script>
+        $(document).ready(function(){
+            $(".navBar div").click(function(){$(".active").removeClass("active");$(this).addClass("active");});
+            $("#granted").click(function() {$("#grantedDiv").show();$("#pendingDiv").hide();$("#availableDiv").hide();});
+            $("#pending").click(function() {$("#pendingDiv").show();$("#grantedDiv").hide();$("#availableDiv").hide();});
+            $("#available").click(function() {$("#availableDiv").show();$("#pendingDiv").hide();$("#grantedDiv").hide();});
+            $('.close-reveal-modal').click(function(){
+                $(this).parent().hide();
+                $('.reveal-modal-bg').hide();
+                $("#popinfosecdiv").removeClass('open'); 
+                $("#pendingdivPopup").removeClass('open');
+                $('#popinfosecdiv').find('p').remove();
+                $('#pendingdivPopup').contents(':not("a")').remove();
+            });
+            var table = $('#usersTable1').DataTable( {
+                lengthChange: false,
+                paging:   true,
+                ordering: true,
+                buttons: [ 
+                    {
+                        extend: 'excel',
+                        text: 'Download Excel',
+                        className: 'excelLink',
+                        filename: 'Users Data export',
+                        exportOptions: {
+                            columns: [0,1,2,3,4,5]
+                        }
+                    }
+                ],
+                "aoColumnDefs" : [
+                    {
+                        'bSortable' : false,
+                        'aTargets' : [ 6 ]
+                    }],
+                "oLanguage": {
+                    "sSearch": "Global Search"
+                },
+                pageLength : 5
+            } );
+            var table2 = $('#usersTable2').DataTable( {
+                lengthChange: false, 
+                paging:   true,
+                ordering: true,
+                buttons: [ 
+                    {
+                        extend: 'excel',
+                        text: 'Download Excel',
+                        className: 'excelLink',
+                        filename: 'Granted Data export',
+                        exportOptions: {
+                            columns: [0,1,2,3]
+                        }
+                    }
+                ],
+                "aoColumnDefs" : [
+                    {
+                        'bSortable' : false,
+                        'aTargets' : [ 4 ]
+                    }],
+                "oLanguage": {
+                    "sSearch": "Global Search"
+                },
+                pageLength : 5
+            } );
+            var table3 = $('#usersTable3').DataTable( {
+                lengthChange: false,
+                paging:   true,
+                ordering: true,
+                buttons: [ 
+                    {                        
+                        extend: 'excel',
+                        text: 'Download Excel',
+                        className: 'excelLink',
+                        filename: 'Pending Data export',
+                        exportOptions: {
+                            columns: [0,1,2,3,4,5]
+                        }
+                    }
+                ],
+                "aoColumnDefs" : [
+                    {
+                        'bSortable' : false,
+                        'aTargets' : [ 6 ]
+                    }],
+                "oLanguage": {
+                    "sSearch": "Global Search"
+                },
+                pageLength : 5
+            } );
+            table.buttons().container().appendTo('#table1Searching');table2.buttons().container().appendTo('#table2Searching');table3.buttons().container().appendTo('#table3Searching');
+            function filterColumn (i,j,tableId) {
+                $('#'+tableId).DataTable().column( i ).search(j).draw();
+            }
+            $('#goSearchTable1').on( 'click', function () {
+                table.search( '' ).columns().search( '' ).draw();
+                filterColumn( $(this).prev().prev().find(':selected').val(), $(this).prev().val(),'usersTable1');
+            } );
+            $('#goSearchTable2').on( 'click', function () {
+                table2.search( '' ).columns().search( '' ).draw();
+                filterColumn( $(this).prev().prev().find(':selected').val(), $(this).prev().val(),'usersTable2');
+            } );
+            $('#goSearchTable3').on( 'click', function () {
+                table3.search( '' ).columns().search( '' ).draw();
+                filterColumn( $(this).prev().prev().find(':selected').val(), $(this).prev().val(),'usersTable3');
+            } );
+            $('.filterbySelect').change(function () {
+                $(this).next().val("");
+            });
+        });
+        </script>
+        <style>
+            .dataTables_filter{ display: none; }
+            .navBar a {color: #fff;text-decoration: none;padding: 3px 7px;border-radius: 5px;-webkit-border-radius: 5px;-moz-border-radius: 5px;}
+            .navBar .classPad{padding: 3px 7px;cursor:pointer;}
+            .navBar .classPad a{color:#263747;}
+            .navBar .classPad:nth-child(1){border-top-left-radius: 5px;border-top-right-radius: 0px;border-bottom-right-radius: 0px;border-bottom-left-radius: 5px}
+            .navBar .classPad:nth-child(3){border-top-left-radius: 0px;border-top-right-radius: 5px;border-bottom-right-radius: 5px;border-bottom-left-radius: 0px}
+            .navBar .active {text-decoration: none;padding: 3px 7px;background-color: #263747;}
+            .navBar .classPad.active a{color:#fff;}
+            .divClass{background: #EFF1F2 none repeat scroll 0 0;display: block;padding: 4%;}
+            table.resDataTable{border: none;background: transparent; border-collapse: collapse;}
+            table.resDataTable tr{border-bottom:1px solid #aaa;}
+            table.resDataTable thead{background: transparent;}
+            table.resDataTable tr th, table.resDataTable tr td{padding-top:1rem; padding-bottom:1rem;}
+            .goSearch,.pending,.popinfo,.popinfosec,.button,.button.secondary{font-size: 12px;color: #282828;border: 1px solid rgb(185,185,185);padding: 6px 15px;background-color: #f9f9f9;}
+            .goSearch:hover,.pending:hover,.popinfo:hover,.popinfosec:hover,.button:hover,.button.secondary:hover{background-color: #eee;color: #282828;}
+            .buttonStyle{margin:20px 0;}
+            .buttonStyle .button.secondary{padding:8px 18px; margin-left:10px;}
+            table.resDataTable tr.even, table.resDataTable tr.alt, table.resDataTable tr:nth-of-type(even){background:none;}
+            .dropdown.button.small{display:block;max-width:200px;}
+            .dt-button-collection [class*="column"] + [class*="column"]:last-child{float:none;}
+            .head{font-weight:bold;}
+            .viewPop{border-bottom:1px solid #ddd;margin-bottom:15px;}
+            #popinfosecdiv a.button { min-width: 300px; padding: 10px 0; border-radius: 5px; margin-bottom: 0;}
+            #pendingdivPopup a.button { min-width: 300px; padding: 10px 0; border-radius: 5px; margin-bottom: 0;}
+            table.tableone thead{background: #4472c4;}
+            table.tableone tbody tr:nth-child(2n+1) {background:#d9e2f3;}
+            table.tabletwo tbody tr:nth-child(2n+1) {background:#deeaf6;}
+            table.tabletwo thead{background: #5b9bd5;}
+            table.tabletwo,table.tableone{border: solid 1px #8eaadb; border-collapse: collapse;}
+            table.tableone thead tr th, table.tableone tfoot tr th, table.tableone tfoot tr td, table.tableone tbody tr th, table.tableone tbody tr td, 
+            table.tableone tr td{border:solid 1px #8eaadb;}
+            table.tabletwo thead tr th, table.tabletwo tfoot tr th, table.tabletwo tfoot tr td, table.tabletwo tbody tr th, table.tabletwo tbody tr td, 
+            table.tabletwo tr td{border:solid 1px #9cc2e5;}
+            table.tabletwo thead tr th, table.tableone thead tr th{color:#fff;}
+        </style>
+    </head>
+    <header>
+        <c:LogoHeaderBar headerName="Delegated Administration"/>
+        <div class="row"> 
+            <div class="large-12 medium-12 small-12 columns right" style="padding: 2% 2% 0% 2%;">
+                <span class="left heading" style="background: none;color: #000;font-weight: bold;font-size: 14px;">Administrator: {!$User.LastName}, {!$User.FirstName}</span>
+                <span style="float: right;">
+                    <table style="background: #dbe6ee none repeat scroll 0 0;border: medium none;">
+                        <tr>
+                            <td class="profileIcon" style="padding-right: 25px;"></td>
+                            <td><a href="/ems/profile">My Profile</a></td>
+                            <td><span>|</span></td>
+                            <td class="helpCircle" style="padding-right: 25px;"></td>
+                            <td><a href="#" id="helpInfo">Help</a></td>
+                        </tr>
+                    </table>
+                </span>
+            </div>
+        </div>
+    </header>
+    <section>       
+        <c:PageMessages />
+        <div class="row">
+            <div class="large-12 medium-12 small-12 columns text-center" style="background: #EFF1F2 none repeat scroll 0 0;padding: 2%;">
+                <div class="navBar clearfix" style="border: 1px solid;border-radius: 5px;margin: 0 auto;width: 50%;">
+                    <div id="granted" class="large-4 medium-4 small-12 columns classPad active" style="border-right: 1px solid;">
+                        <a>Users&nbsp;({!AllUsers.size})</a>
+                    </div>
+                    <div id="pending" class="large-4 medium-4 small-12 columns classPad" style="border-right: 1px solid;">
+                        <a>Granted&nbsp;({!GrantedAccessForAllUsers.size})</a>
+                    </div>
+                    <div id="available" class="large-4 medium-4 small-12 columns classPad">
+                        <a>Pending&nbsp;({!PendingRequests.size})</a>
+                    </div>
+                </div>
+                <div style="margin-top: 4%;">
+                    <hr />
+                </div>
+            </div>
+            <div style="display:{!if(AllUsers.size > 0,"block","none")};">
+                <div class="large-12 medium-12 small-12 divClass" id="grantedDiv">
+                    <div class="large-12 medium-12 small-12 row">
+                        <div class="large-5 medium-12 small-12 left" id="table1Searching">
+                        </div>
+                        <div class="large-7 medium-12 small-12 right">
+                            <h6 style="width:13%;float: left;font-size: 14px;">Search By:</h6>
+                            <select style="width:30%;" class="filterbySelect">
+                                <option value="0">User</option>
+                                <option value="1">Business Link ID</option>
+                                <option value="2">Account Number</option>
+                                <option value="3">Account Name</option>
+                                <option value="4">Role</option>
+                                <option value="5">Status</option>
+                            </select>
+                            <input style="width:44%;" type="text"/>
+                            <a style="width:10%;" class="goSearch" href="#" id="goSearchTable1">Go</a>
+                        </div>
+                    </div>
+                    <table id="usersTable1" class="display resDataTable clearfix" cellspacing="0">
+                        <thead><tr>
+                            <th>User</th>
+                            <th>Business Link ID</th>
+                            <th>Account Number</th>
+                            <th>Account Name</th>
+                            <th>Role</th>
+                            <th>Status</th>
+                            <th>Actions</th>
+                            </tr></thead>
+                        <apex:repeat value="{!AllUsers}" var="child">
+                            <tr>
+                                <td style="width: 15%;">
+                                    <apex:outputText rendered="{!child.userInfo.IsActive}">
+                                        <apex:outputLink target="_blank" value="apex/EMSMyAccessPage?userId={!child.userInfo.Id}">{!child.userInfo.LastName}, {!child.userInfo.FirstName}</apex:outputLink>
+                                    </apex:outputText>
+                                    <apex:outputText rendered="{!!child.userInfo.IsActive}">
+                                        {!child.userInfo.LastName}, {!child.userInfo.FirstName}
+                                    </apex:outputText>
+                                </td>
+                                <td style="width: 15%;">{!child.userInfo.Ag2Ag_ID__c}</td>
+                                <td style="width: 10%;">{!child.accountGUID}</td>
+                                <td style="width: 15%;">{!child.AccountName}</td>
+                                <td style="width: 20%;">{!child.userInfo.JobClassification__c}</td>
+                                <td style="width: 10%;color:rgb(101, 153, 52);">{!if(child.userInfo.IsActive,"Active","InActive")}</td>
+                                <td style="width: 15%;"><a id='{!child.userInfo.Id}' style="display:{!if(child.userInfo.IsActive,"block","none")};" href="#" class="popinfosec" 
+                                                          onclick="inactivateUser('{!child.userInfo.Id}','{!child.userInfo.LastName}, {!child.userInfo.FirstName}');">Inactivate User</a></td>
+                            </tr>
+                        </apex:repeat>
+                    </table>
+                </div>
+            </div>
+            <div style="display:{!if(GrantedAccessForAllUsers.size > 0,"block","none")};">
+                <div class="large-12 medium-12 small-12 divClass" id="pendingDiv" style="display:none;">
+                    <div class="large-12 medium-12 small-12 row">
+                        <div class="large-5 medium-12 small-12 left" id="table2Searching">
+                        </div>
+                        <div class="large-7 medium-12 small-12 right">
+                            <h6 style="width:13%;float: left;font-size: 14px;">Search By:</h6>
+                            <select style="width:30%;" class="filterbySelect">
+                                <option value="0">User</option>
+                                <option value="1">Business Link ID</option>
+                                <option value="2">Application</option>
+                                <option value="3">Account Entitlements</option>
+                            </select>
+                            <input style="width:44%;" type="text"/>
+                            <a style="width:10%;" class="goSearch" href="#" id="goSearchTable2">Go</a>
+                        </div>
+                    </div>
+                    <table id="usersTable2" class="display resDataTable" cellspacing="0" width="100%">
+                        <thead><tr><th>User</th><th>Business Link ID</th><th>Application</th><th>Account Entitlements</th><th>Actions</th></tr></thead>
+                        <apex:repeat value="{!GrantedAccessForAllUsers}" var="gchild">
+                            <tr>
+                                <td style="width: 15%;"><apex:outputLink target="_blank" value="apex/EMSMyAccessPage?userId={!gchild.userId}">{!gchild.fullName}</apex:outputLink></td>
+                                <td style="width: 20%;">{!gchild.businessLinkId}</td>
+                                <td style="width: 20%;">{!gchild.applicationName}</td>
+                                <td style="width: 30%;">{!gchild.accountEnts}</td>
+                                <td style="width: 15%;">
+                                    <a href="#" id='{!gchild.userId}{!gchild.appcode}' class="popinfosec" onclick="inactivateUserAccess('{!gchild.userId}','{!gchild.fullName}','{!gchild.applicationName}','{!gchild.appcode}');">Remove Access</a>
+                                </td>
+                            </tr>
+                        </apex:repeat>
+                    </table>
+                </div>
+            </div>
+            <div style="display:{!if(PendingRequests.size > 0,"block","none")};">
+                <div class="large-12 medium-12 small-12 divClass" id="availableDiv" style="display:none;">
+                    <div class="large-12 medium-12 small-12 row">
+                        <div class="large-5 medium-12 small-12 left" id="table3Searching">
+                        </div>
+                        <div class="large-7 medium-12 small-12 right">
+                            <h6 style="width:13%;float: left;font-size: 14px;">Search By:</h6>
+                            <select style="width:30%;" class="filterbySelect">
+                                <option value="0">User</option>
+                                <option value="1">Application</option>
+                                <option value="2">Requested Operation</option>
+                                <option value="3">Requested By</option>
+                                <option value="4">Request Date</option>
+                                <option value="5">Request ID</option>
+                            </select>
+                            <input style="width:44%;" type="text"/>
+                            <a style="width:10%;" class="goSearch" href="#" id="goSearchTable3">Go</a>
+                        </div>
+                    </div>
+                    <table id="usersTable3" class="display resDataTable" cellspacing="0" width="100%">
+                        <thead><tr><th>User</th><th>Application</th><th>Requested Operation</th><th>Requested By</th><th>Request Date</th><th>Request ID</th><th>Actions</th></tr></thead>
+                        <apex:repeat value="{!PendingRequests}" var="child">
+                            <tr>
+                                <td style="width: 20%;"><apex:outputLink target="_blank" value="apex/EMSMyAccessPage?userId={!child.SalesforceuserId}">{!child.SalesforceUser.LastName}, {!child.SalesforceUser.FirstName}</apex:outputLink></td>
+                                <td style="width: 20%;">{!child.AppName}</td>
+                                <td style="width: 10%;">{!child.Operation}</td>
+                                <td style="width: 15%;">{!child.CreatedBy.Name}</td>
+                                <td style="width: 15%;"><apex:outputText value="{0,date,MM'/'dd'/'yyyy}"><apex:param value="{!child.CreatedDate}" /></apex:outputText></td>
+                                <td style="width: 10%;">{!child.Name}</td>
+                                <td style="width: 10%;">
+                                    <apex:outputText rendered="{!AND((child.Current_Step__c == 'DELEGATED'), OR($User.Id == child.Delegated_Admin__c, $User.Id == child.Delegated_Admin_2__c))}">
+                                        <a href="#" class="pending" onclick="processUPR('{!child.Id}');">Process</a>
+                                    </apex:outputText>
+                                </td>
+                            </tr>
+                        </apex:repeat>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </section>
+    <style>
+        .divModal{background: #eee none repeat scroll 0 0;border-radius:5px;padding: 3%;}
+        .rowsEven{float:left !important;background-color: #DBE6D0 !important;width: 100% !important;}
+        .rowHead{background-color: #EEC !important;padding: 4px !important;text-align: center !important;}
+    </style>
+    <footer>
+        <c:LogoFooterBar />
+    </footer>
+    <script>
+    function inactivateUser(a,name) {
+        var popinfosecdiv = '<p>Inactivate</p>'+
+            '<p>'+name+'?</p>'+
+            '<p style="font-weight:bold;">Upon confirmation all access for this user will be removed.</p>'+
+            '<p><a href="#" onclick="inActive('+"'"+a+"'"+');" class="button alert" style="font-weight:bold;">Inactivate '+name+'</a></p>'+
+            '<p>Click Close to cancel</p>';
+        $('#popinfosecdiv').append(popinfosecdiv);
+        $('#popinfosecdiv').foundation('reveal','open');
+    }
+    function inactivateUserAccess(a,name,appName,appCode) {
+        var popinfosecdiv = '<p>Inactivate Access of</p>'+
+            '<p>'+name+'?</p>'+
+            '<p>For</p>'+
+            '<p>'+appName+'</p>'+
+            '<p style="font-weight:bold;">Upon confirmation this user access to this application will be removed.</p>'+
+            '<p><a href="#" onclick="inActiveAccess('+"'"+a+"'"+','+"'"+appCode+"'"+');" class="button alert" style="font-weight:bold;">Yes, Inactivate</a></p>'+
+            '<p>Click Close to cancel</p>';
+        $('#popinfosecdiv').append(popinfosecdiv);
+        $('#popinfosecdiv').foundation('reveal','open');
+    }
+    var processUPR = function(uprId) {
+        $.blockUI({ css: { 
+            border: 'none', 
+            padding: '15px', 
+            backgroundColor: '#000', 
+            '-webkit-border-radius': '10px', 
+            '-moz-border-radius': '10px', 
+            opacity: .5, 
+            color: '#fff' 
+        } });
+        var html = '<h4 style="margin-bottom: 3%;text-align: center;">User Provisioning Info</h4>';
+        Visualforce.remoting.Manager.invokeAction('{!$RemoteAction.EMS_DA_Request.getUPRInfo}',uprId, function(result, event){
+            html = html + '<h4>'+result.appName+'</h4><h6>'+result.appDesc+'</h6><hr />';
+            html = html + '<div class="row large-12 medium-12 small-12 columns" style="padding: 0px;">'+
+                '<div><div class="large-4 medium-6 small-12 columns" style="padding: 0px;"><span class="prefix"><strong>Comments</strong></span></div>'
+            + '<div class="large-8 medium-6 small-12 columns" style="padding: 0px;"><input id="commentsInput" type="text" /></div></div></div>';
+            html = html + '<div class="row large-12 medium-12 small-12" style="padding: 0px;font-size:14px;">';
+            if(result.reqRoles.length > 0) {html = html + '<h6>Requested Roles</h6><div class="large-12 medium-12 small-12 columns" style="padding: 0px;">'+
+                '<div style="font-weight:bold;"><div class="large-4 medium-4 small-6 columns"> Name</div><div class="large-8 medium-8 small-6 columns"> Description</div></div>';}
+            for(var i = 0; i < result.reqRoles.length; i++){ 
+                html = html + '<div class="rowsEven"><div class="large-4 medium-4 small-6 columns">' + result.reqRoles[i].name + '</div>' 
+                + '<div class="large-8 medium-8 small-6 columns">' + result.reqRoles[i].description + '</div></div>';
+            }if(result.reqRoles.length > 0) {html = html + '</ div>';}
+            if(result.reqAccounts.length > 0) {html = html + '<h6>Requested Accounts</h6><div class="large-12 medium-12 small-12 columns" style="padding: 0px;">'+
+                '<div style="font-weight:bold;"><div class="large-4 medium-4 small-6 columns">Name</div><div class="large-8 medium-8 small-6 columns"> Description</div></div>';}
+            for(var i = 0; i < result.reqAccounts.length; i++){ 
+                html = html + '<div class="rowsEven"><div class="large-4 medium-4 small-6 columns">' + result.reqAccounts[i].name + '</div>' 
+                + '<div class="large-8 medium-8 small-6 columns">' + result.reqAccounts[i].description + '</div></div>';
+            }if(result.reqAccounts.length > 0) {html = html + '</ div>';}
+            html = html + '</ div>';
+            html = html + '<div style="margin-top: 5%;"><p style="padding: 3% 0 0;text-align: center;"><a href="#" onclick="approveUpr('+"'"+uprId+"'"+');" class="button alert" style="font-weight:bold;margin-right:3%;">Approve</a>'+
+                '<a href="#" onclick="denyUpr('+"'"+uprId+"'"+');" class="button success" style="font-weight:bold;">Deny</a></p></div>';
+            html = html + '<p style="text-align: center;margin-top: 1%;font-size: 15px;font-weight: bold;">Click Close to cancel</p>';
+            $('#pendingdivPopup').append(html);
+            $('#pendingdivPopup').foundation('reveal','open');
+            $.unblockUI();
+        }, {escape:true});
+    };
+    var approveUpr = function(aId) {
+        var commentsInput = $('#commentsInput').val();
+        $('#pendingdivPopup').contents(':not("a")').remove();
+        console.log(commentsInput);
+        Visualforce.remoting.Manager.invokeAction('{!$RemoteAction.EMS_DA_Request.processRequest}','{!$User.Id}',aId,'Approve',commentsInput, function(result, event){
+            if (result == 'SUCCESS') { 
+                $('#pendingdivPopup').append('<p style="text-align: center;font-weight: bold;">Your request has been processed successfully</p>');
+            } else {
+                $('#pendingdivPopup').append('<p style="text-align: center;font-weight: bold;">There is some error in processing your request</p>');
+            }
+        }, {escape:true});
+    };
+    var denyUpr = function(aId) {
+        var commentsInput = $('#commentsInput').val();
+        $('#pendingdivPopup').contents(':not("a")').remove();
+        Visualforce.remoting.Manager.invokeAction('{!$RemoteAction.EMS_DA_Request.processRequest}','{!$User.Id}',aId,'Deny',commentsInput, function(result, event){
+            if (result == 'SUCCESS') { 
+                $('#pendingdivPopup').append('<p style="text-align: center;font-weight: bold;">Your request has been processed successfully</p>');
+            } else {
+                $('#pendingdivPopup').append('<p style="text-align: center;font-weight: bold;">There is some error in processing your request</p>');
+            }
+        }, {escape:true});
+    };
+    var inActive = function(aId) {
+        $('#popinfosecdiv').find('p').remove();
+        Visualforce.remoting.Manager.invokeAction('{!$RemoteAction.EMS_DA_UserList.inactivateuser}',aId, function(result, event){
+            if (result == 'SUCCESS') { 
+                $('#popinfosecdiv').append('<p>User has been Successfuly Deactivated</p>');
+                $('#'+aId).parent().prev().text('InActive');
+                $('#'+aId).parent().closest('tr').children('td:first').html($('#'+aId).parent().closest('tr').children('td:first').text());
+                $('#'+aId).remove();
+                var tableId = $('#'+aId).closest('table').attr('id');
+                var table = $('#'+tableId).DataTable();
+                table.draw();
+            } else {
+                $('#popinfosecdiv').append('<p>User does not have access to this user</p>');
+            }
+        }, {escape:true});
+    };
+    var inActiveAccess = function(aId, appCode) {
+        $('#popinfosecdiv').find('p').remove();
+        Visualforce.remoting.Manager.invokeAction('{!$RemoteAction.EMS_DA_UserList.removeAccessFromUser}',aId,appCode,'Submitted through delegated admin page',function(result, event){
+            $('#popinfosecdiv').append('<p>Remove Access Request has been queued.</p>');
+            $('#'+aId+appCode).remove();
+            var tableId = $('#'+aId+appCode).closest('table').attr('id');
+            var table = $('#'+tableId).DataTable();
+            table.draw();
+        }, {escape:true});
+    };
+    </script>
+    <div id="popinfosecdiv" class="reveal-modal divModal text-center" style="width:25%;">
+        <a class="close-reveal-modal" aria-label="Close">&#215;</a>
+    </div>
+    <div id="pendingdivPopup" class="reveal-modal divModal">
+        <a class="close-reveal-modal" aria-label="Close">&#215;</a>
+    </div>
+</apex:page>

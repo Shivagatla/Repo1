@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ConnectedApp xmlns="http://soap.sforce.com/2006/04/metadata">
+    <contactEmail>websitesupport@landolakes.com</contactEmail>
+    <infoUrl>https://sso.landolakesinc.com/idp/startSSO.ping?PartnerSpId=https://www.r7tool.farmsat-nafta.com/Portal/Public/SSOProcess.ashx</infoUrl>
+    <label>R7 Tool</label>
+</ConnectedApp>

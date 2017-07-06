@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<EmailTemplate xmlns="http://soap.sforce.com/2006/04/metadata">
+    <available>true</available>
+    <description>Notify Access Approver of a pending access request</description>
+    <encodingKey>ISO-8859-1</encodingKey>
+    <letterhead>Internal_Letterhead</letterhead>
+    <name>New UPR Needs Approval</name>
+    <style>freeForm</style>
+    <subject>{!IF(UserProvisioningRequest.Current_Step__c=&apos;INTERNAL&apos;,&apos;[EMS] New Access Request needs approval -&apos;,&apos;&apos;)}{!UserProvisioningRequest.AppName} Request</subject>
+    <textOnly>Hi {!Receiving_User.FirstName},
+
+{!IF(UserProvisioningRequest.Current_Step__c=&apos;INTERNAL&apos;,&apos;A new access request needs your attention.&apos;,&apos;A Business Link application access request  for one of your users has been submitted.   Your approval is requested.&apos;)}
+
+Request Details:
+Application: {!UserProvisioningRequest.AppName}
+User: {!IF(UserProvisioningRequest.Current_Step__c=&apos;INTERNAL&apos;,&apos;&apos;+UserProvisioningRequest.ExternalUserId,&apos;&apos;+UserProvisioningRequest.Target_User_Name__c)}
+Action: {!UserProvisioningRequest.Operation}
+{!IF(UserProvisioningRequest.Current_Step__c=&apos;INTERNAL&apos;,&apos;User Reason:&apos;+ UserProvisioningRequest.User_Reason__c + &apos;
+Other Request Information: &apos;+UserProvisioningRequest.Other_Details__c,&apos;&apos;)}
+
+Please click here to review the details:
+
+{!IF(UserProvisioningRequest.Current_Step__c=&apos;INTERNAL&apos;, &apos;https://landolakesincforce.com/ems/&apos;+UserProvisioningRequest.Id, &apos;&apos;https://landolakesinc.force.com/ems/EMSDelegatedAdminPage&apos;)}</textOnly>
+    <type>html</type>
+</EmailTemplate>

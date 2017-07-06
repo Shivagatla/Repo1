@@ -1,0 +1,75 @@
+<apex:page controller="EMSUPRController" showHeader="false" sidebar="false">
+
+        <script>
+        j$ = jQuery.noConflict();
+        j$(document).ready( function () {
+            var contacttable2 = j$('[id$="contacttable2"]').DataTable({
+            	
+                order: [[1, 'asc']],sDom: 'rtlip', pageLength:5,bLengthChange:false,"autoWidth" : true,
+                "language": {
+                    "emptyTable": "All available entitlements are on the request.",
+                    "zeroRecords": "All available entitlements are on the request."
+                },
+                initComplete: function() {
+                    
+                }
+            });
+          
+        });
+
+          function drawTables2(){
+            var contacttable2 = j$('[id$="contacttable2"]').DataTable({
+                order: [[1, 'asc']],sDom: 'rtlip', pageLength:5,bLengthChange:false,"autoWidth" : true,
+                "language": {
+                    "emptyTable": "All available entitlements are on the request.",
+                    "zeroRecords": "All available entitlements are on the request."
+                },
+                "destroy" : true,
+                initComplete: function() {
+                   
+                }
+            });
+            
+            contacttable2.columns.adjust().draw(); // Redraw the DataTable
+           
+            
+        }
+        </script>
+       
+<apex:form >
+ <apex:commandButton value="Close" onClick="dialog.hide()" oncomplete="RefreshPrimaryTab('{!$Site.Prefix}','{!upr.id}'); return true;" status="waitStatus"/>
+<apex:outputPanel id="tblData2" >
+  <table id="contacttable2" class="display" style="padding: 1% 0px;margin-bottom: 1%;">
+                    <thead>
+                        <tr>
+                            <th></th>
+                            <th>Entitlement Type</th>
+                            <th>Entitlement Name</th>
+                            <th>Entitlement Information</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <apex:repeat value="{!allEntitlements}" var="item">
+                            <tr>
+                                <td> <div class="x-grid3-cell-inner x-grid3-col-ACTION_COLUMN" id="0015500000CBKy2_ACTION_COLUMN">
+                                        <apex:commandLink action="{!addRole}"  rendered="{!$Permission.canUpdateRequests && !isApproved}" reRender="tblData2,tblData" oncomplete="drawTables2()" >
+                                            <apex:param value="{!item.objid}" name="entToAdd" assignTo="{!entToAdd}"/>
+                                            <span>Add To Request</span></apex:commandLink>
+                                    </div> 
+                                </td>
+                                <td>{!item.entType}</td>
+                                <td>{!item.Name}</td>
+                                <td>{!item.Description}</td>
+                            </tr>
+                        </apex:repeat>
+                    </tbody>
+                </table>
+</apex:outputPanel> 
+<apex:outputPanel >
+
+  
+
+</apex:outputPanel>        
+</apex:form>
+	
+</apex:page>

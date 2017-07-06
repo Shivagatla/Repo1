@@ -1,0 +1,42 @@
+<apex:page showHeader="true" sidebar="false" standardStylesheets="false" controller="EMSApprovalsController" >
+    <html>
+        <head>
+<apex:stylesheet value="{!URLFOR($Resource.EMSHtmlStyle, 'css/foundation.css')}"/>
+<apex:stylesheet value="{!URLFOR($Resource.EMSHtmlStyle, 'css/font-awesome.css')}"/>
+<apex:stylesheet value="{!URLFOR($Resource.EMSHtmlStyle, 'css/final.css')}"/>
+    
+
+
+<!-- JQuery Library -->
+<apex:includeScript value="{!URLFOR($Resource.EMSHtmlStyle, 'js/jquery-1.9.1.js')}"/>
+<apex:includeScript value="{!URLFOR($Resource.EMSHtmlStyle, 'js/custom2.js')}"/>
+<apex:includeScript value="{!URLFOR($Resource.EMSHtmlStyle, 'js/jquery.validate.min.js')}"/>
+
+<!-- Default Foundation javascript -->
+<apex:includeScript value="{!URLFOR($Resource.EMSHtmlStyle, 'js/foundation.min.js')}"/>
+<apex:includeScript value="{!URLFOR($Resource.EMSHtmlStyle, 'js/modernizr.js')}"/>
+  </head>
+
+    <apex:form >
+       
+          <div class="large-12 medium-12 small-12 columns left">  
+        <div class="large-12 columns label-head"><label class="requestType">Open Items</label></div>
+     
+                <apex:dataTable styleClass="large-12 medium-12 small-12 columns left" value="{!approvalItems}" var="pApp"  >
+                    <apex:column headerValue="Request" headerClass="small-2 columns" styleclass="small-2 columns">
+                    <apex:outputLink target="_top" value="/{!pApp.recordId}">{!pApp.recordName}</apex:outputLink>
+                    </apex:column> 
+                     <apex:column value="{!pApp.username}" headerValue="For User" headerClass="small-3 columns" styleclass="small-3 columns"/>
+                    <apex:column value="{!pApp.appname}" headerValue="Application" headerClass="small-3 columns" styleclass="small-3 columns"/>
+                    <apex:column value="{!pApp.submitterName}" headerValue="Submitted By" headerClass="small-2 columns" styleclass="small-2 columns"/>
+                    <apex:column value="{!pApp.submitDate}" headerValue="Submitted On" headerClass="small-2 columns" styleclass="small-2 columns"/>
+               
+                </apex:dataTable> 
+                 </div>
+    
+    </apex:form>
+
+
+    </html>
+
+</apex:page>

@@ -1,0 +1,170 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomObject xmlns="http://soap.sforce.com/2006/04/metadata">
+    <actionOverrides>
+        <actionName>Accept</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>CancelEdit</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Clone</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Delete</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Edit</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>List</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>New</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>SaveEdit</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Tab</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>View</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <allowInChatterGroups>false</allowInChatterGroups>
+    <compactLayoutAssignment>SYSTEM</compactLayoutAssignment>
+    <deploymentStatus>Deployed</deploymentStatus>
+    <enableActivities>true</enableActivities>
+    <enableBulkApi>true</enableBulkApi>
+    <enableFeeds>true</enableFeeds>
+    <enableHistory>true</enableHistory>
+    <enableReports>true</enableReports>
+    <enableSearch>true</enableSearch>
+    <enableSharing>true</enableSharing>
+    <enableStreamingApi>true</enableStreamingApi>
+    <externalSharingModel>ControlledByParent</externalSharingModel>
+    <fields>
+        <fullName>Account_Information__c</fullName>
+        <externalId>false</externalId>
+        <formula>IF( ISBLANK( Account__c ),&apos;&apos;, 
+IF(ISPICKVAL(RelatedUPR__r.Application__r.FG_Account_Field__c,&apos;Customer_Number__c&apos;),&apos;Customer Number: &apos;+ Account__r.Customer_Number__c,
+IF(ISPICKVAL(RelatedUPR__r.Application__r.FG_Account_Field__c,&apos;PAES_Number__c&apos;),&apos;PAES Number: &apos;+ Account__r.PAES_Number__c,
+IF(ISPICKVAL(RelatedUPR__r.Application__r.FG_Account_Field__c,&apos;AIMS_Number__c&apos;),&apos;AIMS Number: &apos;+ Account__r.AIMS_Number__c,
+&apos;GUID: &apos;+Account__r.GUID__c))))</formula>
+        <label>Account Information</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Account__c</fullName>
+        <deleteConstraint>SetNull</deleteConstraint>
+        <externalId>false</externalId>
+        <label>Account</label>
+        <referenceTo>Account</referenceTo>
+        <relationshipLabel>Entilements In Car</relationshipLabel>
+        <relationshipName>Requested_FG_Ents</relationshipName>
+        <required>false</required>
+        <trackFeedHistory>false</trackFeedHistory>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Lookup</type>
+    </fields>
+    <fields>
+        <fullName>Ent_code__c</fullName>
+        <deleteConstraint>SetNull</deleteConstraint>
+        <externalId>false</externalId>
+        <label>Entitlement Code</label>
+        <referenceTo>Entitlements__c</referenceTo>
+        <relationshipName>Entilements_In_Car</relationshipName>
+        <required>false</required>
+        <trackFeedHistory>true</trackFeedHistory>
+        <trackHistory>true</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Lookup</type>
+    </fields>
+    <fields>
+        <fullName>Parent_App__c</fullName>
+        <externalId>false</externalId>
+        <label>Parent App</label>
+        <lookupFilter>
+            <active>true</active>
+            <filterItems>
+                <field>Cart_Application__c.UPR_Number__c</field>
+                <operation>equals</operation>
+                <valueField>$Source.RelatedUPR__c</valueField>
+            </filterItems>
+            <isOptional>false</isOptional>
+        </lookupFilter>
+        <referenceTo>Cart_Application__c</referenceTo>
+        <relationshipLabel>Cart Entitlements</relationshipLabel>
+        <relationshipName>Cart_Entitlements</relationshipName>
+        <relationshipOrder>0</relationshipOrder>
+        <reparentableMasterDetail>false</reparentableMasterDetail>
+        <trackFeedHistory>true</trackFeedHistory>
+        <trackHistory>true</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>MasterDetail</type>
+        <writeRequiresMasterRead>false</writeRequiresMasterRead>
+    </fields>
+    <fields>
+        <fullName>RelatedUPR__c</fullName>
+        <deleteConstraint>Restrict</deleteConstraint>
+        <externalId>false</externalId>
+        <label>User Provisioning Request</label>
+        <referenceTo>UserProvisioningRequest</referenceTo>
+        <relationshipLabel>Requested Entitlements</relationshipLabel>
+        <relationshipName>uprentitlements</relationshipName>
+        <required>false</required>
+        <trackFeedHistory>true</trackFeedHistory>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Lookup</type>
+    </fields>
+    <label>Cart Entitlement</label>
+    <nameField>
+        <displayFormat>{0000000}</displayFormat>
+        <label>Entitlement In Cart Name</label>
+        <trackFeedHistory>true</trackFeedHistory>
+        <trackHistory>true</trackHistory>
+        <type>AutoNumber</type>
+    </nameField>
+    <pluralLabel>Entilements In Car</pluralLabel>
+    <recordTypeTrackFeedHistory>false</recordTypeTrackFeedHistory>
+    <recordTypeTrackHistory>false</recordTypeTrackHistory>
+    <recordTypes>
+        <fullName>Fine_Grained</fullName>
+        <active>true</active>
+        <label>Fine Grained</label>
+    </recordTypes>
+    <recordTypes>
+        <fullName>Role</fullName>
+        <active>true</active>
+        <label>Role</label>
+    </recordTypes>
+    <searchLayouts>
+        <lookupDialogsAdditionalFields>RelatedUPR__c</lookupDialogsAdditionalFields>
+        <lookupDialogsAdditionalFields>Parent_App__c</lookupDialogsAdditionalFields>
+        <lookupDialogsAdditionalFields>Ent_code__c</lookupDialogsAdditionalFields>
+        <lookupPhoneDialogsAdditionalFields>RelatedUPR__c</lookupPhoneDialogsAdditionalFields>
+        <lookupPhoneDialogsAdditionalFields>Parent_App__c</lookupPhoneDialogsAdditionalFields>
+        <lookupPhoneDialogsAdditionalFields>Ent_code__c</lookupPhoneDialogsAdditionalFields>
+        <searchFilterFields>Ent_code__c</searchFilterFields>
+        <searchFilterFields>NAME</searchFilterFields>
+        <searchFilterFields>Parent_App__c</searchFilterFields>
+    </searchLayouts>
+    <sharingModel>ControlledByParent</sharingModel>
+    <startsWith>Vowel</startsWith>
+    <visibility>Public</visibility>
+</CustomObject>
