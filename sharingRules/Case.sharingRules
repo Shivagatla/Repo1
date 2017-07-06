@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<SharingRules xmlns="http://soap.sforce.com/2006/04/metadata">
+    <sharingCriteriaRules>
+        <fullName>Community_Plus_Internal_Users_get_Cases</fullName>
+        <accessLevel>Edit</accessLevel>
+        <label>Community Plus Internal Users get Cases</label>
+        <sharedTo>
+            <portalRole>LandOLakesInternalCustomerUser</portalRole>
+        </sharedTo>
+        <booleanFilter>1 OR 2</booleanFilter>
+        <criteriaItems>
+            <field>RecordTypeId</field>
+            <operation>equals</operation>
+            <value>EMS Provisioning</value>
+        </criteriaItems>
+        <criteriaItems>
+            <field>RecordTypeId</field>
+            <operation>equals</operation>
+            <value>New Customer Registration</value>
+        </criteriaItems>
+    </sharingCriteriaRules>
+</SharingRules>
