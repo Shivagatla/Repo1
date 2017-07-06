@@ -1,0 +1,459 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomObject xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fields>
+        <fullName>Ag2Ag_ID__c</fullName>
+        <caseSensitive>false</caseSensitive>
+        <externalId>true</externalId>
+        <label>BusinessLink ID</label>
+        <length>15</length>
+        <required>false</required>
+        <trackFeedHistory>true</trackFeedHistory>
+        <type>Text</type>
+        <unique>true</unique>
+    </fields>
+    <fields>
+        <fullName>Ag_Tech_Agreement__c</fullName>
+        <defaultValue>false</defaultValue>
+        <externalId>false</externalId>
+        <label>Ag Tech Agreement</label>
+        <trackFeedHistory>false</trackFeedHistory>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>BYOID__c</fullName>
+        <defaultValue>false</defaultValue>
+        <externalId>false</externalId>
+        <label>Login name is email address</label>
+        <trackFeedHistory>true</trackFeedHistory>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>Corporate__c</fullName>
+        <defaultValue>false</defaultValue>
+        <externalId>false</externalId>
+        <label>Corporate</label>
+        <trackFeedHistory>true</trackFeedHistory>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>Email_Verified__c</fullName>
+        <defaultValue>false</defaultValue>
+        <externalId>false</externalId>
+        <label>Email Verified</label>
+        <trackFeedHistory>true</trackFeedHistory>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>External_Fed_Id__c</fullName>
+        <caseSensitive>false</caseSensitive>
+        <externalId>true</externalId>
+        <label>Portal Login</label>
+        <length>50</length>
+        <required>false</required>
+        <trackFeedHistory>true</trackFeedHistory>
+        <type>Text</type>
+        <unique>true</unique>
+    </fields>
+    <fields>
+        <fullName>FGI__c</fullName>
+        <defaultValue>false</defaultValue>
+        <externalId>false</externalId>
+        <label>FGI</label>
+        <trackFeedHistory>false</trackFeedHistory>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>Grower__c</fullName>
+        <defaultValue>false</defaultValue>
+        <externalId>false</externalId>
+        <label>Grower</label>
+        <trackFeedHistory>false</trackFeedHistory>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>InactiveDate__c</fullName>
+        <externalId>false</externalId>
+        <label>Inactive Date</label>
+        <required>false</required>
+        <trackFeedHistory>false</trackFeedHistory>
+        <type>DateTime</type>
+    </fields>
+    <fields>
+        <fullName>Initial_Password__c</fullName>
+        <description>Temporary holder of the password requested by the end user.  After the User record is created, the value of this field is cleared out</description>
+        <externalId>false</externalId>
+        <label>Initial Password</label>
+        <length>50</length>
+        <maskChar>asterisk</maskChar>
+        <maskType>all</maskType>
+        <required>false</required>
+        <type>EncryptedText</type>
+    </fields>
+    <fields>
+        <fullName>IsMassLoaded__c</fullName>
+        <defaultValue>false</defaultValue>
+        <externalId>false</externalId>
+        <label>IsMassLoaded</label>
+        <trackFeedHistory>false</trackFeedHistory>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>JobClassification__c</fullName>
+        <externalId>false</externalId>
+        <label>Job Function</label>
+        <required>false</required>
+        <trackFeedHistory>false</trackFeedHistory>
+        <type>Picklist</type>
+        <valueSet>
+            <valueSetDefinition>
+                <sorted>false</sorted>
+                <value>
+                    <fullName>Ag Member</fullName>
+                    <default>false</default>
+                    <label>Ag Member</label>
+                </value>
+                <value>
+                    <fullName>Broker - Foodservice</fullName>
+                    <default>false</default>
+                    <label>Broker - Foodservice</label>
+                </value>
+                <value>
+                    <fullName>Broker - Retail</fullName>
+                    <default>false</default>
+                    <label>Broker - Retail</label>
+                </value>
+                <value>
+                    <fullName>Consultant</fullName>
+                    <default>false</default>
+                    <label>Consultant</label>
+                </value>
+                <value>
+                    <fullName>Dairy Consultant</fullName>
+                    <default>false</default>
+                    <label>Dairy Consultant</label>
+                </value>
+                <value>
+                    <fullName>Dairy Member</fullName>
+                    <default>false</default>
+                    <label>Dairy Member</label>
+                </value>
+                <value>
+                    <fullName>Dairy Member Owner</fullName>
+                    <default>false</default>
+                    <label>Dairy Member Owner</label>
+                </value>
+                <value>
+                    <fullName>Direct Ag Producer</fullName>
+                    <default>false</default>
+                    <label>Direct Ag Producer</label>
+                </value>
+                <value>
+                    <fullName>Farmer</fullName>
+                    <default>false</default>
+                    <label>Farmer</label>
+                </value>
+                <value>
+                    <fullName>Member of a Member</fullName>
+                    <default>false</default>
+                    <label>Member of a Member</label>
+                </value>
+                <value>
+                    <fullName>Member Owner</fullName>
+                    <default>false</default>
+                    <label>Member Owner</label>
+                </value>
+                <value>
+                    <fullName>Momentum Consultant</fullName>
+                    <default>false</default>
+                    <label>Momentum Consultant</label>
+                </value>
+                <value>
+                    <fullName>Nutritionist</fullName>
+                    <default>false</default>
+                    <label>Nutritionist</label>
+                </value>
+                <value>
+                    <fullName>Producer</fullName>
+                    <default>false</default>
+                    <label>Producer</label>
+                </value>
+                <value>
+                    <fullName>Retailer Management</fullName>
+                    <default>false</default>
+                    <label>Retailer Management</label>
+                </value>
+                <value>
+                    <fullName>Retailer Operations</fullName>
+                    <default>false</default>
+                    <label>Retailer Operations</label>
+                </value>
+                <value>
+                    <fullName>Retailer Sales</fullName>
+                    <default>false</default>
+                    <label>Retailer Sales</label>
+                </value>
+                <value>
+                    <fullName>RTech Partner</fullName>
+                    <default>false</default>
+                    <label>RTech Partner</label>
+                </value>
+                <value>
+                    <fullName>Warehousing Partner</fullName>
+                    <default>false</default>
+                    <label>Warehousing Partner</label>
+                </value>
+                <value>
+                    <fullName>Marketing</fullName>
+                    <default>false</default>
+                    <label>Marketing</label>
+                </value>
+                <value>
+                    <fullName>Reporting</fullName>
+                    <default>false</default>
+                    <label>Reporting</label>
+                </value>
+            </valueSetDefinition>
+        </valueSet>
+    </fields>
+    <fields>
+        <fullName>Last_Access_Date__c</fullName>
+        <description>Last Access Date</description>
+        <externalId>false</externalId>
+        <label>Last Access Date</label>
+        <required>false</required>
+        <trackFeedHistory>false</trackFeedHistory>
+        <type>DateTime</type>
+    </fields>
+    <fields>
+        <fullName>Manager_Email__c</fullName>
+        <externalId>false</externalId>
+        <formula>Contact.Manager_Email__c</formula>
+        <label>Manager Email</label>
+        <required>false</required>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Manager_Name__c</fullName>
+        <externalId>false</externalId>
+        <formula>Contact.Manager_Name__c</formula>
+        <label>Manager Name</label>
+        <required>false</required>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Manager_Phone__c</fullName>
+        <externalId>false</externalId>
+        <formula>Contact.Manager_Phone__c</formula>
+        <label>Manager Phone</label>
+        <required>false</required>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Registration_Date__c</fullName>
+        <description>Registration Date</description>
+        <externalId>false</externalId>
+        <label>Registration Date</label>
+        <required>false</required>
+        <trackFeedHistory>false</trackFeedHistory>
+        <type>DateTime</type>
+    </fields>
+    <fields>
+        <fullName>Registration_Info__c</fullName>
+        <externalId>false</externalId>
+        <inlineHelpText>This is information kept for the user during registration.</inlineHelpText>
+        <label>Registration Information</label>
+        <length>32768</length>
+        <trackFeedHistory>false</trackFeedHistory>
+        <type>LongTextArea</type>
+        <visibleLines>3</visibleLines>
+    </fields>
+    <fields>
+        <fullName>Registration_Status__c</fullName>
+        <externalId>false</externalId>
+        <label>Registration Status</label>
+        <required>false</required>
+        <trackFeedHistory>false</trackFeedHistory>
+        <type>Picklist</type>
+        <valueSet>
+            <valueSetDefinition>
+                <sorted>false</sorted>
+                <value>
+                    <fullName>Started</fullName>
+                    <default>true</default>
+                    <label>Started</label>
+                </value>
+                <value>
+                    <fullName>Approved</fullName>
+                    <default>false</default>
+                    <label>Approved</label>
+                </value>
+                <value>
+                    <fullName>Completed</fullName>
+                    <default>false</default>
+                    <label>Completed</label>
+                </value>
+                <value>
+                    <fullName>Denied</fullName>
+                    <default>false</default>
+                    <label>Denied</label>
+                </value>
+                <value>
+                    <fullName>Needs Email Verification</fullName>
+                    <default>false</default>
+                    <label>Needs Email Verification</label>
+                </value>
+            </valueSetDefinition>
+        </valueSet>
+    </fields>
+    <fields>
+        <fullName>Status__c</fullName>
+        <externalId>false</externalId>
+        <label>Status</label>
+        <required>false</required>
+        <trackFeedHistory>false</trackFeedHistory>
+        <type>Picklist</type>
+        <valueSet>
+            <restricted>true</restricted>
+            <valueSetDefinition>
+                <sorted>false</sorted>
+                <value>
+                    <fullName>Validated</fullName>
+                    <default>false</default>
+                    <label>Validated</label>
+                </value>
+                <value>
+                    <fullName>Provisioned</fullName>
+                    <default>false</default>
+                    <label>Provisioned</label>
+                </value>
+                <value>
+                    <fullName>Uploaded</fullName>
+                    <default>false</default>
+                    <label>Uploaded</label>
+                </value>
+            </valueSetDefinition>
+        </valueSet>
+    </fields>
+    <fields>
+        <fullName>Verify_Hash__c</fullName>
+        <externalId>false</externalId>
+        <label>Verification Hash</label>
+        <length>50</length>
+        <required>false</required>
+        <trackFeedHistory>false</trackFeedHistory>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>lol__c</fullName>
+        <defaultValue>false</defaultValue>
+        <externalId>false</externalId>
+        <label>Dairy</label>
+        <trackFeedHistory>false</trackFeedHistory>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>purina__c</fullName>
+        <defaultValue>false</defaultValue>
+        <externalId>false</externalId>
+        <label>Purina</label>
+        <trackFeedHistory>false</trackFeedHistory>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>seed__c</fullName>
+        <defaultValue>false</defaultValue>
+        <externalId>false</externalId>
+        <label>WinField</label>
+        <trackFeedHistory>false</trackFeedHistory>
+        <type>Checkbox</type>
+    </fields>
+    <listViews>
+        <fullName>ActiveUsers</fullName>
+        <columns>FULL_NAME</columns>
+        <columns>CORE.USERS.ALIAS</columns>
+        <columns>CORE.USERS.USERNAME</columns>
+        <columns>CORE.USERS.LAST_LOGIN</columns>
+        <columns>CORE.USER_ROLE.NAME</columns>
+        <columns>CORE.PROFILE.NAME</columns>
+        <filterScope>Everything</filterScope>
+        <filters>
+            <field>CORE.USERS.ACTIVE</field>
+            <operation>equals</operation>
+            <value>1</value>
+        </filters>
+        <label>Active Users</label>
+    </listViews>
+    <listViews>
+        <fullName>EMSAdmins</fullName>
+        <columns>FULL_NAME</columns>
+        <columns>CORE.USERS.USERNAME</columns>
+        <columns>CORE.USER_ROLE.NAME</columns>
+        <columns>CORE.USERS.LAST_LOGIN</columns>
+        <columns>CORE.USERS.ACTIVE</columns>
+        <columns>LAST_UPDATE</columns>
+        <columns>UPDATEDBY_USER.NAME</columns>
+        <filterScope>Everything</filterScope>
+        <filters>
+            <field>CORE.PROFILE.NAME</field>
+            <operation>equals</operation>
+            <value>System Administrator</value>
+        </filters>
+        <label>EMS Admins</label>
+        <sharedTo>
+            <allInternalUsers></allInternalUsers>
+        </sharedTo>
+    </listViews>
+    <listViews>
+        <fullName>EMS_Community_Plus</fullName>
+        <booleanFilter>1 OR 2</booleanFilter>
+        <columns>FULL_NAME</columns>
+        <columns>CORE.USERS.USERNAME</columns>
+        <columns>CORE.USERS.EMAIL</columns>
+        <columns>CORE.USERS.LAST_LOGIN</columns>
+        <columns>CORE.USER_ROLE.NAME</columns>
+        <columns>CORE.USERS.ACTIVE</columns>
+        <columns>CORE.PROFILE.NAME</columns>
+        <columns>LAST_UPDATE</columns>
+        <columns>UPDATEDBY_USER.NAME</columns>
+        <filterScope>Everything</filterScope>
+        <filters>
+            <field>CORE.PROFILE.NAME</field>
+            <operation>contains</operation>
+            <value>EMS Internal Community Plus</value>
+        </filters>
+        <filters>
+            <field>CORE.PROFILE.NAME</field>
+            <operation>contains</operation>
+            <value>EMS Support</value>
+        </filters>
+        <label>EMS Community Plus</label>
+        <sharedTo>
+            <allInternalUsers></allInternalUsers>
+        </sharedTo>
+    </listViews>
+    <listViews>
+        <fullName>EMS_Service_Accounts</fullName>
+        <columns>FULL_NAME</columns>
+        <columns>CORE.USERS.USERNAME</columns>
+        <columns>CORE.USERS.LAST_LOGIN</columns>
+        <columns>CORE.USER_ROLE.NAME</columns>
+        <columns>CORE.USERS.ACTIVE</columns>
+        <columns>CORE.PROFILE.NAME</columns>
+        <columns>LAST_UPDATE</columns>
+        <columns>UPDATEDBY_USER.NAME</columns>
+        <filterScope>Everything</filterScope>
+        <filters>
+            <field>CORE.USER_ROLE.NAME</field>
+            <operation>equals</operation>
+            <value>Service Account</value>
+        </filters>
+        <label>EMS Service Accounts</label>
+        <sharedTo>
+            <allInternalUsers></allInternalUsers>
+        </sharedTo>
+    </listViews>
+</CustomObject>

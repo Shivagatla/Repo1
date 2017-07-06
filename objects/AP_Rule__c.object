@@ -1,0 +1,249 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomObject xmlns="http://soap.sforce.com/2006/04/metadata">
+    <compactLayouts>
+        <fullName>EMS_Access_Policy_Compact</fullName>
+        <fields>Name</fields>
+        <fields>Baseline__c</fields>
+        <fields>Active__c</fields>
+        <label>EMS Access Policy Compact</label>
+    </compactLayouts>
+    <compactLayouts>
+        <fullName>EMS_Compact_Access_Policy_Layout</fullName>
+        <fields>Name</fields>
+        <fields>Active__c</fields>
+        <fields>Baseline__c</fields>
+        <label>EMS Compact Access Policy Layout</label>
+    </compactLayouts>
+    <enableEnhancedLookup>true</enableEnhancedLookup>
+    <fields>
+        <fullName>Active__c</fullName>
+        <defaultValue>false</defaultValue>
+        <externalId>false</externalId>
+        <label>Active</label>
+        <trackFeedHistory>true</trackFeedHistory>
+        <trackHistory>true</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>Baseline__c</fullName>
+        <defaultValue>false</defaultValue>
+        <externalId>false</externalId>
+        <inlineHelpText>If checked, this policy contains an application that is required for other applications to be provisioned, like Active Directory</inlineHelpText>
+        <label>Baseline</label>
+        <trackFeedHistory>true</trackFeedHistory>
+        <trackHistory>true</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>Business_Unit__c</fullName>
+        <description>This entitlement rule applies to any of the selected business units, in conjunction with the job classifications.</description>
+        <externalId>false</externalId>
+        <label>Business Unit</label>
+        <required>false</required>
+        <trackFeedHistory>true</trackFeedHistory>
+        <trackHistory>true</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>MultiselectPicklist</type>
+        <valueSet>
+            <valueSetDefinition>
+                <sorted>false</sorted>
+                <value>
+                    <fullName>Any</fullName>
+                    <default>false</default>
+                    <label>Any</label>
+                </value>
+                <value>
+                    <fullName>Corporate</fullName>
+                    <default>false</default>
+                    <label>Corporate</label>
+                </value>
+                <value>
+                    <fullName>Dairy</fullName>
+                    <default>false</default>
+                    <label>Dairy</label>
+                </value>
+                <value>
+                    <fullName>FGI</fullName>
+                    <default>false</default>
+                    <label>FGI</label>
+                </value>
+                <value>
+                    <fullName>Purina</fullName>
+                    <default>false</default>
+                    <label>Purina</label>
+                </value>
+                <value>
+                    <fullName>WinField</fullName>
+                    <default>false</default>
+                    <label>WinField</label>
+                </value>
+            </valueSetDefinition>
+        </valueSet>
+        <visibleLines>4</visibleLines>
+    </fields>
+    <fields>
+        <fullName>Job_Classification__c</fullName>
+        <description>This entitlement rule applies these job classifications</description>
+        <externalId>false</externalId>
+        <label>Job Function</label>
+        <required>false</required>
+        <trackFeedHistory>true</trackFeedHistory>
+        <trackHistory>true</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>MultiselectPicklist</type>
+        <valueSet>
+            <valueSetDefinition>
+                <sorted>false</sorted>
+                <value>
+                    <fullName>Ag Member</fullName>
+                    <default>false</default>
+                    <label>Ag Member</label>
+                </value>
+                <value>
+                    <fullName>Any</fullName>
+                    <default>false</default>
+                    <label>Any</label>
+                </value>
+                <value>
+                    <fullName>Broker - Foodservice</fullName>
+                    <default>false</default>
+                    <label>Broker - Foodservice</label>
+                </value>
+                <value>
+                    <fullName>Broker - Retail</fullName>
+                    <default>false</default>
+                    <label>Broker - Retail</label>
+                </value>
+                <value>
+                    <fullName>Consultant</fullName>
+                    <default>false</default>
+                    <label>Consultant</label>
+                </value>
+                <value>
+                    <fullName>Dairy Consultant</fullName>
+                    <default>false</default>
+                    <label>Dairy Consultant</label>
+                </value>
+                <value>
+                    <fullName>Dairy Member</fullName>
+                    <default>false</default>
+                    <label>Dairy Member</label>
+                </value>
+                <value>
+                    <fullName>Dairy Member Owner</fullName>
+                    <default>false</default>
+                    <label>Dairy Member Owner</label>
+                </value>
+                <value>
+                    <fullName>Direct Ag Producer</fullName>
+                    <default>false</default>
+                    <label>Direct Ag Producer</label>
+                </value>
+                <value>
+                    <fullName>Farmer</fullName>
+                    <default>false</default>
+                    <label>Farmer</label>
+                </value>
+                <value>
+                    <fullName>Member of a Member</fullName>
+                    <default>false</default>
+                    <label>Member of a Member</label>
+                </value>
+                <value>
+                    <fullName>Member Owner</fullName>
+                    <default>false</default>
+                    <label>Member Owner</label>
+                </value>
+                <value>
+                    <fullName>Producer</fullName>
+                    <default>false</default>
+                    <label>Producer</label>
+                </value>
+                <value>
+                    <fullName>Retailer Management</fullName>
+                    <default>false</default>
+                    <label>Retailer Management</label>
+                </value>
+                <value>
+                    <fullName>Retailer Operations</fullName>
+                    <default>false</default>
+                    <label>Retailer Operations</label>
+                </value>
+                <value>
+                    <fullName>Retailer Sales</fullName>
+                    <default>false</default>
+                    <label>Retailer Sales</label>
+                </value>
+                <value>
+                    <fullName>Momentum Consultant</fullName>
+                    <default>false</default>
+                    <label>Momentum Consultant</label>
+                </value>
+                <value>
+                    <fullName>Nutritionist</fullName>
+                    <default>false</default>
+                    <label>Nutritionist</label>
+                </value>
+                <value>
+                    <fullName>Warehousing Partner</fullName>
+                    <default>false</default>
+                    <label>Warehousing Partner</label>
+                </value>
+                <value>
+                    <fullName>SureTech Customer</fullName>
+                    <default>false</default>
+                    <label>SureTech Customer</label>
+                </value>
+                <value>
+                    <fullName>Marketing</fullName>
+                    <default>false</default>
+                    <label>Marketing</label>
+                </value>
+                <value>
+                    <fullName>Reporting</fullName>
+                    <default>false</default>
+                    <label>Reporting</label>
+                </value>
+            </valueSetDefinition>
+        </valueSet>
+        <visibleLines>4</visibleLines>
+    </fields>
+    <fields>
+        <fullName>Notes__c</fullName>
+        <externalId>false</externalId>
+        <label>Description</label>
+        <required>false</required>
+        <trackFeedHistory>true</trackFeedHistory>
+        <trackHistory>true</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>TextArea</type>
+    </fields>
+    <fields>
+        <fullName>Requires_Validation__c</fullName>
+        <defaultValue>false</defaultValue>
+        <externalId>false</externalId>
+        <label>Requires Validation</label>
+        <trackFeedHistory>true</trackFeedHistory>
+        <trackHistory>true</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Checkbox</type>
+    </fields>
+    <listViews>
+        <fullName>Corporate</fullName>
+        <columns>NAME</columns>
+        <columns>Notes__c</columns>
+        <columns>Active__c</columns>
+        <columns>Job_Classification__c</columns>
+        <columns>Requires_Validation__c</columns>
+        <columns>UPDATEDBY_USER</columns>
+        <columns>LAST_UPDATE</columns>
+        <columns>Baseline__c</columns>
+        <filterScope>Everything</filterScope>
+        <label>Corporate</label>
+        <sharedTo>
+            <allInternalUsers></allInternalUsers>
+        </sharedTo>
+    </listViews>
+</CustomObject>
