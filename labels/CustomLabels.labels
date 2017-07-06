@@ -1,0 +1,122 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomLabels xmlns="http://soap.sforce.com/2006/04/metadata">
+    <labels>
+        <fullName>AgTechAgreement</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>AgTechAgreement</shortDescription>
+        <value>Winfield knows that your privacy is important to you, and we work hard to earn and keep your trust. We have created this Policy to let you know what Personal Information we collect when you use this App, how we use and share the Personal Information we collect, and how we protect your privacy. Please click the “Read the full agreement” button to view the details of this policy.</value>
+    </labels>
+    <labels>
+        <fullName>AgTechPDFUrl</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>AgTechPDFUrl</shortDescription>
+        <value>https://landolakesinc.force.com/ems/servlet/servlet.FileDownload?file=</value>
+    </labels>
+    <labels>
+        <fullName>Community_URL</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Community URL</shortDescription>
+        <value>https://landolakesinc.force.com/ems/</value>
+    </labels>
+    <labels>
+        <fullName>Referred_By_Tooltip</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Referred By Tooltip</shortDescription>
+        <value>Enter Referred By.</value>
+    </labels>
+    <labels>
+        <fullName>Retailer_City_Tooltip</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Retailer City Tooltip</shortDescription>
+        <value>Enter Retailer City.</value>
+    </labels>
+    <labels>
+        <fullName>Retailer_Name_OwnerTooltip</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Retailer Name/OwnerTooltip</shortDescription>
+        <value>Enter the Retailer/Owner Name.</value>
+    </labels>
+    <labels>
+        <fullName>Retailer_Number_Tooltip</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Retailer Number Tooltip</shortDescription>
+        <value>Enter Retailer/Owner Number.</value>
+    </labels>
+    <labels>
+        <fullName>Retailer_State_Tooltip</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Retailer State Tooltip</shortDescription>
+        <value>Enter Retailer State.</value>
+    </labels>
+    <labels>
+        <fullName>The_city_of_the_Company</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>City of the Company</shortDescription>
+        <value>Enter the city of the Company</value>
+    </labels>
+    <labels>
+        <fullName>The_city_of_the_Licensee</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>City of the Licensee</shortDescription>
+        <value>Enter the city of the Licensee</value>
+    </labels>
+    <labels>
+        <fullName>The_name_of_the_Company</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Name of the Company</shortDescription>
+        <value>Business Tax ID Name</value>
+    </labels>
+    <labels>
+        <fullName>The_name_of_the_Licensee</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Name of the Licensee</shortDescription>
+        <value>Company name that Licenses the Technology</value>
+    </labels>
+    <labels>
+        <fullName>The_state_of_the_Company</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>State of the Company</shortDescription>
+        <value>Enter the state of the Company</value>
+    </labels>
+    <labels>
+        <fullName>The_state_of_the_Licensee</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>State of the Licensee</shortDescription>
+        <value>Enter the state of the Licensee</value>
+    </labels>
+    <labels>
+        <fullName>brand1</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>FGI company brand1</shortDescription>
+        <value>America&apos;s Alfalfa</value>
+    </labels>
+    <labels>
+        <fullName>brand2</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>FGI company brand2</shortDescription>
+        <value>NEXGROW Alfalfa</value>
+    </labels>
+    <labels>
+        <fullName>brand3</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>FGI company brand3</shortDescription>
+        <value>W-L Alfalfa</value>
+    </labels>
+</CustomLabels>
